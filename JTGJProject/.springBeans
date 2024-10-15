@@ -7,8 +7,13 @@
 	</configSuffixes>
 	<enableImports><![CDATA[true]]></enableImports>
 	<configs>
+<<<<<<< HEAD
 		<config>src/main/resources/spring/servlet-context.xml</config>
 		<config>src/main/resources/spring/root-context.xml</config>
+=======
+		<config>src/main/resources/spring/root-context.xml</config>
+		<config>src/main/resources/spring/servlet-context.xml</config>
+>>>>>>> branch 'main' of https://github.com/sieungeum/JTGJ_project.git
 	</configs>
 	<autoconfigs>
 	</autoconfigs>
