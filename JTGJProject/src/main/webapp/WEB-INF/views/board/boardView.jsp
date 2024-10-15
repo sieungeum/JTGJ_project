@@ -26,33 +26,29 @@
 							<table id="table">
 								<thead>
 									<tr>
-										<th>번호</th>
-										<th>제목</th>
-										<th>작성자</th>
-										<th>날짜</th>
+										<th scope ="col">번호</th>
+										<th scope ="col">제목</th>
+										<th scope ="col">작성자</th>
+										<th scope ="col">날짜</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>1</td>
-										<td>첫글</td>
-										<td>이주형</td>
-										<td>2024-10-14 16:37</td>
-									</tr>
-									<tr>
-										<td>1</td>
-										<td>첫글</td>
-										<td>이주형</td>
-										<td>2024-10-14 16:37</td>
-									</tr>
-									<tr>
-										<td>1</td>
-										<td>첫글</td>
-										<td>이주형</td>
-										<td>2024-10-14 16:37</td>
-									</tr>
+									<c:forEach items="${boardList }" var = "board">
+										<tr>
+											<td scope = "row">${board.boardNo }</td>
+											<td>${board.boardTitle }</td>
+											<td>${board.boardName }</td>
+											<td>${board.boardDate }</td>
+										</tr>
+									</c:forEach>
 								</tbody>
 							</table>
+							<div class="col-lg-8 col-xl-7 d-flex justify-content-end">
+								<a href="${pageContext.request.contextPath }/boardWriteView">
+									<button class="btn btn-primary btn-xl">글쓰기</button>
+								</a>
+							</div>
+							
 						</div>
 						
 					</section>
