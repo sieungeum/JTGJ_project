@@ -43,6 +43,12 @@
 									</c:forEach>
 								</tbody>
 							</table>
+							<div class="col-lg-8 col-xl-7 d-flex justify-content-end">
+								<a href="${pageContext.request.contextPath }/boardWriteView">
+									<button class="btn btn-primary btn-xl">글쓰기</button>
+								</a>
+							</div>
+							
 						</div>
 						
 					</section>

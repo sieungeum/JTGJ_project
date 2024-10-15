@@ -69,7 +69,7 @@ public class MemberController {
 		
 		session.setAttribute("login", login);
 		
-		return "redirect:/";
+		return "redirect:/home";
 		
 	}
 	
@@ -77,7 +77,7 @@ public class MemberController {
 	public String logoutDo(HttpSession session) {
 		
 		session.invalidate();
-		return "redirect:/";
+		return "redirect:/home";
 	}
 	
 }
