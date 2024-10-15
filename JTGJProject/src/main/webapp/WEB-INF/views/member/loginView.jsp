@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -52,26 +51,21 @@
 				
 
 					<section>
-						<h4>회원가입</h4>
-						<form action="${pageContext.request.contextPath }/registDo" method="POST">
+						<h4>로그인</h4>
+						<form action="${pageContext.request.contextPath }/loginDo" method="POST">
 							<div class="row gtr-uniform">
 
 								<div class="col-6 col-12">
-									<input type="text" name="id" id="inputId" value="" placeholder="아이디" />
+									<input type="text" name="memId" id="inputId" value="" placeholder="아이디" />
 								</div>
 								<div class="col-6 col-12">
-									<input type="password" name="password" id="inputpassword" value="" placeholder="비밀번호" />
-								</div>
-								<div class="col-6 col-12">
-									<input type="text" name="name" id="inputName" value="" placeholder="이름" />
-								</div>
-								<div class="col-6 col-12">
-									<input type="text" name="email" id="inputEmail" value="" placeholder="이메일" />
+									<input type="password" name="memPw" id="inputpassword" value="" placeholder="비밀번호" />
 								</div>
 								<div class="col-12">
 									<ul class="actions">
-										<li><div class="text-center"><button class="btn btn-primary btn-xl text-uppercase" id="submitBtn" type="submit">회원가입 완료</button></div></li>
+										<li><div class="text-center"><button class="btn btn-primary btn-xl text-uppercase" id="submitBtn" type="submit">로그인</button></div></li>
 										<li><input type="reset" value="돌아가기" /></li>
+										<li><a class="left-p" href="${pageContext.request.contextPath }/registView">회원가입</a></li>
 									</ul>
 									
 								</div>
@@ -82,19 +76,4 @@
 
 								
 	</body>
-=======
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	가입해!!!
-</body>
->>>>>>> branch 'main' of https://github.com/sieungeum/JTGJ_project.git
 </html>
