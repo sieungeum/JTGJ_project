@@ -37,7 +37,7 @@
 										<tr>
 											<td scope = "row">${board.boardNo }</td>
 											<td>${board.boardTitle }</td>
-											<td>${board.boardName }</td>
+											<td>${board.memName }</td>
 											<td>${board.boardDate }</td>
 										</tr>
 									</c:forEach>
