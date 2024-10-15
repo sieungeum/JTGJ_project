@@ -14,7 +14,7 @@
 						<li><a href="index.html">메인화면</a></li>
 						<li><a href="generic.html">지도확인</a></li>
 						<li><a href="elements.html">계산하기</a></li>
-						<li><a href="#">건의사항</a></li>
+						<li><a href="${pageContext.request.contextPath }/boardView">건의사항</a></li>
 						<c:if test="${sessionScope.login == null }">
 							<li><a href="${pageContext.request.contextPath }/loginView">로그인/회원가입</a></li>
 						</c:if>
