@@ -11,9 +11,9 @@
 				<a href="#menu" class="menuToggle"><span>메뉴</span></a>
 				<div id="menu">
 					<ul>
-						<li><a href="index.html">메인화면</a></li>
-						<li><a href="generic.html">지도확인</a></li>
-						<li><a href="elements.html">계산하기</a></li>
+						<li><a href="${pageContext.request.contextPath }/home">메인화면</a></li>
+						<li><a href="${pageContext.request.contextPath }/mapView">지도확인</a></li>
+						<li><a href="${pageContext.request.contextPath }/calView">계산하기</a></li>
 						<li><a href="${pageContext.request.contextPath }/boardView">건의사항</a></li>
 						<c:if test="${sessionScope.login == null }">
 							<li><a href="${pageContext.request.contextPath }/loginView">로그인/회원가입</a></li>
