@@ -10,6 +10,9 @@
 
 <%@ include file="/WEB-INF/inc/head.jsp"%>
 
+<!-- ajax 통신 시 필요 script -->
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
 <style type="text/css">
 	.map-container{
 		position: relative;
