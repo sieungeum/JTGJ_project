@@ -41,7 +41,6 @@ public class BoardController {
 	}
 	
 	
-	
 	@PostMapping("/boardWriteDo")
 	public String boardWriteDo(BoardDTO board, HttpSession session) {
 		
@@ -54,6 +53,16 @@ public class BoardController {
 		boardService.writeBoard(board);
 		
 		return "redirect:/boardView";
+	}
+	
+	@RequestMapping("/boardDetailView")
+	public String boardDetailView(int boardNo, Model model) {
+		System.out.println("클릭한 게시글의 번호:" + boardNo);
 		
+		BoardDTO board = boardService.getBoard(boardNo);
+		
+		model.addAttribute("board", board);
+		
+		return "board/boardDetailView";
 	}
 }

@@ -36,8 +36,8 @@
 									<c:forEach items="${boardList }" var = "board">
 										<tr>
 											<td scope = "row">${board.boardNo }</td>
-											<td>${board.boardTitle }</td>
-											<td>${board.boardName }</td>
+											<td><a href="${pageContext.request.contextPath}/boardDetailView?boardNo=${board.boardNo}">${board.boardTitle }</a></td>
+											<td>${board.memName }</td>
 											<td>${board.boardDate }</td>
 										</tr>
 									</c:forEach>
