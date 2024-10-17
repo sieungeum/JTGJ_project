@@ -8,7 +8,7 @@ public class MapTestDTO {
     private String crtifIsuDd;              /* 인증발급일자 */
     private String locAddr;               	/* 건물 주소 */
     private String zeb;                 	/* ZEB 유무 */
-    private String del_yn;					/* 삭제 유무 */
+    private String delYn;					/* 삭제 유무 */
     
     /* 등급이 1++등급 이상일 경우 ZEB 선정 기준에 적합하기 위해 설치해야할 태양열 패널 갯수 */
     /* 아닐경우 전부 0.0으로 저장 */
@@ -22,7 +22,7 @@ public class MapTestDTO {
 
 
 	public MapTestDTO(String purposeKindName, String bldNm, String grdName, double wOneEnergyRequire, String crtifIsuDd,
-			String locAddr, String zeb, String del_yn, double mmThousP, double mmTenThousP, double mmFiftyThousP) {
+			String locAddr, String zeb, String delYn, double mmThousP, double mmTenThousP, double mmFiftyThousP) {
 		super();
 		this.purposeKindName = purposeKindName;
 		this.bldNm = bldNm;
@@ -31,7 +31,7 @@ public class MapTestDTO {
 		this.crtifIsuDd = crtifIsuDd;
 		this.locAddr = locAddr;
 		this.zeb = zeb;
-		this.del_yn = del_yn;
+		this.delYn = delYn;
 		this.mmThousP = mmThousP;
 		this.mmTenThousP = mmTenThousP;
 		this.mmFiftyThousP = mmFiftyThousP;
@@ -42,7 +42,7 @@ public class MapTestDTO {
 	public String toString() {
 		return "MapTestDTO [purposeKindName=" + purposeKindName + ", bldNm=" + bldNm + ", grdName=" + grdName
 				+ ", wOneEnergyRequire=" + wOneEnergyRequire + ", crtifIsuDd=" + crtifIsuDd + ", locAddr=" + locAddr
-				+ ", zeb=" + zeb + ", del_yn=" + del_yn + ", mmThousP=" + mmThousP + ", mmTenThousP=" + mmTenThousP
+				+ ", zeb=" + zeb + ", delYn=" + delYn + ", mmThousP=" + mmThousP + ", mmTenThousP=" + mmTenThousP
 				+ ", mmFiftyThousP=" + mmFiftyThousP + "]";
 	}
 
@@ -117,13 +117,13 @@ public class MapTestDTO {
 	}
 
 
-	public String getDel_yn() {
-		return del_yn;
+	public String getDelYn() {
+		return delYn;
 	}
 
 
-	public void setDel_yn(String del_yn) {
-		this.del_yn = del_yn;
+	public void setDelYn(String delYn) {
+		this.delYn = delYn;
 	}
 
 
@@ -157,5 +157,4 @@ public class MapTestDTO {
 	}
 	
 	
-
 }
