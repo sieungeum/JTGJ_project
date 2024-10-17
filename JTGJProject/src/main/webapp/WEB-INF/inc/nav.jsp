@@ -23,6 +23,7 @@
 							<li><a href="${pageContext.request.contextPath }/logoutDo">로그아웃</a></li>
 							<li><a href="">${sessionScope.login.memName} 님</a></li>
 						</c:if>
+						<li><a href="${pageContext.request.contextPath }/adminMainView">관리자 페이지</a></li>
 					</ul>
 				</div>
 			</li>
