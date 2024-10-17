@@ -38,8 +38,6 @@
 						</div>
 					</section>
 
-				
-
 	<%@ include file="/WEB-INF/inc/footer.jsp" %>
 
 	</body>
