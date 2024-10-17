@@ -31,8 +31,23 @@
 			, #{boardContent}
 			, SYSDATE
 		)
-	
 	</insert>
+
+	<select id="getBoard" resultType="com.jtgz.jtgzproject.board.dto.BoardDTO" parameterType="int">
+		SELECT
+			  a.board_no
+			, a.board_title
+			, a.mem_id
+			, b.mem_name
+			, a.board_content
+			, TO_CHAR(a.board_date, 'yyyy.MM.dd hh24:mm') AS board_date
+		FROM
+			  boards a
+			, members b
+		WHERE 1=1
+			AND a.mem_id = b.mem_id
+			AND a.board_no = #{boardNO}
+	</select>	
 
 
 

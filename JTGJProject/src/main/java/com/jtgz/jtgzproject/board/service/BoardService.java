@@ -24,4 +24,9 @@ public class BoardService {
 		return result;
 	}
 	
+	public BoardDTO getBoard(int boardNo) {
+		BoardDTO result = dao.getBoard(boardNo);
+		return result;
+	}
+	
 }

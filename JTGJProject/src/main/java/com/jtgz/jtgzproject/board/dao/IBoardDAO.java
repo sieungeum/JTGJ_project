@@ -10,4 +10,5 @@ import com.jtgz.jtgzproject.board.dto.BoardDTO;
 public interface IBoardDAO {
 	List<BoardDTO> getBoardList();
 	int writeBoard(BoardDTO board);
+	BoardDTO getBoard(int boardNo);
 }
