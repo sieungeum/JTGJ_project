@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page session="false" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!DOCTYPE HTML>
@@ -22,31 +23,20 @@
 					<div class="row justify-content-center">
 					<img src="images/저탄고집v6.png" width="200px" >
 							<p>건의사항</p>
+						<form id="contactForm" action="${pageContext.request.contextPath }/boardEditDo" method="POST">
+							<input type="hidden" name="boardNo" value="${board.boardNo }">
+							
 							<div class="mb-3">
-								<h6>${board.boardTitle}</h6>
-							</div>
-							<div>
-								<h6>${board.memName}</h6>
-								<h6>${board.boardDate}</h6>
+								<label for="inputTitle">제목</label>
+								<input class="form-control" id="inputTitle" type="text" name="boardTitle" value="${board.boardTitle }"/>
 							</div>
 							<div class="mb-3">
-								<pre>${board.boardContent}</pre>
+								<textarea class="form-control" name="boardContent" rows="10">${board.boardContent }</textarea>
 							</div>
+							
+							<button class="btn btn-primary btn-xl" id="submitButton" type="submit">등록</button>
+						</form>
 						</div>
-							<c:if test="${board.memId == sessionScope.login.memId }">
-							<div>
-								<div>
-									<form action="${pageContext.request.contextPath }/boardEditView" method="POST">
-										<input type="hidden" value="${board.boardNo }" name="boardNo">
-										<button class="btn btn-warning me-2" type="submit">수정</button>
-									</form>
-									<form action="${pageContext.request.contextPath }/boardDeleteDo" method="POST">
-										<input type="hidden" value="${board.boardNo }" name="boardNo">
-										<button class="btn btn-danger me-2" type="submit">삭제</button>
-									</form>
-								</div>
-							</div>
-							</c:if>
 					</section>
 
 				

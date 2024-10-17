@@ -48,6 +48,16 @@
 			AND a.mem_id = b.mem_id
 			AND a.board_no = #{boardNO}
 	</select>	
+	
+	<update id="editBoard" parameterType="com.jtgz.jtgzproject.board.dto.BoardDTO">
+		UPDATE
+			boards
+		SET
+			  board_title = #{boardTitle}
+			, board_content = #{boardContent}
+		WHERE 1=1
+			AND board_no = #{boardNo}
+	</update>
 
 
 

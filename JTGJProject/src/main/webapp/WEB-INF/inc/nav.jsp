@@ -4,7 +4,7 @@
     
 <!-- Header -->
 <header id="header" class="alt">
-	<h1><a href="index.html">Spectral</a></h1>
+	<h1><a href="index.html">저탄고집</a></h1>
 	<nav id="nav">
 		<ul>
 			<li class="special">

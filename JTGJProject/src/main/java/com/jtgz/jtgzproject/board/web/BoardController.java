@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.jtgz.jtgzproject.board.dto.BoardDTO;
 import com.jtgz.jtgzproject.board.service.BoardService;
@@ -31,7 +32,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/boardWriteView")
-	public String boardView(HttpSession session) {
+	public String boardWriteView(HttpSession session) {
 
 		if(session.getAttribute("login") == null) {
 			return "redirect:/loginView";
@@ -64,5 +65,23 @@ public class BoardController {
 		model.addAttribute("board", board);
 		
 		return "board/boardDetailView";
+	}
+	
+	@RequestMapping(value="/boardEditView", method=RequestMethod.POST)
+	public String boardEditView(int boardNo, Model model){
+		
+		BoardDTO board = boardService.getBoard(boardNo);
+		
+		model.addAttribute("board", board);
+		
+		return "board/boardEditView";
+	}
+	
+	@PostMapping("/boardEditDo")
+	public String boardEditDo(BoardDTO board) {
+		
+		boardService.editBoard(board);
+		
+		return "redirect:/boardView";
 	}
 }

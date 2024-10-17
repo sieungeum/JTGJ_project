@@ -29,4 +29,9 @@ public class BoardService {
 		return result;
 	}
 	
+	public int editBoard(BoardDTO board) {
+		int result = dao.editBoard(board);
+		return result;
+	}
+	
 }
