@@ -58,7 +58,8 @@
 							<option value="title">제목</option>
 							<option value="content">내용</option>
 							<option value="name">작성자</option>
-						</select> <input type="text" class="form-control w-25 me-1"
+						</select> 
+						<input type="text" class="form-control w-25 me-1"
 							name="searchWord">
 						<button class="btn btn-primary" type="submit">
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"

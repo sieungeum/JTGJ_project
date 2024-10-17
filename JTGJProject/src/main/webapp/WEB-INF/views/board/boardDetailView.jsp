@@ -47,6 +47,41 @@
 								</div>
 							</div>
 							</c:if>
+							
+							<!-- 댓글 목록 -->
+							<div>
+								<div>
+									<table>
+										<tbody>
+											<c:forEach items="${comList }" var="com">
+												<tr id="${com.comNo }">
+													<td>${com.comContent }</td>
+													<td>${com.memName }</td>
+													<td>${com.comDate }</td>
+													<c:if test="${com.memId == session.login.memId}">
+														<td> <a onclick="f_del(this)">X</a> </td>
+													</c:if>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
+								<!-- 댓글 작성 영역 -->
+								<div>
+									<div>
+										<form id="comForm" action="${pageContext.request.contextPath }/writeComDo" method="POST">
+											<div>
+												<input type="text" id="comInput" name="comContent">
+												<input type="hidden" name="memId" value="${sessionScope.login.memId }">
+												<input type="hidden" name="boardNo" value="${board.boardNo }">
+											</div>
+											<div>
+												<button class="btn btn-warning me-2" type="button" id="comBtn">등록</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
 					</section>
 
 	<%@ include file="/WEB-INF/inc/footer.jsp" %>
@@ -59,6 +94,8 @@
 				v_form.submit();
 			}
 		});
+		 
+		
 	</script>
 	</body>
 </html>

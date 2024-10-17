@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.jtgz.jtgzproject.board.dao.IBoardDAO;
 import com.jtgz.jtgzproject.board.dto.BoardDTO;
+import com.jtgz.jtgzproject.board.dto.ComDTO;
 import com.jtgz.jtgzproject.common.dto.SearchDTO;
 
 @Service
@@ -37,6 +38,26 @@ public class BoardService {
 	
 	public int deleteBoard(int boardNo) {
 		int result = dao.deleteBoard(boardNo);
+		return result;
+	}
+	
+	public int writeCom(ComDTO com) {
+		int result = dao.writeCom(com);
+		return result;
+	}
+	
+	public ComDTO getComment(String comNo) {
+		ComDTO result = dao.getCom(comNo);
+		return result;
+	}
+	
+	public List<ComDTO> getComList(int boardNo){
+		List<ComDTO> result = dao.getComList(boardNo);
+		return result;
+	}
+	
+	public int delCom(String comNo) {
+		int result = dao.delCom(comNo);
 		return result;
 	}
 	
