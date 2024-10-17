@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.jtgz.jtgzproject.board.dto.BoardDTO;
 import com.jtgz.jtgzproject.board.service.BoardService;
+import com.jtgz.jtgzproject.common.dto.SearchDTO;
 import com.jtgz.jtgzproject.member.dto.MemberDTO;
 
 @Controller
@@ -22,9 +23,9 @@ public class BoardController {
 	BoardService boardService;
 	
 	@RequestMapping("/boardView")
-	public String boardView(Model model) {
+	public String boardView(Model model, SearchDTO search) {
 
-		List<BoardDTO> boardList = boardService.getBoardList();
+		List<BoardDTO> boardList = boardService.getBoardList(search);
 		
 		model.addAttribute("boardList", boardList);
 		

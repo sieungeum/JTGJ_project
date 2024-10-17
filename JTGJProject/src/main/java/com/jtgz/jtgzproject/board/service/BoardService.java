@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.jtgz.jtgzproject.board.dao.IBoardDAO;
 import com.jtgz.jtgzproject.board.dto.BoardDTO;
+import com.jtgz.jtgzproject.common.dto.SearchDTO;
 
 @Service
 public class BoardService {
@@ -14,8 +15,8 @@ public class BoardService {
 	@Autowired
 	IBoardDAO dao;
 	
-	public List<BoardDTO> getBoardList(){
-		List<BoardDTO> result = dao.getBoardList();
+	public List<BoardDTO> getBoardList(SearchDTO search){
+		List<BoardDTO> result = dao.getBoardList(search);
 		return result;
 	}
 	
