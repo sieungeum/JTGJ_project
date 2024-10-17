@@ -84,4 +84,12 @@ public class BoardController {
 		
 		return "redirect:/boardView";
 	}
+	
+	@PostMapping("/boardDeleteDo")
+	public String boardDeleteDo(int boardNo) {
+		
+		boardService.deleteBoard(boardNo);
+		
+		return "redirect:/boardView";
+	}
 }

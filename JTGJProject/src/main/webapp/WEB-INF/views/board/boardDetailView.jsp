@@ -40,9 +40,9 @@
 										<input type="hidden" value="${board.boardNo }" name="boardNo">
 										<button class="btn btn-warning me-2" type="submit">수정</button>
 									</form>
-									<form action="${pageContext.request.contextPath }/boardDeleteDo" method="POST">
+									<form action="${pageContext.request.contextPath }/boardDeleteDo" method="POST" id="deleteForm">
 										<input type="hidden" value="${board.boardNo }" name="boardNo">
-										<button class="btn btn-danger me-2" type="submit">삭제</button>
+										<button class="btn btn-danger me-2" type="button" id="deleteBtn">삭제</button>
 									</form>
 								</div>
 							</div>
@@ -50,6 +50,15 @@
 					</section>
 
 	<%@ include file="/WEB-INF/inc/footer.jsp" %>
-
+	<script type="text/javascript">
+		const v_btn = document.getElementById("deleteBtn");
+		const v_form = document.getElementById("deleteForm");
+		
+		v_btn.addEventListener("click", ()=>{
+			if(confirm('정말로 삭제하시겠습니까?')){
+				v_form.submit();
+			}
+		});
+	</script>
 	</body>
 </html>

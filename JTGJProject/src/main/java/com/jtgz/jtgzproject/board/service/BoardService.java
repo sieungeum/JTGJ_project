@@ -34,4 +34,9 @@ public class BoardService {
 		return result;
 	}
 	
+	public int deleteBoard(int boardNo) {
+		int result = dao.deleteBoard(boardNo);
+		return result;
+	}
+	
 }

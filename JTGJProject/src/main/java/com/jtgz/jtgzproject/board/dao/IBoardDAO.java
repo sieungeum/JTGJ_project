@@ -12,4 +12,5 @@ public interface IBoardDAO {
 	int writeBoard(BoardDTO board);
 	BoardDTO getBoard(int boardNo);
 	int editBoard(BoardDTO board);
+	int deleteBoard(int boardNo);
 }

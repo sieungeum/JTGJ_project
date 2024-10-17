@@ -9,12 +9,14 @@
 			, a.mem_id
 			, b.mem_name
 			, a.board_content
-			, TO_CHAR(a.board_date, 'MM.dd') AS board_date
+			, TO_CHAR(a.board_date, 'MM.dd hh24:mm') AS board_date
 		FROM
 			  boards a
 			, members b
 		WHERE 1=1
 			AND a.mem_id = b.mem_id
+			AND a.board_del_yn = 'N'
+		ORDER BY board_no DESC
 	</select>
 	
 	<insert id="writeBoard" parameterType="com.jtgz.jtgzproject.board.dto.BoardDTO">
@@ -24,12 +26,14 @@
 			, mem_id
 			, board_content
 			, board_date
+			, board_del_yn
 		) VALUES(
 			  (SELECT COUNT(*)+1 FROM boards)
 			, #{boardTitle}
 			, #{memId}
 			, #{boardContent}
 			, SYSDATE
+			, 'N'
 		)
 	</insert>
 
@@ -47,6 +51,7 @@
 		WHERE 1=1
 			AND a.mem_id = b.mem_id
 			AND a.board_no = #{boardNO}
+			AND a.board_del_yn = 'N'
 	</select>	
 	
 	<update id="editBoard" parameterType="com.jtgz.jtgzproject.board.dto.BoardDTO">
@@ -59,6 +64,14 @@
 			AND board_no = #{boardNo}
 	</update>
 
+	<update id="deleteBoard">
+		UPDATE
+			boards
+		SET
+			board_del_yn = 'Y'
+		WHERE 1=1
+			AND board_no = #{boardNo}
+	</update>
 
 
 </mapper>
