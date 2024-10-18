@@ -36,6 +36,9 @@ public class mapTestController {
 		
 		System.out.println(mapInfo);
 		
+		// ㅇ너으으어어어어어ㅓㅇ
+		// ㅇㄴㅁ랑나ㅓ란어ㅏㄴㅇ
+		
 		return mapInfo;
 	}
 	
