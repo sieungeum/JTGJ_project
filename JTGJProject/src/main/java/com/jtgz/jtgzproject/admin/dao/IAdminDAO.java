@@ -12,5 +12,5 @@ public interface IAdminDAO {
 	String wirteAdmin(AdminDTO admin);
 	AdminDTO buildingDetail(AdminDTO admin);
 	AdminDTO buildingEditView(AdminDTO admin);
-	AdminDTO buildingEditDo(AdminDTO admin);
+	int buildingEditDo(AdminDTO admin);
 }

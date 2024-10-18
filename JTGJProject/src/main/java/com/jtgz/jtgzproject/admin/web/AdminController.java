@@ -44,7 +44,7 @@ public class AdminController {
 		
 	}
 	
-	@RequestMapping(value = "/buildingEditView")
+	@RequestMapping("/buildingEditView")
 	public String bulidingEditView(AdminDTO admin, Model model) {
 		System.out.println(admin);
 		
@@ -58,11 +58,13 @@ public class AdminController {
 	}
 	
 	@PostMapping("/buildingEditDo")
-	public String bulidingEditDo(AdminDTO admin) {
+	public String buildingEditDo(AdminDTO admin) {
+		System.out.println("- buildingEditdo -");
+		System.out.println(admin);
 		
 		adminService.buildingEditDo(admin);
 		
-		return "redirect:/buildingDetailView";
+		return "forward:/buildingDetailView";
 		
 	}
 

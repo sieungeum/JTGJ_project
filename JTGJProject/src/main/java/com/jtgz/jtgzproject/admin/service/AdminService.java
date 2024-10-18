@@ -29,8 +29,8 @@ public class AdminService {
 		return result;
 	}
 	
-	public AdminDTO buildingEditDo(AdminDTO admin) {
-		AdminDTO result = dao.buildingEditDo(admin);
+	public int buildingEditDo(AdminDTO admin) {
+		int result = dao.buildingEditDo(admin);
 		return result;
 	}
 	

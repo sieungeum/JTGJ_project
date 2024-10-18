@@ -44,10 +44,6 @@
 											<td><input class="form-control" id = "inputWOneEnergyRequire" type="text" name="wOneEnergyRequire" value="${edit.wOneEnergyRequire }"></td>
 										</tr>
 										<tr>
-											<td scope ="col">인증 발급 일자 : </td>
-											<td><input class="form-control" id = "inputCrtifIsuDd" type="text" name="crtifIsuDd" value="${edit.crtifIsuDd }"></td>
-										</tr>
-										<tr>
 											<td scope ="col">건물 주소 : </td>
 											<td><input class="form-control" id = "inputLocAddr" type="text" name="locAddr" value="${edit.locAddr }"></td>
 										</tr>
@@ -64,7 +60,7 @@
 											<td><input class="form-control" id = "inputLng" type="text" name="lng" value="${edit.lng }"></td>	
 										</tr>
 										<tr>
-											<td scope ="col">삭제 유무 : </td><td scope ="col">${edit.delYn }</td>
+											<td scope ="col">삭제 유무 : </td>
 											<td><input class="form-control" id = "inputDelYn" type="text" name="delYn" value="${edit.delYn }"></td>	
 										</tr>
 									</thead>

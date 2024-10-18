@@ -1,5 +1,7 @@
 package com.jtgz.jtgzproject.admin.dto;
 
+import java.util.Date;
+
 public class AdminDTO {
 	private String purposeKindName; // 건물 용도
 	private String bldNm; 	// 건물명
@@ -15,9 +17,11 @@ public class AdminDTO {
 	private double lng;	// 경도
 	private String delYn;	// 삭제 유무
 	
+	
 	public AdminDTO() {
 		super();
 	}
+
 
 	public AdminDTO(String purposeKindName, String bldNm, String grdName, double wOneEnergyRequire, String crtifIsuDd,
 			String locAddr, String zeb, double mmThousP, double mmTenThousP, double mmFiftyThousP, double lat,
@@ -38,109 +42,136 @@ public class AdminDTO {
 		this.delYn = delYn;
 	}
 
+
 	public String getPurposeKindName() {
 		return purposeKindName;
 	}
+
 
 	public void setPurposeKindName(String purposeKindName) {
 		this.purposeKindName = purposeKindName;
 	}
 
+
 	public String getBldNm() {
 		return bldNm;
 	}
+
 
 	public void setBldNm(String bldNm) {
 		this.bldNm = bldNm;
 	}
 
+
 	public String getGrdName() {
 		return grdName;
 	}
+
 
 	public void setGrdName(String grdName) {
 		this.grdName = grdName;
 	}
 
+
 	public double getwOneEnergyRequire() {
 		return wOneEnergyRequire;
 	}
+
 
 	public void setwOneEnergyRequire(double wOneEnergyRequire) {
 		this.wOneEnergyRequire = wOneEnergyRequire;
 	}
 
+
 	public String getCrtifIsuDd() {
 		return crtifIsuDd;
 	}
+
 
 	public void setCrtifIsuDd(String crtifIsuDd) {
 		this.crtifIsuDd = crtifIsuDd;
 	}
 
+
 	public String getLocAddr() {
 		return locAddr;
 	}
+
 
 	public void setLocAddr(String locAddr) {
 		this.locAddr = locAddr;
 	}
 
+
 	public String getZeb() {
 		return zeb;
 	}
+
 
 	public void setZeb(String zeb) {
 		this.zeb = zeb;
 	}
 
+
 	public double getMmThousP() {
 		return mmThousP;
 	}
+
 
 	public void setMmThousP(double mmThousP) {
 		this.mmThousP = mmThousP;
 	}
 
+
 	public double getMmTenThousP() {
 		return mmTenThousP;
 	}
+
 
 	public void setMmTenThousP(double mmTenThousP) {
 		this.mmTenThousP = mmTenThousP;
 	}
 
+
 	public double getMmFiftyThousP() {
 		return mmFiftyThousP;
 	}
+
 
 	public void setMmFiftyThousP(double mmFiftyThousP) {
 		this.mmFiftyThousP = mmFiftyThousP;
 	}
 
+
 	public double getLat() {
 		return lat;
 	}
+
 
 	public void setLat(double lat) {
 		this.lat = lat;
 	}
 
+
 	public double getLng() {
 		return lng;
 	}
+
 
 	public void setLng(double lng) {
 		this.lng = lng;
 	}
 
+
 	public String getDelYn() {
 		return delYn;
 	}
 
+
 	public void setDelYn(String delYn) {
 		this.delYn = delYn;
 	}
+
 
 	@Override
 	public String toString() {
