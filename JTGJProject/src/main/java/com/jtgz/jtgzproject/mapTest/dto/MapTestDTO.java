@@ -1,13 +1,14 @@
 package com.jtgz.jtgzproject.mapTest.dto;
 
 public class MapTestDTO {
-    private String purposeKindName;       		/* 건물 용도(주거용, 주거용 이외) */ 
+    private String purposeKindName;       	/* 건물 용도(주거용, 주거용 이외) */ 
     private String bldNm;                  	/* 건묾명 */
     private String grdName;                	/* 에너지 효율 등급 */
     private double wOneEnergyRequire;       /* 1차 에너지 소요량 */
-    private String crtifIsuDd;                /* 인증발급일자 */
-    private String locAddr;               		/* 건물 주소 */
-    private String zeb;                 		/* ZEB 유무 */
+    private String crtifIsuDd;              /* 인증발급일자 */
+    private String locAddr;               	/* 건물 주소 */
+    private String zeb;                 	/* ZEB 유무 */
+    private String delYn;					/* 삭제 유무 */
     
     /* 등급이 1++등급 이상일 경우 ZEB 선정 기준에 적합하기 위해 설치해야할 태양열 패널 갯수 */
     /* 아닐경우 전부 0.0으로 저장 */
@@ -21,7 +22,7 @@ public class MapTestDTO {
 
 
 	public MapTestDTO(String purposeKindName, String bldNm, String grdName, double wOneEnergyRequire, String crtifIsuDd,
-			String locAddr, String zeb, double mmThousP, double mmTenThousP, double mmFiftyThousP) {
+			String locAddr, String zeb, String delYn, double mmThousP, double mmTenThousP, double mmFiftyThousP) {
 		super();
 		this.purposeKindName = purposeKindName;
 		this.bldNm = bldNm;
@@ -30,6 +31,7 @@ public class MapTestDTO {
 		this.crtifIsuDd = crtifIsuDd;
 		this.locAddr = locAddr;
 		this.zeb = zeb;
+		this.delYn = delYn;
 		this.mmThousP = mmThousP;
 		this.mmTenThousP = mmTenThousP;
 		this.mmFiftyThousP = mmFiftyThousP;
@@ -38,10 +40,10 @@ public class MapTestDTO {
 
 	@Override
 	public String toString() {
-		return "mapTestDTO [purposeKindName=" + purposeKindName + ", bldNm=" + bldNm + ", grdName=" + grdName
+		return "MapTestDTO [purposeKindName=" + purposeKindName + ", bldNm=" + bldNm + ", grdName=" + grdName
 				+ ", wOneEnergyRequire=" + wOneEnergyRequire + ", crtifIsuDd=" + crtifIsuDd + ", locAddr=" + locAddr
-				+ ", zeb=" + zeb + ", mmThousP=" + mmThousP + ", mmTenThousP=" + mmTenThousP + ", mmFiftyThousP="
-				+ mmFiftyThousP + "]";
+				+ ", zeb=" + zeb + ", delYn=" + delYn + ", mmThousP=" + mmThousP + ", mmTenThousP=" + mmTenThousP
+				+ ", mmFiftyThousP=" + mmFiftyThousP + "]";
 	}
 
 
@@ -115,6 +117,16 @@ public class MapTestDTO {
 	}
 
 
+	public String getDelYn() {
+		return delYn;
+	}
+
+
+	public void setDelYn(String delYn) {
+		this.delYn = delYn;
+	}
+
+
 	public double getMmThousP() {
 		return mmThousP;
 	}
@@ -143,8 +155,6 @@ public class MapTestDTO {
 	public void setMmFiftyThousP(double mmFiftyThousP) {
 		this.mmFiftyThousP = mmFiftyThousP;
 	}
-    
-    
-    
-
+	
+	
 }
