@@ -36,7 +36,8 @@ public class mapTestController {
 		
 		System.out.println(mapInfo);
 		
-		// 제자리 ㅇㅁ니ㅓㄹ ㅣㅏㄴ어리ㅏㄴㅁ얼 민아ㅏㅇ
+		// ㅇ너으으어어어어어ㅓㅇ
+		// ㅇㄴㅁ랑나ㅓ란어ㅏㄴㅇ
 		
 		return mapInfo;
 	}
