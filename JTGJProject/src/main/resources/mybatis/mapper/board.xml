@@ -2,19 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jtgz.jtgzproject.board.dao.IBoardDAO">
 
-	<select id="getBoardList" resultType="com.jtgz.jtgzproject.board.dto.BoardDTO">
+	<select id="getBoardList" parameterType="com.jtgz.jtgzproject.common.dto.SearchDTO" resultType="com.jtgz.jtgzproject.board.dto.BoardDTO">
 		SELECT
 			  a.board_no
 			, a.board_title
 			, a.mem_id
 			, b.mem_name
 			, a.board_content
-			, TO_CHAR(a.board_date, 'MM.dd') AS board_date
+			, TO_CHAR(a.board_date, 'MM.dd hh24:mm') AS board_date
 		FROM
 			  boards a
 			, members b
 		WHERE 1=1
 			AND a.mem_id = b.mem_id
+			AND a.board_del_yn = 'N'
+		<if test="searchWord != null">
+			<choose>
+				<when test="searchOption=='title'">AND a.board_title LIKE '%' || #{searchWord} || '%'</when>
+				<when test="searchOption=='content'">AND a.board_content LIKE '%' || #{searchWord} || '%'</when>
+				<when test="searchOption=='name'">AND b.mem_name LIKE '%' || #{searchWord} || '%'</when>
+			</choose>
+		</if>
+		ORDER BY board_no DESC
 	</select>
 	
 	<insert id="writeBoard" parameterType="com.jtgz.jtgzproject.board.dto.BoardDTO">
@@ -24,12 +33,14 @@
 			, mem_id
 			, board_content
 			, board_date
+			, board_del_yn
 		) VALUES(
 			  (SELECT COUNT(*)+1 FROM boards)
 			, #{boardTitle}
 			, #{memId}
 			, #{boardContent}
 			, SYSDATE
+			, 'N'
 		)
 	</insert>
 
@@ -47,8 +58,85 @@
 		WHERE 1=1
 			AND a.mem_id = b.mem_id
 			AND a.board_no = #{boardNO}
+			AND a.board_del_yn = 'N'
 	</select>	
+	
+	<update id="editBoard" parameterType="com.jtgz.jtgzproject.board.dto.BoardDTO">
+		UPDATE
+			boards
+		SET
+			  board_title = #{boardTitle}
+			, board_content = #{boardContent}
+		WHERE 1=1
+			AND board_no = #{boardNo}
+	</update>
 
+	<update id="deleteBoard">
+		UPDATE
+			boards
+		SET
+			board_del_yn = 'Y'
+		WHERE 1=1
+			AND board_no = #{boardNo}
+	</update>
+	
+	<select id="getComList" parameterType="int" resultType="com.jtgz.jtgzproject.board.dto.ComDTO">
+		SELECT
+			  a.com_no
+			, a.board_no
+			, a.mem_id
+			, b.mem_name
+			, a.com_content
+			, TO_CHAR(a.com_date, 'MM/dd hh24:mm') AS com_date
+		FROM comments a, members b
+		WHERE 1=1
+			AND a.mem_id = b.mem_id
+			AND a.board_no = #{boardNo}
+			AND a.com_del_yn = 'N'
+			ORDER BY com_no DESC
+	</select>
+	
+	<select id="getCom" parameterType="String" resultType="com.jtgz.jtgzproject.board.dto.ComDTO">
+		SELECT
+			  a.com_no
+			, a.board_no
+			, a.mem_id
+			, b.mem_name
+			, a.com_content
+			, TO_CHAR(a.com_date, 'MM/dd hh24:mm') AS com_date
+		FROM comments a, members b
+		WHERE 1=1
+			AND a.mem_id = b.mem_id
+			AND a.com_no = #{comNo}
+	</select>
+	
+	<insert id="writeCom" parameterType="com.jtgz.jtgzproject.board.dto.ComDTO">
+		INSERT INTO comments(
+			  com_no
+			, board_no
+			, mem_id
+			, com_content
+			, com_date
+			, com_del_yn
+		) VALUES(
+			  #{comNo}
+			, #{boardNo}
+			, #{memId}
+			, #{comContent}
+			, SYSDATE
+			, 'N'
+		)
+	</insert>
+	
+	<update id="delCom" parameterType="String">
+		UPDATE comments
+			SET com_del_yn = 'Y'
+		WHERE com_no = #{comNo}
+	</update>
+	
+	
+	
+	
 
 
 </mapper>
