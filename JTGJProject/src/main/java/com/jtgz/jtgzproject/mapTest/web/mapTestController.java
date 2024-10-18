@@ -31,7 +31,6 @@ public class mapTestController {
 		System.out.println(" - mapViewTestDo - ");
 
 		System.out.println(purposeKindName);
-		System.out.println(locAddr);
 		
 		MapTestDTO mapInfo = mapTestService.testMapInfo(purposeKindName, locAddr);
 		

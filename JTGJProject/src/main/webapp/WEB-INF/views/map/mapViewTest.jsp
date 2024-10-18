@@ -13,22 +13,35 @@
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 
 <style type="text/css">
+
 	.map-container{
 		position: relative;
 		
 		width: 100%;
-		height: 600px;
+		height: 1000px;
 	}
 	
 	.map-detail{
 		display: none;
+		
+		align-text: middle;
 	
 		position: absolute;
-		width: 50%;
+		width: 32%;
 		height:500px;
-		bottom: 0px;
-		left: 0px;
+		bottom: 50px;
+		left: 30px;
 		
+	}
+	
+	p{
+/* 	    margin: 0 0 2em 0;
+	    margin-top: 0px;
+	    margin-right: 0px;
+	    margin-bottom: 2em;
+	    margin-left: 0px; */
+	    
+	    margin: 3px 0 10px 8px;
 	}
 </style>
 </head>
@@ -43,22 +56,22 @@
 		<!-- Banner -->
 		<div class="map-container bg-primary mt-5">
 			<form action="${pageContext.request.contextPath}/mapViewTestDo" method="POST">
-				<button class="btn btn-primary">
+				<div class="btn btn-primary">
 					지도 상세 보기
-					<input type="hidden" value="1" >
-				</button>
-				<button class="btn btn-primary">
+					<input class="hidden-v" type="hidden" value=1 >
+				</div>
+				<div class="btn btn-primary">
 					지도 상세 보기2
-					<input type="hidden" value="2" >
-				</button>
-				<button class="btn btn-primary">
+					<input class="hidden-v" type="hidden" value=2 >
+				</div>
+				<div class="btn btn-primary">
 					지도 상세 보기3
-					<input type="hidden" value="3" >
-				</button>
-				<button class="btn btn-primary">
+					<input class="hidden-v" type="hidden" value=3 >
+				</div>
+				<div class="btn btn-primary">
 					지도 상세 보기4
-					<input type="hidden" value="4" >
-				</button>
+					<input class="hidden-v" type="hidden" value=4 >
+				</div>
 				
 				<div class="map-detail bg-success" >
 				</div>
@@ -80,12 +93,11 @@
 			"purposeKindName=주거용 이외&locAddr=제주특별자치도 서귀포시 강정동 3703-3 ",
 			"purposeKindName=주거용&locAddr=부산 광역시 강서구 강동동 일원 (에코델타시티18BL)"]
 		
-		for (b of v_btn){
-			console.log(b);
-			b.addEventListener("click", (e) => {
+		idx = 0;
+		console.log(v_btn.length);
+		for (let i = 0; i < v_btn.length; i++){
+			v_btn[i].addEventListener("click", (e) => {
 				e.preventDefault(); // 기본 이벤트 제거
-				
-				console.log(b.childern);
 				// XMLHttpRequest 객체 생성
  				const v_ajax = new XMLHttpRequest();
 				
@@ -96,7 +108,7 @@
 				v_ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 				
 				// 전송할 데이터 설정
-				const v_data = v_datas[0];
+				const v_data = v_datas[i];
 				
 				// 응답 처리
 				v_ajax.onload = () => {
@@ -130,9 +142,12 @@
  						v_innerData += '<p>인증발급일자 : ' + v_dict['crtifIsuDd'] + '</p>'
  						v_innerData += '<p>건물 주소 : ' + v_dict['locAddr'] + '</p>'
  						v_innerData += '<p>ZEB 인증 유무 : ' + v_dict['zeb'] + '</p>'
- 						v_innerData += '<span>1000m^2 : ' + v_dict['mmThousP'] + '</span>'
- 						v_innerData += '<span>10000m^2 : ' + v_dict['mmTenThousP'] + '</span>'
- 						v_innerData += '<span>50000m^2 : ' + v_dict['mmFiftyThousP'] + '</span>'
+ 						
+ 						if (v_dict['zeb'] == 'N' && v_dict['grdName'].length > 4){
+ 	 						v_innerData += '<span>1000m^2 : ' + v_dict['mmThousP'] + '</span>'
+ 	 						v_innerData += '<span>10000m^2 : ' + v_dict['mmTenThousP'] + '</span>'
+ 	 						v_innerData += '<span>50000m^2 : ' + v_dict['mmFiftyThousP'] + '</span>'
+ 						}
 						
 						v_mapDetail.innerHTML = v_innerData;
 						
