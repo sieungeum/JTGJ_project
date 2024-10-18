@@ -11,5 +11,6 @@ public interface IMapTestDAO {
 	// 건물 종류 불러오기 (SELECT)
 	MapTestDTO testMapInfo(@Param("purposeKindName")String purposeKindName, @Param("locAddr")String locAddr);
 	
-	
+	// 모든 건물 정보 불러오기 (SELECT)
+	MapTestDTO allBuildingInfo();
 }
