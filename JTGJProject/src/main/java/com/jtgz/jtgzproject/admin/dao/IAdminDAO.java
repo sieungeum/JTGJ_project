@@ -10,6 +10,7 @@ import com.jtgz.jtgzproject.admin.dto.AdminDTO;
 public interface IAdminDAO {
 	List<AdminDTO> getAdminList();
 	String wirteAdmin(AdminDTO admin);
-	AdminDTO bulidingDetail(AdminDTO admin);
-
+	AdminDTO buildingDetail(AdminDTO admin);
+	AdminDTO buildingEditView(AdminDTO admin);
+	AdminDTO buildingEditDo(AdminDTO admin);
 }

@@ -1,5 +1,4 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!DOCTYPE HTML>
@@ -26,7 +25,7 @@
 							<table id="table">
 								<thead>
 									<tr>
-										<th scope ="col"><a href="${pageContext.request.contextPath }/buildingView">건축물 목록 보기/수정</a></th>
+										<th scope ="col"><a href="${pageContext.request.contextPath }/buildingView">건물 상세보기</a></th>
 										<th scope ="col">회원관리</th>	
 									</tr>
 								</thead>

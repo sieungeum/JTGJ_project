@@ -1,5 +1,4 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!DOCTYPE HTML>
@@ -23,7 +22,6 @@
 					<div class="row justify-content-center">
 					<img src="images/저탄고집v6.png" width="200px" >
 							<p>건의사항</p>
-						<form id="contactForm" action="${pageContext.request.contextPath }/boardWriteDo" method="POST">
 							<div class="mb-3">
 								<h6>${board.boardTitle}</h6>
 							</div>
@@ -34,11 +32,70 @@
 							<div class="mb-3">
 								<pre>${board.boardContent}</pre>
 							</div>
-						</form>
 						</div>
+							<c:if test="${board.memId == sessionScope.login.memId }">
+							<div>
+								<div>
+									<form action="${pageContext.request.contextPath }/boardEditView" method="POST">
+										<input type="hidden" value="${board.boardNo }" name="boardNo">
+										<button class="btn btn-warning me-2" type="submit">수정</button>
+									</form>
+									<form action="${pageContext.request.contextPath }/boardDeleteDo" method="POST" id="deleteForm">
+										<input type="hidden" value="${board.boardNo }" name="boardNo">
+										<button class="btn btn-danger me-2" type="button" id="deleteBtn">삭제</button>
+									</form>
+								</div>
+							</div>
+							</c:if>
+							
+							<!-- 댓글 목록 -->
+							<div>
+								<div>
+									<table>
+										<tbody>
+											<c:forEach items="${comList }" var="com">
+												<tr id="${com.comNo }">
+													<td>${com.comContent }</td>
+													<td>${com.memName }</td>
+													<td>${com.comDate }</td>
+													<c:if test="${com.memId == session.login.memId}">
+														<td> <a onclick="f_del(this)">X</a> </td>
+													</c:if>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
+								<!-- 댓글 작성 영역 -->
+								<div>
+									<div>
+										<form id="comForm" action="${pageContext.request.contextPath }/writeComDo" method="POST">
+											<div>
+												<input type="text" id="comInput" name="comContent">
+												<input type="hidden" name="memId" value="${sessionScope.login.memId }">
+												<input type="hidden" name="boardNo" value="${board.boardNo }">
+											</div>
+											<div>
+												<button class="btn btn-warning me-2" type="button" id="comBtn">등록</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
 					</section>
 
 	<%@ include file="/WEB-INF/inc/footer.jsp" %>
-
+	<script type="text/javascript">
+		const v_btn = document.getElementById("deleteBtn");
+		const v_form = document.getElementById("deleteForm");
+		
+		v_btn.addEventListener("click", ()=>{
+			if(confirm('정말로 삭제하시겠습니까?')){
+				v_form.submit();
+			}
+		});
+		 
+		
+	</script>
 	</body>
 </html>

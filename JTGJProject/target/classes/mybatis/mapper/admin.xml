@@ -14,12 +14,14 @@
 		    mm_thous_p,                   
 		    mm_ten_thous_p,               
 		    mm_fifty_thous_p,
+		    lat,
+		    lng,
 		    del_yn
 		FROM 
 			solar_p_energy_rank	
 	</select>
 	
-	<select id="bulidingDetail" resultType="com.jtgz.jtgzproject.admin.dto.AdminDTO">
+	<select id="buildingDetail" resultType="com.jtgz.jtgzproject.admin.dto.AdminDTO">
 		SELECT
 			purpose_kind_name,            
 		    bld_nm,                      
@@ -31,6 +33,8 @@
 		    mm_thous_p,                   
 		    mm_ten_thous_p,               
 		    mm_fifty_thous_p,
+		    lat,
+		    lng,
 		    del_yn
 		FROM 
 			solar_p_energy_rank
@@ -38,5 +42,44 @@
 			AND purpose_kind_name = #{purposeKindName}
 			AND bld_nm = #{bldNm}
 	</select>
+	
+	<select id="buildingEditView" parameterType="com.jtgz.jtgzproject.admin.dto.AdminDTO" resultType="com.jtgz.jtgzproject.admin.dto.AdminDTO">
+		SELECT
+			purpose_kind_name,            
+		    bld_nm,                      
+		    grd_name,                     
+		    w_one_energy_require,          
+		    crtif_isu_dd,                          
+		    loc_addr,                    
+		    zeb,                           
+		    mm_thous_p,                   
+		    mm_ten_thous_p,               
+		    mm_fifty_thous_p,
+		    lat,
+		    lng,
+		    del_yn
+		FROM 
+			solar_p_energy_rank
+		WHERE 1=1
+			AND purpose_kind_name = #{purposeKindName}
+			AND bld_nm = #{bldNm}
+	</select>
+	
+	<update id="buildingEditDo" parameterType="com.jtgz.jtgzproject.admin.dto.AdminDTO">
+		UPDATE 
+			solar_p_energy_rank
+		SET                      
+		    grd_name = #{grdName},                     
+		    w_one_energy_require = #{wOneEnergyRequire},          
+		    crtif_isu_dd = #{crtifIsuDd},                          
+		    loc_addr = #{locAddr},                    
+		    zeb = #{zeb},                           
+		    lat = #{lat},
+		    lng = #{lng},
+		    del_yn = #{delYn}
+		WHERE 1=1
+			AND purpose_kind_name = #{purposeKindName}
+			AND bld_nm = #{bldNm}
+	</update>
 
 </mapper>

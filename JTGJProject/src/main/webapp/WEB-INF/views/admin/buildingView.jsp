@@ -42,7 +42,7 @@
 											<td>${admin.zeb }</td>
 											<td>
 												<a href="<c:url value="/buildingDetailView?bldNm=${admin.bldNm }&purposeKindName=${admin.purposeKindName }" />">
-													<button class="btn btn-primary btn-xl">내용 수정</button>
+													<button class="btn btn-primary btn-xl">상세 보기</button>
 												</a>
 											</td>
 										</tr>
@@ -59,4 +59,3 @@
 	<%@ include file="/WEB-INF/inc/footer.jsp" %>
 
 	</body>
-</html>

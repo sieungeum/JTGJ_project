@@ -19,8 +19,18 @@ public class AdminService {
 		return result;
 	}
 	
-	public AdminDTO bulidingDetail(AdminDTO admin) {
-		AdminDTO result = dao.bulidingDetail(admin);
+	public AdminDTO buildingDetail(AdminDTO admin) {
+		AdminDTO result = dao.buildingDetail(admin);
+		return result;
+	}
+	
+	public AdminDTO buildingEditView(AdminDTO admin) {
+		AdminDTO result = dao.buildingEditView(admin);
+		return result;
+	}
+	
+	public AdminDTO buildingEditDo(AdminDTO admin) {
+		AdminDTO result = dao.buildingEditDo(admin);
 		return result;
 	}
 	

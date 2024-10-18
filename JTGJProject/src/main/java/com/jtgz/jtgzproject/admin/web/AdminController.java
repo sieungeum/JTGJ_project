@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.jtgz.jtgzproject.admin.dto.AdminDTO;
 import com.jtgz.jtgzproject.admin.service.AdminService;
@@ -34,17 +36,33 @@ public class AdminController {
 	@RequestMapping("/buildingDetailView")
 	public String buildingDetailView(AdminDTO admin, Model model) {
 		
-		System.out.println(admin);
-		System.out.println("건물명" + admin.getBldNm());
-		System.out.println("건물 용도" + admin.getPurposeKindName());
-		
-		AdminDTO detail = adminService.bulidingDetail(admin);
+		AdminDTO detail = adminService.buildingDetail(admin);
 		
 		model.addAttribute("detail" ,detail);
 		
-		System.out.println(detail);
-		
 		return "admin/buildingDetailView";
+		
+	}
+	
+	@RequestMapping(value = "/buildingEditView")
+	public String bulidingEditView(AdminDTO admin, Model model) {
+		System.out.println(admin);
+		
+		AdminDTO edit = adminService.buildingEditView(admin);
+		
+		System.out.println(edit);
+		
+		model.addAttribute("edit", edit);
+		
+		return "admin/buildingEditView";
+	}
+	
+	@PostMapping("/buildingEditDo")
+	public String bulidingEditDo(AdminDTO admin) {
+		
+		adminService.buildingEditDo(admin);
+		
+		return "redirect:/buildingDetailView";
 		
 	}
 

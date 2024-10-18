@@ -11,14 +11,17 @@ public class AdminDTO {
 	private double mmThousP;	// 면적이 1000m^2일 경우
 	private double mmTenThousP; // 면적이 10000m^2일 경우
 	private double mmFiftyThousP;	// 면적이 50000m^2일 경우
-	private String del_Yn;	// 삭제 유무 
+	private double lat;	// 위도
+	private double lng;	// 경도
+	private String delYn;	// 삭제 유무
 	
 	public AdminDTO() {
 		super();
 	}
 
 	public AdminDTO(String purposeKindName, String bldNm, String grdName, double wOneEnergyRequire, String crtifIsuDd,
-			String locAddr, String zeb, double mmThousP, double mmTenThousP, double mmFiftyThousP, String del_Yn) {
+			String locAddr, String zeb, double mmThousP, double mmTenThousP, double mmFiftyThousP, double lat,
+			double lng, String delYn) {
 		super();
 		this.purposeKindName = purposeKindName;
 		this.bldNm = bldNm;
@@ -30,7 +33,9 @@ public class AdminDTO {
 		this.mmThousP = mmThousP;
 		this.mmTenThousP = mmTenThousP;
 		this.mmFiftyThousP = mmFiftyThousP;
-		this.del_Yn = del_Yn;
+		this.lat = lat;
+		this.lng = lng;
+		this.delYn = delYn;
 	}
 
 	public String getPurposeKindName() {
@@ -113,12 +118,28 @@ public class AdminDTO {
 		this.mmFiftyThousP = mmFiftyThousP;
 	}
 
-	public String getDel_Yn() {
-		return del_Yn;
+	public double getLat() {
+		return lat;
 	}
 
-	public void setDel_Yn(String del_Yn) {
-		this.del_Yn = del_Yn;
+	public void setLat(double lat) {
+		this.lat = lat;
+	}
+
+	public double getLng() {
+		return lng;
+	}
+
+	public void setLng(double lng) {
+		this.lng = lng;
+	}
+
+	public String getDelYn() {
+		return delYn;
+	}
+
+	public void setDelYn(String delYn) {
+		this.delYn = delYn;
 	}
 
 	@Override
@@ -126,9 +147,9 @@ public class AdminDTO {
 		return "AdminDTO [purposeKindName=" + purposeKindName + ", bldNm=" + bldNm + ", grdName=" + grdName
 				+ ", wOneEnergyRequire=" + wOneEnergyRequire + ", crtifIsuDd=" + crtifIsuDd + ", locAddr=" + locAddr
 				+ ", zeb=" + zeb + ", mmThousP=" + mmThousP + ", mmTenThousP=" + mmTenThousP + ", mmFiftyThousP="
-				+ mmFiftyThousP + ", del_Yn=" + del_Yn + "]";
+				+ mmFiftyThousP + ", lat=" + lat + ", lng=" + lng + ", delYn=" + delYn + "]";
 	}
 	
-}
+}	
 
 
