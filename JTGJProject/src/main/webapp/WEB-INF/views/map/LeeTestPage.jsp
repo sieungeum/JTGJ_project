@@ -96,9 +96,7 @@
 
         <!-- 정보박스 -->
         <div class="building-detail">
-            <div class="building-more-detail">
-
-            </div>
+            <div class="building-more-detail"></div>
         </div>
     </div>
 
@@ -106,8 +104,8 @@
     <script>
         // 지도 생성
         let map = new naver.maps.Map('map', {
-            center: new naver.maps.LatLng(37.3595704, 127.105399),
-            zoom: 4
+            center: new naver.maps.LatLng(36.34, 127.77),
+            zoom: 7
         }); 
 	
      	// 마커클러스링을 위해 생성된 마커들을 저장할 배열 markers
@@ -155,14 +153,15 @@
             }
 
             markerClustering = new MarkerClustering({
-                minClusterSize: 2,
-                maxZoom: 12,
+                minClusterSize: 10,
+                maxZoom: 14,
                 map: map,
                 markers: applyMarker,
                 disableClickZoom: false,
-                gridSize: 100,
+                gridSize: 200,
                 icons: [htmlMarker1, htmlMarker2, htmlMarker3, htmlMarker4, htmlMarker5],
-                indexGenerator: [10, 50, 100, 300, 500],
+                indexGenerator: [50, 100, 200, 300, 500],
+                averageCenter: true,
                 stylingFunction: function(clusterMarker, count) {
                     $(clusterMarker.getElement()).find('div:first-child').text(count);
                 }
@@ -202,19 +201,37 @@
                     },
                     draggable: false,
                     grade: v_jsonData['grade'][i],
-                    address: v_jsonData['address'][i]
+                    address: v_jsonData['address'][i],
+                    zeb: v_jsonData['zeb'][i]
                 });
 
                 // 마커 클릭 이벤트 추가
                 naver.maps.Event.addListener(marker, "click", function() {
-				    v_buildingDetail[0].innerHTML = 
-				        '목적: ' + v_jsonData['purpose'][i] + '<br>' +
-				        '건물이름: ' + v_jsonData['name'][i] + '<br>' +
-				        '주소: ' + v_jsonData['address'][i] + '<br>' +
-				        '에너지효율등급: ' + v_jsonData['grade'][i] + '<br>' +
-				        '1차 에너지 소요량: ' + v_jsonData['1st_energy'][i] + '<br>' +
-				        '인증일자: ' + v_jsonData['crtif'][i] + '<br>' +
-				        '그린에너지건축등급: ' + v_jsonData['zeb'][i] + '<br>';
+                	// 발전량 추가
+                	if(marker['zeb'] == 'N' && marker['grade'].length > 4){
+                		v_buildingDetail[0].innerHTML = 
+    				        '목적: ' + v_jsonData['purpose'][i] + '<br>' +
+    				        '건물이름: ' + v_jsonData['name'][i] + '<br>' +
+    				        '주소: ' + v_jsonData['address'][i] + '<br>' +
+    				        '에너지효율등급: ' + v_jsonData['grade'][i] + '<br>' +
+    				        '1차 에너지 소요량: ' + v_jsonData['1st_energy'][i] + '<br>' +
+    				        '인증일자: ' + v_jsonData['crtif'][i] + '<br>' +
+    				        '그린에너지건축등급: ' + v_jsonData['zeb'][i] + '<br>' +
+                			'1000m^2 : ' + v_jsonData['mm_thous_p'][i] + '<br>' +
+                			'10000m^2 : ' + v_jsonData['mm_ten_thous_p'][i] + '<br>' +
+                			'50000m^2 : ' + v_jsonData['mm_fifty_thous_p'][i];
+                	} else{
+               			v_buildingDetail[0].innerHTML = 
+       				        '목적: ' + v_jsonData['purpose'][i] + '<br>' +
+       				        '건물이름: ' + v_jsonData['name'][i] + '<br>' +
+       				        '주소: ' + v_jsonData['address'][i] + '<br>' +
+       				        '에너지효율등급: ' + v_jsonData['grade'][i] + '<br>' +
+       				        '1차 에너지 소요량: ' + v_jsonData['1st_energy'][i] + '<br>' +
+       				        '인증일자: ' + v_jsonData['crtif'][i] + '<br>' +
+       				        '그린에너지건축등급: ' + v_jsonData['zeb'][i] + '<br>';
+                	}
+                	
+				    
 				});
 
                 markers.push(marker);
@@ -232,9 +249,9 @@
             }
         }
 		
+        // 검색 기능
         let v_inputName = document.getElementById('input_name');
         let v_buildingSelect = document.getElementById('building-select');
-        // 검색 기능
         function searchBuilding(){
             console.log("검색기능 클릭");
             v_buildingDetail[0].innerHTML = "";
@@ -251,7 +268,7 @@
                 return;
             }
 
-            // markers 배열에 저장된 마커들 삭제 (화면에서만)
+            // markers 배열에 저장된 마커들 삭제 
             for(let i = 0; i < markers.length; i++){
                 markers[i].setMap(null);
             }
@@ -280,7 +297,7 @@
             }
 
             createCluster(secMarkers);  // 필터링된 마커로 클러스터링
-            map.setZoom(4);
+            map.setZoom(7);
 
             v_inputName.value = "";
         }
