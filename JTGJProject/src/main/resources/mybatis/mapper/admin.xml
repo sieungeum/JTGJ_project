@@ -115,7 +115,7 @@
 		
 	</insert>
 	
-	<select id="getAdminList" parameterType="com.jtgz.jtgzproject.common.dto.SearchDTO" resultType="com.jtgz.jtgzproject.board.dto.BoardDTO">
+	<select id="getAdminListSearch" parameterType="com.jtgz.jtgzproject.common.dto.SearchDTO" resultType="com.jtgz.jtgzproject.board.dto.BoardDTO">
 		SELECT
 			purpose_kind_name,            
 		    bld_nm,                      

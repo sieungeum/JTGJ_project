@@ -26,15 +26,15 @@ public class AdminController {
 		return "admin/adminMainView";
 	}
 	
-	@RequestMapping("/buildingView")
-	public String adminView(Model model) {
-		
-		List<AdminDTO> adminList = adminService.getAdminList();
-		
-		model.addAttribute("adminList", adminList);
-		
-		return "admin/buildingView";
-	}
+//	@RequestMapping("/buildingView")
+//	public String adminView(Model model) {
+//		
+//		List<AdminDTO> adminList = adminService.getAdminList();
+//		
+//		model.addAttribute("adminList", adminList);
+//		
+//		return "admin/buildingView";
+//	}
 	
 	@RequestMapping("/buildingDetailView")
 	public String buildingDetailView(AdminDTO admin, Model model) {
@@ -85,9 +85,10 @@ public class AdminController {
 		return "redirect:/buildingView";
 	}
 	
-	@RequestMapping("buildingView")
+	@RequestMapping("/buildingView")
 	public String buildginView(Model model, SearchDTO search) {
-		List<AdminDTO> AdminList = adminService.getAdminList(search);
+		
+		List<AdminDTO> AdminList = adminService.getAdminListSearch(search);
 		
 		model.addAttribute("AdminList", AdminList);
 		

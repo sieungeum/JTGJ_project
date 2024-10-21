@@ -40,8 +40,8 @@ public class AdminService {
 		return result;
 	}
 	
-	public List<AdminDTO> getAdminList(SearchDTO search){
-		List<AdminDTO> result = dao.getAdminList(search);
+	public List<AdminDTO> getAdminListSearch(SearchDTO search){
+		List<AdminDTO> result = dao.getAdminListSearch(search);
 		return result;
 	}
 	
