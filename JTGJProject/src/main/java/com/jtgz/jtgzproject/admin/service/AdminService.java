@@ -34,4 +34,9 @@ public class AdminService {
 		return result;
 	}
 	
+	public int buildingAddDo(AdminDTO admin) {
+		int result = dao.buildingAddDo(admin);
+		return result;
+	}
+	
 }

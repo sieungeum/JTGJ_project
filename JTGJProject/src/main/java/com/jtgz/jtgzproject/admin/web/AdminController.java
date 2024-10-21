@@ -2,6 +2,8 @@ package com.jtgz.jtgzproject.admin.web;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -67,5 +69,19 @@ public class AdminController {
 		return "forward:/buildingDetailView";
 		
 	}
+	
+	@RequestMapping("/buildingAddView")
+	public String buildingAddView() {
+		return "admin/buildingAddView";
+	}
 
+	@PostMapping("/buildingAddDo")
+	public String buildingAddDo(AdminDTO admin) {
+		System.out.println(admin);
+		
+		adminService.buildingAddDo(admin);
+		
+		return "redirect:/buildingView";
+	}
+	
 }

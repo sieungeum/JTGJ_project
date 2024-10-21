@@ -13,4 +13,5 @@ public interface IAdminDAO {
 	AdminDTO buildingDetail(AdminDTO admin);
 	AdminDTO buildingEditView(AdminDTO admin);
 	int buildingEditDo(AdminDTO admin);
+	int buildingAddDo(AdminDTO admin);
 }
