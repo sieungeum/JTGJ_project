@@ -72,6 +72,11 @@
 					지도 상세 보기4
 					<input class="hidden-v" type="hidden" value=4 >
 				</div>
+				<div class="btn-primary">
+					<a href="${pageContext.request.contextPath}/chartView" >
+						차트보기
+					</a>
+				</div>
 				
 				<div class="map-detail bg-success" >
 				</div>
