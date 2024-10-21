@@ -58,8 +58,8 @@
 													<td>${com.comContent }</td>
 													<td>${com.memName }</td>
 													<td>${com.comDate }</td>
-													<c:if test="${com.memId == session.login.memId}">
-														<td> <a onclick="f_del(this)">X</a> </td>
+													<c:if test="${com.memId == sessionScope.login.memId}">
+														<td><a onclick="f_del(this)">X</a> </td>
 													</c:if>
 												</tr>
 											</c:forEach>
@@ -94,8 +94,77 @@
 				v_form.submit();
 			}
 		});
-		 
 		
+		const v_comBtn = document.getElementById("comBtn")
+		const v_comForm = document.getElementById("comForm")
+		
+		v_comBtn.addEventListener("click", ()=>{
+			let v_comForm = $('#comForm');
+			let v_url = v_comForm.attr('action');
+			let v_formData = v_comForm.serialize();
+			
+			$.ajax({
+				type: 'POST',
+				url: v_url,
+				data: v_formData,
+				success: function(data){
+					console.log(data);
+					
+					let v_tr = document.createElement("tr");
+					v_tr.id = data.comNo;
+					
+					let tdContent = document.createElement("td");
+					tdContent.innerHTML = data.comContent;
+					v_tr.appendChild(tdContent);
+					
+					let tdMemName = document.createElement("td");
+					tdMemName.innerHTML = data.memName;
+					v_tr.appendChild(tdMemName);
+					
+					let tdDate = document.createElement("td");
+					tdDate.innerHTML = data.comDate;
+					v_tr.appendChild(tdDate);
+					
+					let tdDel = document.createElement("td");
+					tdDel.innerHTML = "<a onclick='f_del(this)'>X</a>";
+					v_tr.appendChild(tdDel);
+					
+					document.getElementById("comBody").prepend(v_tr);
+					document.getElementById("comInput").value = "";
+				}
+			});
+		});
+		
+		function f_del(p_this){
+			if(!confirm("댓글을 삭제하시겠습니까?")){
+				return;
+			}
+			
+			let v_td = p_this.parentElement;
+			let v_tr = v_td.parentElement;
+			let v_comNo = v_tr.id;
+			
+			const v_ajax = new XMLHttpRequest();
+			
+			v_ajax.open('POST', '<c:url value="/delComDo"/>');
+			
+			v_ajax.setRequestHeader("Content-Type", "application/json");
+			
+			const v_data = {
+					'comNo' : v_comNo
+			};
+			
+			v_ajax.onload = () => {
+				if(v_ajax.status == 200){
+					console.log(v_ajax.response);
+					
+					if(v_ajax.response == 'success'){
+						document.getElementById(v_comNo).remove();
+					}
+				}
+			};
+			v_ajax.send(JSON.stringify(v_data));
+		}
 	</script>
 	</body>
 </html>
