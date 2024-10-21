@@ -61,6 +61,13 @@
 			AND a.board_del_yn = 'N'
 	</select>	
 	
+	<select id="getBoardNo" resultType="int">
+		SELECT
+			COUNT(*) + 1
+		FROM
+			boards
+	</select>
+	
 	<update id="editBoard" parameterType="com.jtgz.jtgzproject.board.dto.BoardDTO">
 		UPDATE
 			boards

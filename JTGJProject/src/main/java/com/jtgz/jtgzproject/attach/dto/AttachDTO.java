@@ -1,90 +1,91 @@
 package com.jtgz.jtgzproject.attach.dto;
 
 public class AttachDTO {
-	private int memFileNo;
-	private int memNo;
-	private String memFileName;
-	private String memFileOriginalName;
-	private long memFileSize;
-	private String  memFileFancySize;
-	private String memFileType;
-	private String memFilePath;
+	private int boardFileNo;
+	private int boardNo;
+	private String boardFileName;
+	private String boardFileOriginalName;
+	private long boardFileSize;
+	private String  boardFileFancySize;
+	private String boardFileType;
+	private String boardFilePath;
 	
 	
 	public AttachDTO() {
 	}
 	
 	
-	public AttachDTO(int memFileNo, int memNo, String memFileName, String memFileOriginalName, long memFileSize,
-			String memFileFancySize, String memFileType, String memFilePath) {
-		this.memFileNo = memFileNo;
-		this.memNo = memNo;
-		this.memFileName = memFileName;
-		this.memFileOriginalName = memFileOriginalName;
-		this.memFileSize = memFileSize;
-		this.memFileFancySize = memFileFancySize;
-		this.memFileType = memFileType;
-		this.memFilePath = memFilePath;
+	public AttachDTO(int boardFileNo, int boardNo, String boardFileName, String boardFileOriginalName,
+			long boardFileSize, String boardFileFancySize, String boardFileType, String boardFilePath) {
+		this.boardFileNo = boardFileNo;
+		this.boardNo = boardNo;
+		this.boardFileName = boardFileName;
+		this.boardFileOriginalName = boardFileOriginalName;
+		this.boardFileSize = boardFileSize;
+		this.boardFileFancySize = boardFileFancySize;
+		this.boardFileType = boardFileType;
+		this.boardFilePath = boardFilePath;
 	}
 	
 	
 	@Override
 	public String toString() {
-		return "AttachDTO [memFileNo=" + memFileNo + ", memNo=" + memNo + ", memFileName=" + memFileName
-				+ ", memFileOriginalName=" + memFileOriginalName + ", memFileSize=" + memFileSize
-				+ ", memFileFancySize=" + memFileFancySize + ", memFileType=" + memFileType + ", memFilePath="
-				+ memFilePath + "]";
+		return "AttachDTO [boardFileNo=" + boardFileNo + ", boardNo=" + boardNo + ", boardFileName=" + boardFileName
+				+ ", boardFileOriginalName=" + boardFileOriginalName + ", boardFileSize=" + boardFileSize
+				+ ", boardFileFancySize=" + boardFileFancySize + ", boardFileType=" + boardFileType + ", boardFilePath="
+				+ boardFilePath + "]";
 	}
 	
 	
-	public int getMemFileNo() {
-		return memFileNo;
+	public int getBoardFileNo() {
+		return boardFileNo;
 	}
-	public void setMemFileNo(int memFileNo) {
-		this.memFileNo = memFileNo;
+	public void setBoardFileNo(int boardFileNo) {
+		this.boardFileNo = boardFileNo;
 	}
-	public int getMemNo() {
-		return memNo;
+	public int getBoardNo() {
+		return boardNo;
 	}
-	public void setMemNo(int memNo) {
-		this.memNo = memNo;
+	public void setBoardNo(int boardNo) {
+		this.boardNo = boardNo;
 	}
-	public String getMemFileName() {
-		return memFileName;
+	public String getBoardFileName() {
+		return boardFileName;
 	}
-	public void setMemFileName(String memFileName) {
-		this.memFileName = memFileName;
+	public void setBoardFileName(String boardFileName) {
+		this.boardFileName = boardFileName;
 	}
-	public String getMemFileOriginalName() {
-		return memFileOriginalName;
+	public String getBoardFileOriginalName() {
+		return boardFileOriginalName;
 	}
-	public void setMemFileOriginalName(String memFileOriginalName) {
-		this.memFileOriginalName = memFileOriginalName;
+	public void setBoardFileOriginalName(String boardFileOriginalName) {
+		this.boardFileOriginalName = boardFileOriginalName;
 	}
-	public long getMemFileSize() {
-		return memFileSize;
+	public long getBoardFileSize() {
+		return boardFileSize;
 	}
-	public void setMemFileSize(long memFileSize) {
-		this.memFileSize = memFileSize;
+	public void setBoardFileSize(long boardFileSize) {
+		this.boardFileSize = boardFileSize;
 	}
-	public String getMemFileFancySize() {
-		return memFileFancySize;
+	public String getBoardFileFancySize() {
+		return boardFileFancySize;
 	}
-	public void setMemFileFancySize(String memFileFancySize) {
-		this.memFileFancySize = memFileFancySize;
+	public void setBoardFileFancySize(String boardFileFancySize) {
+		this.boardFileFancySize = boardFileFancySize;
 	}
-	public String getMemFileType() {
-		return memFileType;
+	public String getBoardFileType() {
+		return boardFileType;
 	}
-	public void setMemFileType(String memFileType) {
-		this.memFileType = memFileType;
+	public void setBoardFileType(String boardFileType) {
+		this.boardFileType = boardFileType;
 	}
-	public String getMemFilePath() {
-		return memFilePath;
+	public String getBoardFilePath() {
+		return boardFilePath;
 	}
-	public void setMemFilePath(String memFilePath) {
-		this.memFilePath = memFilePath;
+	public void setBoardFilePath(String boardFilePath) {
+		this.boardFilePath = boardFilePath;
 	}
+	
 	
 	
 	
