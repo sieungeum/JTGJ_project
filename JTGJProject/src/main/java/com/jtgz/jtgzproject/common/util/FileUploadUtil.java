@@ -15,8 +15,10 @@ public class FileUploadUtil {
 	@Value("#{util['file.uploadpath']}")
 	private String uploadPath;
 	
-	public List<AttachDTO> getAttachListByMultiparts(MultipartFile[] boFileArray) throws IOException{
-		// List
-		
-	}
+	
+	 public List<AttachDTO> getAttachListByMultiparts(MultipartFile[] boFileArray) throws IOException{ 
+		 // List
+	 
+	 }
+	 
 }
