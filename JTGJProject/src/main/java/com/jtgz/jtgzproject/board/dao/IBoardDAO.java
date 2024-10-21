@@ -16,7 +16,7 @@ public interface IBoardDAO {
 	int editBoard(BoardDTO board);
 	int deleteBoard(int boardNo);
 	
-	int writeCom(ComDTO comment);
+	int writeCom(ComDTO com);
 	ComDTO getCom(String comNo);
 	List<ComDTO> getComList(int boardNo);
 	int delCom(String comNo);

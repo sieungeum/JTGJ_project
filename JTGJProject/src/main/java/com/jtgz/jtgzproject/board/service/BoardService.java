@@ -46,7 +46,7 @@ public class BoardService {
 		return result;
 	}
 	
-	public ComDTO getComment(String comNo) {
+	public ComDTO getCom(String comNo) {
 		ComDTO result = dao.getCom(comNo);
 		return result;
 	}

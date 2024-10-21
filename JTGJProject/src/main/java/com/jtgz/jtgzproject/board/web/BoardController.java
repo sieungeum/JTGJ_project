@@ -1,5 +1,7 @@
 package com.jtgz.jtgzproject.board.web;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -8,10 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jtgz.jtgzproject.board.dto.BoardDTO;
+import com.jtgz.jtgzproject.board.dto.ComDTO;
 import com.jtgz.jtgzproject.board.service.BoardService;
 import com.jtgz.jtgzproject.common.dto.SearchDTO;
 import com.jtgz.jtgzproject.member.dto.MemberDTO;
@@ -63,7 +68,10 @@ public class BoardController {
 		
 		BoardDTO board = boardService.getBoard(boardNo);
 		
+		List<ComDTO> comList = boardService.getComList(boardNo);
+		
 		model.addAttribute("board", board);
+		model.addAttribute("comList", comList);
 		
 		return "board/boardDetailView";
 	}
@@ -93,4 +101,40 @@ public class BoardController {
 		
 		return "redirect:/boardView";
 	}
+	
+	@ResponseBody
+	@PostMapping("/writeComDo")
+	public ComDTO writeComDo(ComDTO com) {
+		System.out.println(com);
+		
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmmssSSS");
+		String uniqueId = sdf.format(date);
+		for(int i = 0; i < 3; i++) {
+			uniqueId += (int)(Math.random() * 10);
+		}
+		
+		com.setComNo(uniqueId);
+		
+		boardService.writeCom(com);
+		
+		ComDTO result = boardService.getCom(uniqueId);
+		
+		return result;
+	}
+	
+	@ResponseBody
+	@PostMapping("/delComDo")
+	public String delComDo(@RequestBody ComDTO com) {
+		System.out.println(com);
+		String result = "fail";
+		
+		int cnt = boardService.delCom(com.getComNo());
+		
+		if(cnt > 0) {
+			result = "success";
+		}
+		return result;
+	}
+	
 }
