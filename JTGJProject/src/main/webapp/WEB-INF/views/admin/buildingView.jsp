@@ -22,6 +22,13 @@
 						<div class="inner">
 							<img src="images/저탄고집v6.png" width="200px" >
 							<p>관리자 페이지</p>
+							
+							<div class="col-lg-8 col-xl-7 d-flex justify-content-end">
+								<a href="${pageContext.request.contextPath }/buildingAddView">
+									<button class="btn btn-primary btn-xl"> 건물 추가 </button>
+								</a>
+							</div>
+							
 							<table id="table">
 								<thead>
 									<tr>
@@ -32,6 +39,7 @@
 									</tr>
 								</thead>
 								<tbody>
+									
 									<c:forEach items="${adminList }" var = "admin">
 										<tr>
 											<td scope = "row">${admin.purposeKindName }</td>
