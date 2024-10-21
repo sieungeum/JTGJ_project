@@ -12,7 +12,6 @@
 	<body class="landing is-preload">
 
 		<!-- Page Wrapper -->
-			<div id="page-wrapper">
 
 				<!-- Header -->
 					<%@ include file="/WEB-INF/inc/nav.jsp" %>
@@ -26,7 +25,7 @@
 							<div>
 								<form class="d-flex justify-content-center" action="${pageContext.request.contextPath }/buildingView" method="GET">						
 									<select class="form-select w-25" name="searchOption">
-										<option value="buildingName">건물명</option>
+										<option value="building" selected>건물명</option>
 										<option value="address">주소</option>
 									</select>				
 									<input type="text" class="form-control w-25" name="searchWord" >
@@ -57,7 +56,7 @@
 								</thead>
 								<tbody>
 									
-									<c:forEach items="${adminList }" var = "admin">
+									<c:forEach items="${AdminList }" var = "admin">
 										<tr>
 											<td scope = "row">${admin.purposeKindName }</td>
 											<td>${admin.bldNm }</td>
@@ -65,6 +64,7 @@
 											<td>${admin.crtifIsuDd }</td>
 											<td>${admin.locAddr }</td>
 											<td>${admin.zeb }</td>
+											<!-- 1차에너지 소요량 추가 -->
 											<td>
 												<a href="<c:url value="/buildingDetailView?bldNm=${admin.bldNm }&purposeKindName=${admin.purposeKindName }" />">
 													<button class="btn btn-primary btn-xl">상세 보기</button>

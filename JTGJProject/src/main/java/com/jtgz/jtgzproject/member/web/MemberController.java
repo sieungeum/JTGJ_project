@@ -48,7 +48,7 @@ public class MemberController {
 			return "errorPage";
 		}
 		
-		return "redirect:/home";
+		return "redirect:/loginView";
 		
 	}
 	

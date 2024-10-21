@@ -15,8 +15,8 @@ public class AdminService {
 	@Autowired
 	IAdminDAO dao;
 	
-	public List<AdminDTO> getAdminList() {
-		List<AdminDTO> result  = dao.getAdminList();
+	public List<AdminDTO> getAdminList(SearchDTO search) {
+		List<AdminDTO> result  = dao.getAdminList(search);
 		return result;
 	}
 	
@@ -40,9 +40,5 @@ public class AdminService {
 		return result;
 	}
 	
-	public List<AdminDTO> getAdminListSearch(SearchDTO search){
-		List<AdminDTO> result = dao.getAdminListSearch(search);
-		return result;
-	}
 	
 }
