@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.jtgz.jtgzproject.admin.dao.IAdminDAO;
 import com.jtgz.jtgzproject.admin.dto.AdminDTO;
+import com.jtgz.jtgzproject.common.dto.SearchDTO;
 
 @Service
 public class AdminService {
@@ -36,6 +37,11 @@ public class AdminService {
 	
 	public int buildingAddDo(AdminDTO admin) {
 		int result = dao.buildingAddDo(admin);
+		return result;
+	}
+	
+	public List<AdminDTO> getAdminList(SearchDTO search){
+		List<AdminDTO> result = dao.getAdminList(search);
 		return result;
 	}
 	
