@@ -103,7 +103,7 @@
 			, a.mem_id
 			, b.mem_name
 			, a.com_content
-			, TO_CHAR(a.com_date, 'MM/dd hh24:mm') AS com_date
+			, TO_CHAR(a.com_date, 'MM/dd') AS com_date
 		FROM comments a, members b
 		WHERE 1=1
 			AND a.mem_id = b.mem_id
