@@ -8,7 +8,7 @@
 		    bld_nm,                      
 		    grd_name,                     
 		    w_one_energy_require,          
-		    crtif_isu_dd,                          
+		    TO_CHAR(crtif_isu_dd, 'YYYY-MM-DD') AS crtif_isu_dd,                          
 		    loc_addr,                    
 		    zeb,                           
 		    mm_thous_p,                   
@@ -27,7 +27,7 @@
 		    bld_nm,                      
 		    grd_name,                     
 		    w_one_energy_require,          
-		    crtif_isu_dd,                          
+		    TO_CHAR(crtif_isu_dd, 'YYYY-MM-DD') AS crtif_isu_dd,                          
 		    loc_addr,                    
 		    zeb,                           
 		    mm_thous_p,                   
@@ -49,7 +49,7 @@
 		    bld_nm,                      
 		    grd_name,                     
 		    w_one_energy_require,          
-		    crtif_isu_dd,                          
+		    TO_CHAR(crtif_isu_dd, 'YYYY-MM-DD') AS crtif_isu_dd,                          
 		    loc_addr,                    
 		    zeb,                           
 		    mm_thous_p,                   
@@ -71,7 +71,7 @@
 		SET                      
 		    grd_name = #{grdName},                     
 		    w_one_energy_require = #{wOneEnergyRequire},          
-		    crtif_isu_dd = #{crtifIsuDd},                          
+		    crtif_isu_dd = SYSDATE,                          
 		    loc_addr = #{locAddr},                    
 		    zeb = #{zeb},                           
 		    lat = #{lat},
@@ -81,5 +81,38 @@
 			AND purpose_kind_name = #{purposeKindName}
 			AND bld_nm = #{bldNm}
 	</update>
+	
+	<insert id="buildingAddDo" parameterType="com.jtgz.jtgzproject.admin.dto.AdminDTO">
+		INSERT INTO solar_p_energy_rank(
+			purpose_kind_name,            
+		    bld_nm,                      
+		    grd_name,                     
+		    w_one_energy_require,          
+		    crtif_isu_dd,                          
+		    loc_addr,                    
+		    zeb,                           
+		    mm_thous_p,                   
+		    mm_ten_thous_p,               
+		    mm_fifty_thous_p,
+		    lat,
+		    lng,
+		    del_yn
+		) VALUES (
+			#{purposeKindName},            
+		    #{bldNm},                      
+		    #{grdName},                     
+		    #{wOneEnergyRequire},          
+		    SYSDATE,                          
+		    #{locAddr},                    
+		    #{zeb},                           
+		    #{mmThousP},                   
+		    #{mmTenThousP},               
+		    #{mmFiftyThousP},
+		    #{lat},
+		    #{lng},
+		    #{delYn}
+		)
+		
+	</insert>
 
 </mapper>
