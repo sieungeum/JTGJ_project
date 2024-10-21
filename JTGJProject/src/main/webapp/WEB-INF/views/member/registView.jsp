@@ -25,28 +25,10 @@
 	</head>
 	<body class="is-preload">
 
-		<!-- Page Wrapper -->
-
-				<!-- Header -->
-					<header id="header">
-						<h1><a href="index.html">Spectral</a></h1>
-						<nav id="nav">
-							<ul>
-								<li class="special">
-									<a href="#menu" class="menuToggle"><span>Menu</span></a>
-									<div id="menu">
-										<ul>
-											<li><a href="index.html">Home</a></li>
-											<li><a href="generic.html">Generic</a></li>
-											<li><a href="elements.html">Elements</a></li>
-											<li><a href="#">Sign Up</a></li>
-											<li><a href="#">Log In</a></li>
-										</ul>
-									</div>
-								</li>
-							</ul>
-						</nav>
-					</header>
+		<!-- Header -->
+		<%@ include file="/WEB-INF/inc/head.jsp" %>				
+		<!-- nav -->
+		<%@ include file="/WEB-INF/inc/nav.jsp" %>
 
 				
 
@@ -70,7 +52,7 @@
 								<div class="col-12">
 									<ul class="actions">
 										<li><div class="text-center"><button class="btn btn-primary btn-xl text-uppercase" id="submitBtn" type="submit">회원가입 완료</button></div></li>
-										<li><input type="reset" value="돌아가기" /></li>
+										<li><div><a href="${pageContext.request.contextPath }/loginView"><button class="btn btn-primary btn-xl text-uppercase">로그인으로 돌아가기</button></a></div></li>
 									</ul>
 									
 								</div>
@@ -78,7 +60,7 @@
 							</div>
 						</form>
 					</section>
-
+		<%@ include file="/WEB-INF/inc/footer.jsp" %>
 								
 	</body>
 </html>

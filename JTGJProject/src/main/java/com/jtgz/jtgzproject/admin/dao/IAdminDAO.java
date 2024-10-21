@@ -9,11 +9,11 @@ import com.jtgz.jtgzproject.common.dto.SearchDTO;
 
 @Mapper
 public interface IAdminDAO {
-	List<AdminDTO> getAdminList();
+	List<AdminDTO> getAdminList(SearchDTO search);
 	String wirteAdmin(AdminDTO admin);
 	AdminDTO buildingDetail(AdminDTO admin);
 	AdminDTO buildingEditView(AdminDTO admin);
 	int buildingEditDo(AdminDTO admin);
 	int buildingAddDo(AdminDTO admin);
-	List<AdminDTO> getAdminListSearch(SearchDTO search);
+	
 }

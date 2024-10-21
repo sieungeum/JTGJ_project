@@ -24,32 +24,12 @@
 		</style>
 	</head>
 	<body class="is-preload">
-
-		<!-- Page Wrapper -->
-
-				<!-- Header -->
-					<header id="header">
-						<h1><a href="index.html">Spectral</a></h1>
-						<nav id="nav">
-							<ul>
-								<li class="special">
-									<a href="#menu" class="menuToggle"><span>Menu</span></a>
-									<div id="menu">
-										<ul>
-											<li><a href="index.html">Home</a></li>
-											<li><a href="generic.html">Generic</a></li>
-											<li><a href="elements.html">Elements</a></li>
-											<li><a href="#">Sign Up</a></li>
-											<li><a href="#">Log In</a></li>
-										</ul>
-									</div>
-								</li>
-							</ul>
-						</nav>
-					</header>
-
-				
-
+	
+		<!-- Header -->
+		<%@ include file="/WEB-INF/inc/head.jsp" %>				
+		
+		<%@ include file="/WEB-INF/inc/nav.jsp" %>
+		
 					<section>
 						<h4>로그인</h4>
 						<form action="${pageContext.request.contextPath }/loginDo" method="POST">
@@ -64,7 +44,7 @@
 								<div class="col-12">
 									<ul class="actions">
 										<li><div class="text-center"><button class="btn btn-primary btn-xl text-uppercase" id="submitBtn" type="submit">로그인</button></div></li>
-										<li><input type="reset" value="돌아가기" /></li>
+										<li><div><a href="${pageContext.request.contextPath }/home"><button class="btn btn-primary btn-xl text-uppercase">홈으로 돌아가기</button></a></div></li>
 										<li><a class="left-p" href="${pageContext.request.contextPath }/registView">회원가입</a></li>
 									</ul>
 									
@@ -73,7 +53,7 @@
 							</div>
 						</form>
 					</section>
-
+		<%@ include file="/WEB-INF/inc/footer.jsp" %>
 								
 	</body>
 </html>

@@ -23,17 +23,15 @@
 							<img src="images/저탄고집v6.png" width="200px" >
 							<p>건물 추가</p>
 							<form id="contactFrom" action="<c:url value="/buildingAddDo" />" method="POST">
-								<input type="hidden" name="bldNm" value="">
-								<input type="hidden" name="purposeKindName" value="">
 								<table id="table">
 									<thead>
 										<tr>
 											<td scope ="col">건물용도 : </td>
-											<td><input class="form-control" id = "inputGrdName" type="text" name="grdName" value=""></td>
+											<td><input class="form-control" id = "inputPurposeKindName" type="text" name="purposeKindName" value=""></td>
 										</tr>
 										<tr>
 											<td scope ="col">건물명 : </td>
-											<td><input class="form-control" id = "inputGrdName" type="text" name="grdName" value=""></td>
+											<td><input class="form-control" id = "inputBldNm" type="text" name="bldNm" value=""></td>
 										</tr>
 										<tr>
 											<td scope ="col">에너지 효율 등급 : </td>
@@ -58,10 +56,6 @@
 										<tr>
 											<td scope ="col">경도 : </td>
 											<td><input class="form-control" id = "inputLng" type="text" name="lng" value=""></td>	
-										</tr>
-										<tr>
-											<td scope ="col">삭제 유무 : </td>
-											<td><input class="form-control" id = "inputDelYn" type="text" name="delYn" value=""></td>	
 										</tr>
 									</thead>
 								</table>
