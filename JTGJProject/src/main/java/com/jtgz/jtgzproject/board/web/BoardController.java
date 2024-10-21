@@ -1,5 +1,6 @@
 package com.jtgz.jtgzproject.board.web;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -14,11 +15,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.jtgz.jtgzproject.attach.dto.AttachDTO;
+import com.jtgz.jtgzproject.attach.service.AttachService;
 import com.jtgz.jtgzproject.board.dto.BoardDTO;
 import com.jtgz.jtgzproject.board.dto.ComDTO;
 import com.jtgz.jtgzproject.board.service.BoardService;
 import com.jtgz.jtgzproject.common.dto.SearchDTO;
+import com.jtgz.jtgzproject.common.util.FileUploadUtil;
 import com.jtgz.jtgzproject.member.dto.MemberDTO;
 
 @Controller
@@ -26,6 +31,12 @@ public class BoardController {
 	
 	@Autowired
 	BoardService boardService;
+	
+	@Autowired
+	AttachService attachService;
+	
+	@Autowired
+	FileUploadUtil fileUploadUtil;
 	
 	@RequestMapping("/boardView")
 	public String boardView(Model model, SearchDTO search) {
@@ -49,13 +60,32 @@ public class BoardController {
 	
 	
 	@PostMapping("/boardWriteDo")
-	public String boardWriteDo(BoardDTO board, HttpSession session) {
+	public String boardWriteDo(BoardDTO board, HttpSession session, MultipartFile[] boFile) {
 		
 		System.out.println(board);
 		
 		MemberDTO login = (MemberDTO)session.getAttribute("login");
 		String memId = login.getMemId();
 		board.setMemId(memId);
+		
+		int boardNo = boardService.getBoardNo();
+		
+		if(boFile != null && boFile.length > 0 && !boFile[0].isEmpty()) {
+			System.out.println("파일 개수: " + boFile.length);
+			try {
+				List<AttachDTO> attachList = fileUploadUtil.getAttachListByMultiparts(boFile);
+				if(!attachList.isEmpty()) {
+					for(AttachDTO attach : attachList) {
+						attach.setBoardNo(boardNo);
+						attachService.insertAttach(attach);
+					}
+				}
+			}catch(IOException e) {
+				e.printStackTrace();
+				System.out.println("첨부파일 업로드 중 문제 발생");
+				return "error/errorPath500";
+			}
+		}
 		
 		boardService.writeBoard(board);
 		
@@ -70,8 +100,11 @@ public class BoardController {
 		
 		List<ComDTO> comList = boardService.getComList(boardNo);
 		
+		List<AttachDTO> attachList = attachService.getAttachList(boardNo);
+		
 		model.addAttribute("board", board);
 		model.addAttribute("comList", comList);
+		model.addAttribute("attachList", attachList);
 		
 		return "board/boardDetailView";
 	}

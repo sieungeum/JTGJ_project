@@ -61,4 +61,9 @@ public class BoardService {
 		return result;
 	}
 	
+	public int getBoardNo() {
+		int result = dao.getBoardNo();
+		return result;
+	}
+	
 }

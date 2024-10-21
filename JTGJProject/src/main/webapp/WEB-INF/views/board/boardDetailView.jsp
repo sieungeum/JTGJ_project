@@ -29,6 +29,17 @@
 								<h6>${board.memName}</h6>
 								<h6>${board.boardDate}</h6>
 							</div>
+							
+							<div class="mb-3 d-flex">
+								<c:forEach items="${attachList }" var="attach">
+									<div>
+										<a href="<c:url value="/filedownload?fileName=${attach.boardFileName }&fileOriName=${attach.boardFileOriginalName }"/>">
+											${attach.boardFileOriginalName } (${attach.boardFileFancySize })
+										</a>
+									</div>
+								</c:forEach>
+							</div>
+							
 							<div class="mb-3">
 								<pre>${board.boardContent}</pre>
 							</div>
@@ -52,7 +63,7 @@
 							<div>
 								<div>
 									<table>
-										<tbody>
+										<tbody id="comBody">
 											<c:forEach items="${comList }" var="com">
 												<tr id="${com.comNo }">
 													<td>${com.comContent }</td>
