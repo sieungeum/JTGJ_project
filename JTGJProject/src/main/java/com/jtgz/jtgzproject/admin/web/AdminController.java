@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.jtgz.jtgzproject.admin.dto.AdminDTO;
 import com.jtgz.jtgzproject.admin.service.AdminService;
+import com.jtgz.jtgzproject.common.dto.SearchDTO;
 
 @Controller
 public class AdminController {
@@ -82,6 +83,16 @@ public class AdminController {
 		adminService.buildingAddDo(admin);
 		
 		return "redirect:/buildingView";
+	}
+	
+	@RequestMapping("buildingView")
+	public String buildginView(Model model, SearchDTO search) {
+		List<AdminDTO> AdminList = adminService.getAdminList(search);
+		
+		model.addAttribute("AdminList", AdminList);
+		
+		return "admin/buildingView";
+		
 	}
 	
 }

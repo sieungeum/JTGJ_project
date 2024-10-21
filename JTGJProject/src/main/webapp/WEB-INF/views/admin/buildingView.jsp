@@ -23,11 +23,28 @@
 							<img src="images/저탄고집v6.png" width="200px" >
 							<p>관리자 페이지</p>
 							
+							<div>
+								<form class="d-flex justify-content-center" action="${pageContext.request.contextPath }/buildingView" method="GET">						
+									<select class="form-select w-25" name="searchOption">
+										<option value="buildingName">건물명</option>
+										<option value="address">주소</option>
+									</select>				
+									<input type="text" class="form-control w-25" name="searchWord" >
+									<button class="btn btn-primary" type="submit">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+											<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+										</svg>
+									</button>
+								</form>
+							</div>
+							
 							<div class="col-lg-8 col-xl-7 d-flex justify-content-end">
 								<a href="${pageContext.request.contextPath }/buildingAddView">
 									<button class="btn btn-primary btn-xl"> 건물 추가 </button>
 								</a>
 							</div>
+							
+							
 							
 							<table id="table">
 								<thead>

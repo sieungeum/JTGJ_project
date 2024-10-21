@@ -114,5 +114,30 @@
 		)
 		
 	</insert>
+	
+	<select id="getAdminList" parameterType="com.jtgz.jtgzproject.common.dto.SearchDTO" resultType="com.jtgz.jtgzproject.board.dto.BoardDTO">
+		SELECT
+			purpose_kind_name,            
+		    bld_nm,                      
+		    grd_name,                     
+		    w_one_energy_require,          
+		    TO_CHAR(crtif_isu_dd, 'YYYY-MM-DD') AS crtif_isu_dd,                          
+		    loc_addr,                    
+		    zeb,                           
+		    mm_thous_p,                   
+		    mm_ten_thous_p,               
+		    mm_fifty_thous_p,
+		    lat,
+		    lng,
+		    del_yn
+		FROM 
+			solar_p_energy_rank
+		<if test="searchWord != null">
+			<choose>
+				<when test="searchOption=='buildingName'"></when>
+				<when test="searchOption=='address'"></when>
+			</choose>
+		</if>
+	</select>
 
 </mapper>
