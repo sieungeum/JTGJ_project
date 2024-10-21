@@ -4,7 +4,7 @@
     
 <!-- Header -->
 <header id="header" class="alt">
-	<h1><a href="index.html">저탄고집</a></h1>
+	<h1><a href="${pageContext.request.contextPath }/home">저탄고집</a></h1>
 	<nav id="nav">
 		<ul>
 			<li class="special">
@@ -12,7 +12,8 @@
 				<div id="menu">
 					<ul>
 						<li><a href="${pageContext.request.contextPath }/home">메인화면</a></li>
-						<li><a href="${pageContext.request.contextPath }/mapView">지도확인</a></li>
+						<!-- map view 명 나중에 바꿀 예정 -->
+						<li><a href="${pageContext.request.contextPath }/LeeTestPage">지도확인</a></li>
 						<li><a href="${pageContext.request.contextPath }/calView">계산하기</a></li>
 						<li><a href="${pageContext.request.contextPath }/boardView">건의사항</a></li>
 						<c:if test="${sessionScope.login == null }">
