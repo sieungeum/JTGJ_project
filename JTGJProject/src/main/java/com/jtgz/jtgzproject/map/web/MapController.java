@@ -10,12 +10,4 @@ public class MapController {
 	public String mapView() {
 		return "map/mapView";
 	}
-	
-	// 재완 지도 테스트
-	@RequestMapping("/LeeTest")
-	public String LeeTest() {
-		
-		
-		return "map/LeeTest";
-	}
 }
