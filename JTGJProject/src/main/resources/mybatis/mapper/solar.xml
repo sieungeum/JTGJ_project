@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jtgz.jtgzproject.regionSolar.dao.IRegionSolarDAO">
+
+	<!-- 지역별 태양열 발전량 가져오기 -->
+	<select id="solarSelect" resultType="com.jtgz.jtgzproject.regionSolar.dto.RegionSolarDTO" >
+		select
+			region,
+			mean_solar
+		FROM region_mean_solar
+	</select>
+</mapper>

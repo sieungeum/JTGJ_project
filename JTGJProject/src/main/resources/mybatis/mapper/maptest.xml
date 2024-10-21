@@ -22,4 +22,15 @@
 		    AND loc_addr = #{locAddr}
 	</select>
 	
+	<select id="allBuildingZeb" resultType="com.jtgz.jtgzproject.mapTest.dto.MapTestDTO" >
+		SELECT 
+		    purpose_kind_name,
+		    grd_name,
+		    w_one_energy_require,
+		    zeb
+		FROM solar_p_energy_rank
+		WHERE 1=1
+			AND del_yn = 'N'
+	</select>
+	
 </mapper>
