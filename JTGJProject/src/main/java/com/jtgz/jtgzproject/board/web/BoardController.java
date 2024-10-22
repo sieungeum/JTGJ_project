@@ -25,6 +25,8 @@ import com.jtgz.jtgzproject.board.service.BoardService;
 import com.jtgz.jtgzproject.common.dto.SearchDTO;
 import com.jtgz.jtgzproject.common.util.FileUploadUtil;
 import com.jtgz.jtgzproject.member.dto.MemberDTO;
+import com.jtgz.jtgzproject.notice.dto.NoticeDTO;
+import com.jtgz.jtgzproject.notice.service.NoticeService;
 
 @Controller
 public class BoardController {
@@ -38,10 +40,22 @@ public class BoardController {
 	@Autowired
 	FileUploadUtil fileUploadUtil;
 	
+	@Autowired
+	NoticeService noticeService;
+	
 	@RequestMapping("/boardView")
 	public String boardView(Model model, SearchDTO search) {
 
 		List<BoardDTO> boardList = boardService.getBoardList(search);
+
+		// sjm
+		// 나중에 merge 하고 바꾸기
+		String admin = "Y";
+		
+		List<NoticeDTO> notice = noticeService.noticeSelect(admin);
+		
+		model.addAttribute("notice", notice);
+		// sjm
 		
 		model.addAttribute("boardList", boardList);
 		
