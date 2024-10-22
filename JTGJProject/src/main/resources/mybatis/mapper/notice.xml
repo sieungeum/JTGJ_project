@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jtgz.jtgzproject.notice.dao.INoticeDAO">
+
+	<!-- 모든 공지사항 불러오기 -->
+	<select id="noticeSelect" parameterType="String" resultType="com.jtgz.jtgzproject.notice.dto.NoticeDTO">
+		SELECT
+			a.noti_title,
+			a.noti_no,
+			a.noti_content,
+			TO_CHAR(a.noti_date, 'MM.dd hh24:mm') AS noti_date,
+			b.mem_name
+		FROM notice a, members b
+		WHERE 1=1
+			AND a.mem_id = b.mem_id
+			AND b.mem_admin_yn = #{adminYn}
+			AND a.noti_del_yn = 'N'
+		ORDER BY noti_no DESC
+	</select>
+	
+	<!-- 공지사항 자세히 보기 -->
+	<select id="getNotice" parameterType="int" resultType="com.jtgz.jtgzproject.notice.dto.NoticeDTO">
+		SELECT
+			a.noti_title,
+			a.noti_no,
+			a.noti_content,
+			TO_CHAR(a.noti_date, 'MM.dd hh24:mm') AS noti_date,
+			a.mem_id,
+			b.mem_name
+		FROM notice a, members b
+		WHERE 1=1
+			AND a.mem_id = b.mem_id
+			AND a.noti_no = #{notiNo}
+			AND a.noti_del_yn = 'N'
+	</select>
+	
+	<!-- 공지사항 작성 -->
+	<insert id="writeNotice" parameterType="com.jtgz.jtgzproject.notice.dto.NoticeDTO">
+		INSERT INTO notice(
+			noti_title,
+			noti_no,
+			noti_content,
+			noti_date,
+			mem_id,
+			noti_del_yn
+		) VALUES (
+			#{notiTitle},
+			(SELECT COUNT(*)+1 FROM notice),
+			#{notiContent},
+			SYSDATE,
+			#{memId},
+			'N'
+		)
+	</insert>
+	
+	<update id="editNotice" parameterType="com.jtgz.jtgzproject.notice.dto.NoticeDTO">
+		UPDATE
+			notice
+		SET
+			  noti_title = #{notiTitle}
+			, noti_content = #{notiContent}
+		WHERE 1=1
+			AND noti_no = #{notiNo}
+	</update>
+
+	<update id="deleteNotice" parameterType="int" >
+		UPDATE
+			notice
+		SET
+			noti_del_yn = 'Y'
+		WHERE 1=1
+			AND noti_no = #{notiNo}
+	</update>
+	
+	
+</mapper>

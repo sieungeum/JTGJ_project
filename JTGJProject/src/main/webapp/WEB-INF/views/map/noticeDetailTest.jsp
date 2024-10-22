@@ -22,68 +22,60 @@
 	crossorigin="anonymous"></script>
 
 <style type="text/css">
-	.map-container {
-		position: relative;
-		
-		width: 1200px;
-		
-		margin: auto;
-	}
-	
-	p {
-		/* 	    margin: 0 0 2em 0;
+.map-container {
+	position: relative;
+	width: 1200px;
+	margin: auto;
+}
+
+p {
+	/* 	    margin: 0 0 2em 0;
 		    margin-top: 0px;
 		    margin-right: 0px;
 		    margin-bottom: 2em;
 		    margin-left: 0px; */
-		margin: 3px 0 10px 8px;
-	}
-	
-	.purpose-text{
-		width: 100%;
-	
-		margin: auto;
-	
-		text-align: center;
-		font-weight: bold;
-		font-size: 30px;
-		color: black;
-	}
-	
-	.w-100{
-		width: 100%;
-	}
-	
-	.canvas-box {
-		display: flex;
-		justify-content: center;
-		flex-direction: column;
-	
-	    width: 1000px;
-	    
-	    margin: auto;
-	}
-	.canvas-box-circle{
-	    display: flex;
-	    justify-content: center;
-	    
-	    width: 100%;
-	    
-	}
-	.chart-circle-top{
-		width: calc(100% / 2);
-		
-		margin: auto;
-		
-		text-align: center;
-		color: black;
-	}
-	.chart-circle-under{
-		width: calc(100% / 3);
-		
-		text-align: center;
-		color: black;
-	}
+	margin: 3px 0 10px 8px;
+}
+
+.purpose-text {
+	width: 100%;
+	margin: auto;
+	text-align: center;
+	font-weight: bold;
+	font-size: 30px;
+	color: black;
+}
+
+.w-100 {
+	width: 100%;
+}
+
+.canvas-box {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	width: 1000px;
+	margin: auto;
+}
+
+.canvas-box-circle {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+}
+
+.chart-circle-top {
+	width: calc(100%/ 2);
+	margin: auto;
+	text-align: center;
+	color: black;
+}
+
+.chart-circle-under {
+	width: calc(100%/ 3);
+	text-align: center;
+	color: black;
+}
 </style>
 </head>
 <body class="landing is-preload">
@@ -93,98 +85,40 @@
 
 		<!-- header -->
 		<%@ include file="/WEB-INF/inc/nav.jsp"%>
-		<img src="images/저탄고집v6.png" width="200px">
-		<p>건의사항</p>
-		<table id="table">
-			<thead>
-				<tr>
-					<th scope="col">번호</th>
-					<th scope="col">제목</th>
-					<th scope="col">작성자</th>
-					<th scope="col">날짜</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${notice}" var="notice">
-					<tr>
-						<td scope="row">공지</td>
-						<td><a href="${pageContext.request.contextPath}/noticeDetailView?notiNo=${notice.notiNo}">${notice.notiTitle}</a></td>
-						<td>${notice.memName}</td>
-						<td>${notice.notiDate}</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-		
-		<c:if test='${sessionScope.login.memId == "admin"}'>
-			<div class="btn">
-				<a href="${pageContext.request.contextPath}/noticeWriteView">공지사항 작성</a>
-			</div>
-		</c:if>
+		<section>
+			<div class="row justify-content-center">
+				<img src="images/저탄고집v6.png" width="200px">
+				<p>건의사항</p>
+				<div class="mb-3">
+					<h6>${notice.notiTitle}</h6>
+				</div>
+				<div>
+					<h6>${notice.memName}</h6>
+					<h6>${notice.notiDate}</h6>
+				</div>
 
-		<!-- Banner -->
-		<div class="map-container bg-white mt-5">
-		
-			<div class="canvas-box">
-				<div class="purpose-text mt-4 mb-2" >지역별 태양광 발전량 평균</div>
-				<!-- 그래프(chart)의 크기 조정 -->
-				<!-- canvas에 width, height은 별 의미 없음 -->
-				<canvas id="myChart" ></canvas>
-			</div>
-			
-			<div class="canvas-box-circle" >
-				<!-- 주거용 -->
-				<div class="w-100">
-					<div class="purpose-text mt-3 mb-2" >주거용</div>
-					
-					<div class="canvas-box-circle">
-						<div class="chart-circle-top">
-							<canvas id="chartTwo" ></canvas>
-							<p>에너지 효율 등급 현황</p>
-						</div>
-					</div>
-					
-					<div class="canvas-box-circle" >
-						<div class="chart-circle-under">
-							<canvas id="chartOne" ></canvas>
-							<p>현 ZEB 선정 건물 현황</p>
-						</div>
-						<div class="chart-circle-under">
-							<canvas id="chartThree" ></canvas>
-							<p>ZEB 선정 기준 적합 현황</p>
-						</div>
-					</div>
-				</div>
-				
-				<div class="w-100">
-					<!-- 주거용 이외 -->
-					<div class="purpose-text mt-4 mb-2" >주거용 이외</div>
-					
-					<div class="canvas-box-circle">
-						<div class="chart-circle-top">
-							<canvas id="chartTwoElse" ></canvas>
-							<p>에너지 효율 등급 현황</p>
-						</div>
-					</div>
-					
-					<div class="canvas-box-circle" >
-						<div class="chart-circle-under">
-							<canvas id="chartOneElse" ></canvas>
-							<p>현 ZEB 선정 건물 현황</p>
-						</div>
-						<div class="chart-circle-under">
-							<canvas id="chartThreeElse" ></canvas>
-							<p>ZEB 선정 기준 적합 현황</p>
-						</div>
-					</div>
+				<div class="mb-3">
+					<pre>${notice.notiContent}</pre>
 				</div>
 			</div>
-			
-			<!-- flask로 가져온 인공지능 모델 예측 그래프 -->
-			<div class="canvas-box" >
-				<img src="http://localhost:5000/pltimg" width="100%" >
-			</div>
-		</div>
+			<!-- 이것도 merge 하고 if 문 값 바꿔줘야함 -->
+			<c:if test="${notice.memId == sessionScope.login.memId }">
+				<div>
+					<div>
+						<form action="${pageContext.request.contextPath }/noticeEditView"
+							method="POST">
+							<input type="hidden" value="${notice.notiNo }" name="notiNo">
+							<button class="btn btn-warning me-2" type="submit">수정</button>
+						</form>
+						<form action="${pageContext.request.contextPath }/noticeDeleteDo"
+							method="POST" id="deleteForm">
+							<input type="hidden" value="${notice.notiNo }" name="notiNo">
+							<button class="btn btn-danger me-2" type="submit" id="deleteBtn">삭제</button>
+						</form>
+					</div>
+				</div>
+			</c:if>
+		</section>
 
 		<%@ include file="/WEB-INF/inc/footer.jsp"%>
 
@@ -194,8 +128,8 @@
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script type="text/javascript">
 		
-		let v_ajax = new XMLHttpRequest(); // 태양열데이터 ajax 통신으로 불러오기
-		let v_ajaxZeb = new XMLHttpRequest(); // zeb 데이터 ajax 통신으로 불러오기
+		let v_ajax = new XMLHttpRequest();
+		let v_ajaxZeb = new XMLHttpRequest();
 		
 		v_ajax.open('POST', "${pageContext.request.contextPath}/chartSolarData");
 		v_ajaxZeb.open('POST', "${pageContext.request.contextPath}/chartZebData");
@@ -204,7 +138,6 @@
 		v_ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		v_ajaxZeb.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		
-		// 태양열 데이터 onload
 		v_ajax.onload = function(){
 			// 통신 성공 시 실행
 			if(v_ajax.status == 200){
@@ -233,7 +166,6 @@
 					v_solarDict['mean'].push(d[1].split(":")[1]);
 				}
 				
-				// 막대 그래프 생성
 				f_draw(v_solarDict);
 				
 			}
@@ -241,15 +173,13 @@
 			
 		}
 		
-		// 태양열 데이터 ajax send
 		v_ajax.send();
 		
-		// zeb 데이터 onload
 		v_ajaxZeb.onload = function(){
 			// 통신 성공 시 실행
 			if (v_ajaxZeb.status == 200){
-				/* [{"purposeKindName":"주거용","bldNm":null,"grdName":"2등급","wOneEnergyRequire":181.0,"crtifIsuDd":null,
-				"locAddr":null,"zeb":"N","delYn":null,"mmThousP":0.0,"mmTenThousP":0.0,"mmFiftyThousP":0.0}, */
+				// [{"purposeKindName":"주거용","bldNm":null,"grdName":"2등급","wOneEnergyRequire":181.0,"crtifIsuDd":null,"locAddr":null,"zeb":"N","delYn":null,"mmThousP":0.0,"mmTenThousP":0.0,"mmFiftyThousP":0.0},
+
 				v_str = v_ajaxZeb.response;
 				
 				// 문자열로 받아 오기 때문에 이러한 과정을 거쳐야함
@@ -276,16 +206,14 @@
 					v_solarDict['zeb'].push(d[6].split(":")[1]);
 				}
 
-				// 원그래프 생성
 				for (let i = 0; i < 2; i++){
-					f_draw_circle(v_solarDict, i); // 현재 zeb 선정 현황
-					f_draw_rank(v_solarDict, i); // 에너지 효율 등급 현황
-					f_draw_special_rank(v_solarDict, i); // zeb 가능 건물 현황
+					f_draw_circle(v_solarDict, i);
+					f_draw_rank(v_solarDict, i);
+					f_draw_special_rank(v_solarDict, i);
 				}
 			}
 		}
 		
-		// zeb 데이터 send
 		v_ajaxZeb.send();
 		
 		// 지역별 태양열 발전량 평균 그래프 그리기

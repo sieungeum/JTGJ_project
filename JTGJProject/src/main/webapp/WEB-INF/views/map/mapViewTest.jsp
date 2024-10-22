@@ -77,6 +77,11 @@
 						차트보기
 					</a>
 				</div>
+				<div class="btn-primary">
+					<a href="${pageContext.request.contextPath}/noticeTestsView" >
+						공지사항 실험
+					</a>
+				</div>
 				
 				<div class="map-detail bg-success" >
 				</div>
