@@ -17,7 +17,7 @@
 				<!-- Header -->
 					<%@ include file="/WEB-INF/inc/nav.jsp" %>
 
-				<!-- Banner -->
+					<!-- 메인 -->
 					<section>
 					<div class="row justify-content-center">
 					<img src="images/저탄고집v6.png" width="200px" >
@@ -30,10 +30,11 @@
 								<h6>${board.boardDate}</h6>
 							</div>
 							
-							<div class="mb-3 d-flex">
+							<!-- 파일 -->
+							<div class="mb-3 d-flex" style="margin-top: 100px">
 								<c:forEach items="${attachList }" var="attach">
 									<div>
-										<a href="<c:url value="/filedownload?fileName=${attach.boardFileName }&fileOriName=${attach.boardFileOriginalName }"/>">
+										<a href="<c:url value="/filedownload?fileName=${attach.boardFileName }&fileOriName=${attach.boardFileOriginalName}"/>">
 											${attach.boardFileOriginalName } (${attach.boardFileFancySize })
 										</a>
 									</div>
