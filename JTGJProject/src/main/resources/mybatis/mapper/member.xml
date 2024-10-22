@@ -9,13 +9,15 @@
 			, mem_name
 			, mem_email
 			, mem_date
-			, mem_cer_yn 
+			, mem_cer_yn
+			, mem_admin_yn 
 		) VALUES (
 			  #{memId}
 			, #{memPw}
 			, #{memName}
 			, #{memEmail}
 			, SYSDATE
+			, 'N'
 			, 'N'
 		)
 		
@@ -29,6 +31,7 @@
 			, mem_email
 			, mem_date
 			, mem_cer_yn
+			, mem_admin_yn 
 		FROM 
 			members
 		WHERE 1=1

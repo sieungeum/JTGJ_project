@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.jtgz.jtgzproject.admin.dao.IAdminDAO;
 import com.jtgz.jtgzproject.admin.dto.AdminDTO;
 import com.jtgz.jtgzproject.common.dto.SearchDTO;
+import com.jtgz.jtgzproject.member.dto.MemberDTO;
 
 @Service
 public class AdminService {
@@ -40,5 +41,19 @@ public class AdminService {
 		return result;
 	}
 	
+	public List<MemberDTO> getAdminMemList(SearchDTO search) {
+		List<MemberDTO> result  = dao.getAdminMemList(search);
+		return result;
+	}
+	
+	public int adminMemDo(MemberDTO member) {
+		int result = dao.adminMemDo(member);
+		return result;
+	}
+	
+	public int adminMemDelDo(MemberDTO member) {
+		int result = dao.adminMemDelDo(member);
+		return result;
+	}
 	
 }

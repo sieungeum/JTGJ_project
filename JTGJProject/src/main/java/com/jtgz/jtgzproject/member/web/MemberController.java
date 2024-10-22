@@ -33,13 +33,14 @@ public class MemberController {
 		String email = request.getParameter("email");
 		String date = request.getParameter("date");
 		String ceryn = request.getParameter("ceryn");
+		String adminyn = request.getParameter("adminyn");
 		
 		System.out.println("id = " + id);
 		System.out.println("password = " + password);
 		System.out.println("name = " + name);
 		System.out.println("email = " + email);
 		
-		MemberDTO member = new MemberDTO(id, password, name, email, date, ceryn);
+		MemberDTO member = new MemberDTO(id, password, name, email, date, ceryn, adminyn);
 		
 		try {
 			memberService.registMember(member);

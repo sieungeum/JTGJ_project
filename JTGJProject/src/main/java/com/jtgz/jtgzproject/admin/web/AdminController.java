@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.jtgz.jtgzproject.admin.dto.AdminDTO;
 import com.jtgz.jtgzproject.admin.service.AdminService;
 import com.jtgz.jtgzproject.common.dto.SearchDTO;
+import com.jtgz.jtgzproject.member.dto.MemberDTO;
 
 @Controller
 public class AdminController {
@@ -86,6 +87,36 @@ public class AdminController {
 		adminService.buildingAddDo(admin);
 		
 		return "redirect:/buildingView";
+	}
+	
+	@RequestMapping("/adminMemView")
+	public String adminMemView(Model model, SearchDTO search, MemberDTO member){
+		
+		List<MemberDTO> AdminMemList = adminService.getAdminMemList(search);
+		
+		model.addAttribute("AdminMemList", AdminMemList);
+		
+		return "admin/adminMemView";
+	}
+	
+	@PostMapping("/adminMemDo")
+	public String adminMemDo(MemberDTO member) {
+		System.out.println(member);
+		
+		adminService.adminMemDo(member);
+		
+		return "redirect:/adminMemView";
+		
+	}
+	
+	@PostMapping("/adminMemDelDo")
+	public String adminMemDelDo(MemberDTO member) {
+		System.out.println(member);
+		
+		adminService.adminMemDelDo(member);
+		
+		return "redirect:/adminMemView";
+		
 	}
 	
 }
