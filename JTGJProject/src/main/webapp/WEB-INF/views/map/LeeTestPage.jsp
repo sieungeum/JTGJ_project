@@ -13,6 +13,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 	<script src="js/MarkerClustering.js"></script>
+	<script src="js//TL_SCCO_CTPRVN.js"></script>
     
     <style>
         *{
@@ -116,6 +117,102 @@
         // 건물의 정보를 넣을 div
         let v_buildingDetail = document.getElementsByClassName('building-more-detail');
         
+
+		/* 행정구역 작업 */
+        // 행정구역별 좌표를 배열로 저장
+        const regions = [
+            { name: "서울특별시", coords: [37.5665, 126.9780] },
+            { name: "부산광역시", coords: [35.1796, 129.0756] },
+            { name: "대구광역시", coords: [35.8022, 128.6018] },
+            { name: "인천광역시", coords: [37.4563, 126.7052] },
+            { name: "광주광역시", coords: [35.1595, 126.8526] },
+            { name: "대전광역시", coords: [36.3504, 127.3845] },
+            { name: "울산광역시", coords: [35.5384, 129.3114] },
+            { name: "세종특별자치시", coords: [36.4871, 127.2817] },
+            { name: "경기도", coords: [37.867, 127.190] },
+            { name: "강원도", coords: [37.755, 128.209] },
+            { name: "충청북도", coords: [36.6357, 127.6914] },
+            { name: "충청남도", coords: [36.5184, 126.8009] },
+            { name: "전라북도", coords: [35.6204, 127.1088] },
+            { name: "전라남도", coords: [34.8160, 126.6630] },
+            { name: "경상북도", coords: [36.5760, 128.7056] },
+            { name: "경상남도", coords: [35.2383, 128.3021] },
+            { name: "제주특별자치도", coords: [33.3996, 126.5312] }
+        ];
+
+        // v_json 데이터를 지도에 추가
+        map.data.addGeoJson(v_json);
+
+        // GeoJSON Feature별로 마커 추가
+        let new_markers = [];
+        map.data.forEach(function(feature) {
+            let geometry = feature['_raw']['geometry'];
+
+            if (geometry['type'] === 'Polygon') {
+                let coordinates = geometry['coordinates'];
+                let region = feature['property_CTP_KOR_NM'];
+                let position;
+                for(let i = 0; i < regions.length; i++){
+                    if(region == regions[i]['name']){
+                        position = new naver.maps.LatLng(regions[i]['coords'][0], regions[i]['coords'][1]);
+                        break;
+                    }
+                }
+
+                // 중심 좌표에 마커 추가
+                let marker = new naver.maps.Marker({
+                    position: position,
+                    map: map,
+                    title: feature.getProperty('CTP_ENG_NM') // GeoJSON 속성에서 이름 가져옴
+                });
+                new_markers.push(marker); // 마커 배열에 저장
+            }
+        });
+
+        // GeoJSON 스타일 설정 (폴리곤 스타일링)
+        map.data.setStyle(function(feature) {
+            return {
+                fillColor: '#FFFFFF',   // 폴리곤 채우기 색상
+                fillOpacity: 0.3,       // 채우기 불투명도
+                strokeColor: '#00FF82', // 경계선 색상
+                strokeWeight: 4,        // 경계선 두께
+                strokeOpacity: 0.7      // 경계선 불투명도
+            };
+        });
+
+
+
+         // 줌 레벨에 따른 마커/클러스터링 처리
+         naver.maps.Event.addListener(map, 'zoom_changed', function() {
+            let zoomLevel = map.getZoom();
+
+            console.log(zoomLevel);
+
+            if(zoomLevel < 9){
+                // 마커와 클러스터링 제거
+                clearMarkersAndClusters();
+                
+                // 줌 레벨이 8 이하일 때 마커 및 GeoJSON 다시 표시
+                new_markers.forEach(marker => marker.setMap(map)); // 모든 마커 다시 표시
+                map.data.setStyle(function(feature) { // GeoJSON 스타일 다시 적용
+                    return {
+                        visible: true,
+                        fillColor: '#FFFFFF',
+                        fillOpacity: 0.3,
+                        strokeColor: '#00FF82',
+                        strokeWeight: 4,
+                        strokeOpacity: 0.7
+                    };
+                });
+            }else{
+                // 줌 레벨이 8을 초과하면 마커 제거 및 GeoJSON 숨기기
+                new_markers.forEach(marker => marker.setMap(null)); // 모든 마커 제거
+                map.data.setStyle({ visible: false }); // GeoJSON 레이어 숨기기
+                createCluster(markers);
+            }
+        });
+        
+        
         // 마커 클러스터 생성 함수
         function createCluster(applyMarker){
 
@@ -167,6 +264,18 @@
                 }
             });
             map.refresh();
+        }
+        
+     	// 마커와 클러스터링 제거 함수
+        function clearMarkersAndClusters(){
+            if(markerClustering){
+                markerClustering.map = null;
+                markerClustering = null;
+            }
+
+            markers.forEach(function(marker){
+                marker.setMap(null);
+            });
         }
         
     	// 에너지 등급에 따른 마커 이미지 html/css 
@@ -245,7 +354,6 @@
             } else{
                 // 모든 마커가 생성된 후 클러스터링
                 console.log('모든 마커 생성 완료');
-                createCluster(markers);
             }
         }
 		
