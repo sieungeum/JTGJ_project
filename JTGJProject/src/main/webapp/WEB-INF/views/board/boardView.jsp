@@ -33,22 +33,36 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${boardList }" var="board">
+						<c:forEach items="${notice}" var="notice">
+							<tr>
+								<td scope="row">공지</td>
+								<td><a href="${pageContext.request.contextPath}/noticeDetailView?notiNo=${notice.notiNo}">${notice.notiTitle}</a></td>
+								<td>${notice.memName}</td>
+								<td>${notice.notiDate}</td>
+							</tr>
+						</c:forEach>
+						<c:forEach items="${boardList}" var="board">
 							<tr>
 								<td scope="row">${board.boardNo }</td>
-								<td><a
-									href="${pageContext.request.contextPath}/boardDetailView?boardNo=${board.boardNo}">${board.boardTitle }</a></td>
+								<td><a href="${pageContext.request.contextPath}/boardDetailView?boardNo=${board.boardNo}">${board.boardTitle }</a></td>
 								<td>${board.memName }</td>
 								<td>${board.boardDate }</td>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
+				
 				<div class="col-lg-8 col-xl-7 d-flex justify-content-end">
 					<a href="${pageContext.request.contextPath }/boardWriteView">
 						<button class="btn btn-primary btn-xl">글쓰기</button>
 					</a>
 				</div>
+		
+				<c:if test='${sessionScope.login.memId == "admin"}'>
+					<div class="btn">
+						<a href="${pageContext.request.contextPath}/noticeWriteView">공지사항 작성</a>
+					</div>
+				</c:if>
 
 				<div>
 					<form class="d-flex justify-content-center"
