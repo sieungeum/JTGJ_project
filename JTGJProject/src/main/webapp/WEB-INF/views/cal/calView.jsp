@@ -9,6 +9,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	어서와 계산해야겠지?
+	
 </body>
 </html>
