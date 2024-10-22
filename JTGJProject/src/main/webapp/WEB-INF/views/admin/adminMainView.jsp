@@ -26,7 +26,9 @@
 								<thead>
 									<tr>
 										<th scope ="col"><a href="${pageContext.request.contextPath }/buildingView">건물 상세보기</a></th>
-										<th scope ="col">회원관리</th>	
+										<c:if test="${sessionScope.login.memAdminYn == 'Y'|| sessionScope.login.memAdminYn == 'K'  }">
+											<th scope ="col"><a href="${pageContext.request.contextPath }/adminMemView">회원관리</a></th>	
+										</c:if>
 									</tr>
 								</thead>
 							</table>

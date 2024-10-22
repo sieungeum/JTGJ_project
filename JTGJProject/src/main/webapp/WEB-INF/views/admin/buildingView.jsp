@@ -48,10 +48,13 @@
 							<table id="table">
 								<thead>
 									<tr>
-										<th scope ="col">번호</th>
-										<th scope ="col">제목</th>
-										<th scope ="col">작성자</th>
-										<th scope ="col">날짜</th>
+										<th scope ="col">용도</th>
+										<th scope ="col">건물명</th>
+										<th scope ="col">에너지효율등급</th>
+										<th scope ="col">발급일</th>
+										<th scope ="col">주소</th>
+										<th scope ="col">ZEB 유무</th>
+										<th scope ="col">1차 에너지 소요량</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -60,11 +63,11 @@
 										<tr>
 											<td scope = "row">${admin.purposeKindName }</td>
 											<td>${admin.bldNm }</td>
-											<td>${admin.grdName }</td>
+											<td>${admin.grdName }  </td>
 											<td>${admin.crtifIsuDd }</td>
 											<td>${admin.locAddr }</td>
-											<td>${admin.zeb }</td>
-											<!-- 1차에너지 소요량 추가 -->
+											<td>${admin.zeb } </td>
+											<td>${admin.wOneEnergyRequire }</td>
 											<td>
 												<a href="<c:url value="/buildingDetailView?bldNm=${admin.bldNm }&purposeKindName=${admin.purposeKindName }" />">
 													<button class="btn btn-primary btn-xl">상세 보기</button>

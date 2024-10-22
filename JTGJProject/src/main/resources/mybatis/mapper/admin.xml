@@ -122,5 +122,49 @@
     )
 	</insert>
 	
+	<select id="getAdminMemList" parameterType="com.jtgz.jtgzproject.common.dto.SearchDTO" resultType="com.jtgz.jtgzproject.member.dto.MemberDTO">
+		SELECT
+			mem_id
+			, mem_pw
+			, mem_name
+			, mem_email
+			, mem_date
+			, mem_cer_yn
+			, mem_admin_yn 
+		FROM 
+			members
+		WHERE 1=1
+		<if test="searchWord != null">
+			<choose>
+				<when test="searchOption.equals('name')">AND mem_name LIKE '%' || #{searchWord} || '%'</when>
+				<when test="searchOption.equals('id')">AND mem_id LIKE '%' || #{searchWord} || '%'</when>
+				<when test="searchOption.equals('email')">AND mem_email LIKE '%' || #{searchWord} || '%'</when>
+			</choose>
+		</if>	
+		
+	</select>
+	
+	<update id="adminMemDo" parameterType="com.jtgz.jtgzproject.member.dto.MemberDTO">
+	    UPDATE 
+	        members
+	    SET
+	    	mem_admin_yn = 'K'                      
+	    WHERE 1=1
+	        AND mem_id = #{memId} 
+	        AND mem_name = #{memName}
+	</update>
+	
+	<update id="adminMemDelDo" parameterType="com.jtgz.jtgzproject.member.dto.MemberDTO">
+	    UPDATE 
+	        members
+	    SET
+	    	mem_admin_yn = 'N'                      
+	    WHERE 
+	        mem_id = #{memId} 
+	        AND mem_name = #{memName}
+	</update>
+	
+	
+	
 
 </mapper>
