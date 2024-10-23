@@ -17,8 +17,19 @@ div {
 }
 
 .container{
-	
+	background-color: white;
 }
+
+.calculator h2, 
+.calculator p, 
+.calculator label {
+    color: black; /* 글자 색을 검정색으로 설정 */
+}
+
+.col{
+	color: black;
+}
+
 
 .title{
 	font-size: 40px;
@@ -30,11 +41,11 @@ div {
 }
 
 .box {
-	color: white;
+	color: write;
 	width: 250px;
 	height: 15px;
 	background-color: black;
-	border-color: white;
+	border-color: black;
 }
 
 .box2 {
@@ -42,7 +53,7 @@ div {
 	width: 300px;
 	height: 40px;
 	background-color: black;
-	border-color: white;
+	border-color: black;
 }
 
 .calculator {
@@ -66,6 +77,7 @@ div {
 .main {
 	display: flex; /* 수평으로 배치 */
 	justify-content: center; /* 중앙 정렬 */
+	border: solid 2px green;
 }
 
 .mini {
@@ -89,6 +101,10 @@ input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0; /* 기본 여백 제거 */
+}
+
+.btn{
+	background-color: black;
 }
 
 
@@ -297,9 +313,9 @@ function showCalculator(calcNumber) {
 <body>
 	<div class="container">
 	<h1>계산기 선택</h1>
-	<button onclick="showCalculator(1)">탄소배출량 계산기</button>
-	<button onclick="showCalculator(2)">건물 에너지 자립률 계산기</button>
-	<button onclick="showCalculator(3)">에너지효율등급 계산기</button>
+	<button class="btn" onclick="showCalculator(1)">탄소배출량 계산기</button>
+	<button class="btn" onclick="showCalculator(2)">건물 에너지 자립률 계산기</button>
+	<button class="btn" onclick="showCalculator(3)">에너지효율등급 계산기</button>
 
 	<!-- 1번 계산기: 탄소배출량 계산기 -->
 	<div id="calculator1" class="calculator">
@@ -311,7 +327,7 @@ function showCalculator(calcNumber) {
 				</h2>
 				<input class="box" type="number" id="inputValue"
 					placeholder="월간 전기 사용량">
-				<button onclick="calculateElectricity()">계산하기</button>
+				<button class="btn" onclick="calculateElectricity()">계산하기</button>
 				<p class="coment">(전기 탄소배출량: 전기사용량 * 0.4781)</p>
 				<h2>
 					<p id="result" class="result"></p>
@@ -323,7 +339,7 @@ function showCalculator(calcNumber) {
 				</h2>
 				<input class="box" type="number" id="inputValue2"
 					placeholder="월간 가스 사용량">
-				<button onclick="calculateGas()">계산하기</button>
+				<button class="btn" onclick="calculateGas()">계산하기</button>
 				<p class="coment">(가스 탄소배출량: 가스사용량 * 2.176)</p>
 				<h2>
 					<p id="result2" class="result"></p>
@@ -354,23 +370,23 @@ function showCalculator(calcNumber) {
 			</div>
 		</div>
 
-		<button onclick="calculateSelfSufficiency()">계산하기</button>
+		<button class="btn" onclick="calculateSelfSufficiency()">계산하기</button>
 		<p class="coment">(해당 계산은 예상 등급이며, 실제 측정 결과와 다를 수 있습니다.)</p>
 		<div class="total">
 			<h2>
 				<p id="result4" class="result4"></p>
 			</h2>
 		</div>
-		<button onclick="window.open('https://zeb.energy.or.kr/BC/BC03/BC03_07_001.do');">인증 신청하러 바로가기!</button>
+		<button class="btn" onclick="window.open('https://zeb.energy.or.kr/BC/BC03/BC03_07_001.do');">인증 신청하러 바로가기!</button>
 	</div>
 
 	<div>
 		<div id="calculator3" class="calculator">
 			<h1>에너지효율등급 계산기</h1>
 				<div>
-					<button id="residentialBtn"
+					<button class="btn" id="residentialBtn"
 						onclick="selectBuildingType('residential')">주거용 건물</button>
-					<button id="commercialBtn"
+					<button class="btn" id="commercialBtn"
 						onclick="selectBuildingType('commercial')">주거용 외 건물</button>
 				</div>
 			<div class="main">
@@ -427,14 +443,14 @@ function showCalculator(calcNumber) {
 			</div>
 			<p class="coment2">(해당 계산은 예상 등급이며, 실제 측정 결과와 다를 수 있습니다.)</p>
 			<p class="coment2">(해당 계산은 전기에너지를 기준으로 측정하였습니다 .)</p>
-			<button onclick="basicCalculator()">계산하기</button>
+			<button class="btn" onclick="basicCalculator()">계산하기</button>
 			<div class="total">
 				<h2>
 					<p id="result6" class="result5"></p>
 					<p id="result5" class="result5"></p>
 				</h2>
 			</div>
-			<button onclick="window.open('https://beec.energy.or.kr/BC/BC02/BC02_04_002.do');">인증 신청하러 바로가기!</button>
+			<button class="btn" onclick="window.open('https://beec.energy.or.kr/BC/BC02/BC02_04_002.do');">인증 신청하러 바로가기!</button>
 		</div>
 	</div>
 </div>
