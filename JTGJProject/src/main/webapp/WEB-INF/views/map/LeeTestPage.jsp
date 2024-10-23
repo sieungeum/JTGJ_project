@@ -14,6 +14,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 	<script src="js/MarkerClustering.js"></script>
 	<script src="js//TL_SCCO_CTPRVN.js"></script>
+	<script src="js//custom_overlay.js"></script>
     
     <style>
         *{
@@ -116,10 +117,85 @@
 
         // 건물의 정보를 넣을 div
         let v_buildingDetail = document.getElementsByClassName('building-more-detail');
-        
 
-		/* 행정구역 작업 */
-        // 행정구역별 좌표를 배열로 저장
+        // 줌 8 이하 시 나타나는 커스텀 오버레이를 담을 배열
+        let overlays = [];
+        
+        // promise 로 먼저 실행
+   		// chunk 이용 -> 각각의 마커 생성시 일일이 map에 적용하지 않음
+        function loadMarkersInChunks(v_jsonData, startIndex = 0){
+   			return new Promise((resolve) => {
+   				let endIndex = Math.min(startIndex + CHUNK_SIZE, v_jsonData['address'].length);
+
+   	            for(let i = startIndex; i < endIndex; i++){
+   	                if(!v_jsonData['lat'][i] || !v_jsonData['lng'][i]) continue;
+
+   	                let marker = new naver.maps.Marker({
+   	                    position: new naver.maps.LatLng(v_jsonData['lat'][i], v_jsonData['lng'][i]),
+   	                    title: v_jsonData['name'][i],
+   	                    icon: {
+   	                        content: getMarkerIconByGrade(v_jsonData['grade'][i])
+   	                    },
+   	                    draggable: false,
+   	                    grade: v_jsonData['grade'][i],
+   	                    address: v_jsonData['address'][i],
+   	                    zeb: v_jsonData['zeb'][i]
+   	                });
+
+   	                // 마커 클릭 이벤트 추가
+   	                naver.maps.Event.addListener(marker, "click", function() {
+   	                	// 발전량 추가
+   	                	if(marker['zeb'] == 'N' && marker['grade'].length > 4) {
+   	                		v_buildingDetail[0].innerHTML = 
+   	    				        '목적: ' + v_jsonData['purpose'][i] + '<br>' +
+   	    				        '건물이름: ' + v_jsonData['name'][i] + '<br>' +
+   	    				        '주소: ' + v_jsonData['address'][i] + '<br>' +
+   	    				        '에너지효율등급: ' + v_jsonData['grade'][i] + '<br>' +
+   	    				        '1차 에너지 소요량: ' + v_jsonData['1st_energy'][i] + '<br>' +
+   	    				        '인증일자: ' + v_jsonData['crtif'][i] + '<br>' +
+   	    				        '그린에너지건축등급: ' + v_jsonData['zeb'][i] + '<br>' +
+   	                			'1000m^2 : ' + v_jsonData['mm_thous_p'][i] + '<br>' +
+   	                			'10000m^2 : ' + v_jsonData['mm_ten_thous_p'][i] + '<br>' +
+   	                			'50000m^2 : ' + v_jsonData['mm_fifty_thous_p'][i];
+   	                	} else {
+   	               			v_buildingDetail[0].innerHTML = 
+   	       				        '목적: ' + v_jsonData['purpose'][i] + '<br>' +
+   	       				        '건물이름: ' + v_jsonData['name'][i] + '<br>' +
+   	       				        '주소: ' + v_jsonData['address'][i] + '<br>' +
+   	       				        '에너지효율등급: ' + v_jsonData['grade'][i] + '<br>' +
+   	       				        '1차 에너지 소요량: ' + v_jsonData['1st_energy'][i] + '<br>' +
+   	       				        '인증일자: ' + v_jsonData['crtif'][i] + '<br>' +
+   	       				        '그린에너지건축등급: ' + v_jsonData['zeb'][i] + '<br>';
+   	                	}
+   					});
+
+   	                markers.push(marker);
+   	                regionSort(marker);
+   	            }
+
+   	            // 다음 청크로 이동
+   	            if(endIndex < v_jsonData['address'].length){
+   	                requestAnimationFrame(() => loadMarkersInChunks(v_jsonData, endIndex).then(resolve));
+   	            } else{
+   	                // 모든 마커가 생성된 후 클러스터링
+   	                console.log('모든 마커 생성 완료');
+   	                resolve(); // 모든 마커 로드 후 resolve 호출
+   	            }   				
+   			});
+        }
+
+        /* 행정구역 작업 */ 
+        // 행정구역별 마커를 저장할 배열 선언
+        // 각 지역의 배열 안에는 그 지역에 해당하는 마커들이 들어감
+        let region_marker_count = {
+            '서울특별시' : [], '부산광역시' : [], '대구광역시' : [], '인천광역시' : [],
+            '광주광역시' : [], '대전광역시' : [], '울산광역시' : [], '세종특별자치시' : [],
+            '경기도' : [], '강원도' : [], '충청북도' : [], '충청남도' : [],
+            '전라북도' : [], '전라남도' : [], '경상북도' : [], '경상남도' : [],
+            '제주특별자치도' : [], '기타' : []
+        }   		
+   		
+		// 행정구역별 중심좌표를 배열로 저장
         const regions = [
             { name: "서울특별시", coords: [37.5665, 126.9780] },
             { name: "부산광역시", coords: [35.1796, 129.0756] },
@@ -140,80 +216,61 @@
             { name: "제주특별자치도", coords: [33.3996, 126.5312] }
         ];
 
+     	// 행정구역 분류 함수
+        // 마커가 인자로 들어감
+        function regionSort(address){
+            // address undefined 또는 null이 아닌지 확인
+            if (address['address'] && typeof address['address'] === 'string') {
+                if (address['address'].includes('서울') && !address['address'].includes('경기')) {
+                    region_marker_count['서울특별시'].push(address);
+                } else if (address['address'].includes('경기') && !address['address'].includes('경기장')) {
+                    region_marker_count['경기도'].push(address);
+                } else if (address['address'].includes('부산') && (!address['address'].includes('경남') && !address['address'].includes('전남'))) {
+                    region_marker_count['부산광역시'].push(address);
+                } else if (address['address'].includes('대구')) {
+                    region_marker_count['대구광역시'].push(address);
+                } else if (address['address'].includes('인천')) {
+                    region_marker_count['인천광역시'].push(address);
+                } else if (address['address'].includes('광주')) {
+                    region_marker_count['광주광역시'].push(address);
+                } else if (address['address'].includes('대전') && !address['address'].includes('강원')) {
+                    region_marker_count['대전광역시'].push(address);
+                } else if (address['address'].includes('울산')) {
+                    region_marker_count['울산광역시'].push(address);
+                } else if (address['address'].includes('세종')) {
+                    region_marker_count['세종특별자치시'].push(address);
+                } else if (address['address'].includes('강원')) {
+                    region_marker_count['강원도'].push(address);
+                } else if (address['address'].includes('제주')) {
+                    region_marker_count['제주특별자치도'].push(address);
+                } else if (address['address'].includes('충청북도') || address['address'].includes('충북')) {
+                    region_marker_count['충청북도'].push(address);
+                } else if (address['address'].includes('충청남도') || address['address'].includes('충남')) {
+                    region_marker_count['충청남도'].push(address);
+                } else if (address['address'].includes('전라남도') || address['address'].includes('전남')) {
+                    region_marker_count['전라남도'].push(address);
+                } else if (address['address'].includes('전라북도') || address['address'].includes('전북')) {
+                    region_marker_count['전라북도'].push(address);
+                } else if (address['address'].includes('경상북도') || address['address'].includes('경북')) {
+                    region_marker_count['경상북도'].push(address);
+                } else if (address['address'].includes('경상남도') || address['address'].includes('경남')) {
+                    region_marker_count['경상남도'].push(address);
+                } else {
+                    region_marker_count['기타'].push(address);
+                }
+            } else {
+                console.log("유효하지 않은 데이터 : " + address);
+            }
+        }        
+        
         // v_json 데이터를 지도에 추가
         map.data.addGeoJson(v_json);
 
         // GeoJSON Feature별로 마커 추가
         let new_markers = [];
-        map.data.forEach(function(feature) {
-            let geometry = feature['_raw']['geometry'];
-
-            if (geometry['type'] === 'Polygon') {
-                let coordinates = geometry['coordinates'];
-                let region = feature['property_CTP_KOR_NM'];
-                let position;
-                for(let i = 0; i < regions.length; i++){
-                    if(region == regions[i]['name']){
-                        position = new naver.maps.LatLng(regions[i]['coords'][0], regions[i]['coords'][1]);
-                        break;
-                    }
-                }
-
-                // 중심 좌표에 마커 추가
-                let marker = new naver.maps.Marker({
-                    position: position,
-                    map: map,
-                    title: feature.getProperty('CTP_ENG_NM') // GeoJSON 속성에서 이름 가져옴
-                });
-                new_markers.push(marker); // 마커 배열에 저장
-            }
-        });
-
-        // GeoJSON 스타일 설정 (폴리곤 스타일링)
-        map.data.setStyle(function(feature) {
-            return {
-                fillColor: '#FFFFFF',   // 폴리곤 채우기 색상
-                fillOpacity: 0.3,       // 채우기 불투명도
-                strokeColor: '#00FF82', // 경계선 색상
-                strokeWeight: 4,        // 경계선 두께
-                strokeOpacity: 0.7      // 경계선 불투명도
-            };
-        });
-
-
-
-         // 줌 레벨에 따른 마커/클러스터링 처리
-         naver.maps.Event.addListener(map, 'zoom_changed', function() {
-            let zoomLevel = map.getZoom();
-
-            console.log(zoomLevel);
-
-            if(zoomLevel < 9){
-                // 마커와 클러스터링 제거
-                clearMarkersAndClusters();
-                
-                // 줌 레벨이 8 이하일 때 마커 및 GeoJSON 다시 표시
-                new_markers.forEach(marker => marker.setMap(map)); // 모든 마커 다시 표시
-                map.data.setStyle(function(feature) { // GeoJSON 스타일 다시 적용
-                    return {
-                        visible: true,
-                        fillColor: '#FFFFFF',
-                        fillOpacity: 0.3,
-                        strokeColor: '#00FF82',
-                        strokeWeight: 4,
-                        strokeOpacity: 0.7
-                    };
-                });
-            }else{
-                // 줌 레벨이 8을 초과하면 마커 제거 및 GeoJSON 숨기기
-                new_markers.forEach(marker => marker.setMap(null)); // 모든 마커 제거
-                map.data.setStyle({ visible: false }); // GeoJSON 레이어 숨기기
-                createCluster(markers);
-            }
-        });
         
-        
-        // 마커 클러스터 생성 함수
+        /* 클러스터링 작업 */
+     	// 마커 클러스터 생성 함수
         function createCluster(applyMarker){
 
             console.log('클러스터링 실행');
@@ -250,14 +307,14 @@
             }
 
             markerClustering = new MarkerClustering({
-                minClusterSize: 10,
-                maxZoom: 14,
+                minClusterSize: 2,
+                maxZoom: 15,
                 map: map,
                 markers: applyMarker,
                 disableClickZoom: false,
-                gridSize: 200,
+                gridSize: 100,
                 icons: [htmlMarker1, htmlMarker2, htmlMarker3, htmlMarker4, htmlMarker5],
-                indexGenerator: [50, 100, 200, 300, 500],
+                indexGenerator: [10, 50, 100, 300, 500],
                 averageCenter: true,
                 stylingFunction: function(clusterMarker, count) {
                     $(clusterMarker.getElement()).find('div:first-child').text(count);
@@ -267,14 +324,18 @@
         }
         
      	// 마커와 클러스터링 제거 함수
-        function clearMarkersAndClusters(){
+        function clearMarkersAndClusters(hideOnly = false){
             if(markerClustering){
                 markerClustering.map = null;
                 markerClustering = null;
             }
 
             markers.forEach(function(marker){
-                marker.setMap(null);
+            	if(hideOnly){
+            		marker.setVisible(false); // 마커 숨기기
+            	} else {
+            		marker.setMap(null); // 마커 제거	
+            	}
             });
         }
         
@@ -293,122 +354,187 @@
             } else {
                 return '<div><img src="./images/question-diamond.svg" style="background-color:#EEEEEE;border-radius:100%;"></div>';
             }
-        }
-     
-		// chunk 이용 -> 각각의 마커 생성시 일일이 map에 적용하지 않음
-        function loadMarkersInChunks(v_jsonData, startIndex = 0){
-            let endIndex = Math.min(startIndex + CHUNK_SIZE, v_jsonData['address'].length);
+        }        
+    	
+        
+    	
+    	
+    	
+    	
+        map.data.forEach(function(feature) {
+            let geometry = feature['_raw']['geometry'];
 
-            for(let i = startIndex; i < endIndex; i++){
-                if(!v_jsonData['lat'][i] || !v_jsonData['lng'][i]) continue;
-
-                let marker = new naver.maps.Marker({
-                    position: new naver.maps.LatLng(v_jsonData['lat'][i], v_jsonData['lng'][i]),
-                    title: v_jsonData['name'][i],
-                    icon: {
-                        content: getMarkerIconByGrade(v_jsonData['grade'][i])
-                    },
-                    draggable: false,
-                    grade: v_jsonData['grade'][i],
-                    address: v_jsonData['address'][i],
-                    zeb: v_jsonData['zeb'][i]
-                });
-
-                // 마커 클릭 이벤트 추가
-                naver.maps.Event.addListener(marker, "click", function() {
-                	// 발전량 추가
-                	if(marker['zeb'] == 'N' && marker['grade'].length > 4){
-                		v_buildingDetail[0].innerHTML = 
-    				        '목적: ' + v_jsonData['purpose'][i] + '<br>' +
-    				        '건물이름: ' + v_jsonData['name'][i] + '<br>' +
-    				        '주소: ' + v_jsonData['address'][i] + '<br>' +
-    				        '에너지효율등급: ' + v_jsonData['grade'][i] + '<br>' +
-    				        '1차 에너지 소요량: ' + v_jsonData['1st_energy'][i] + '<br>' +
-    				        '인증일자: ' + v_jsonData['crtif'][i] + '<br>' +
-    				        '그린에너지건축등급: ' + v_jsonData['zeb'][i] + '<br>' +
-                			'1000m^2 : ' + v_jsonData['mm_thous_p'][i] + '<br>' +
-                			'10000m^2 : ' + v_jsonData['mm_ten_thous_p'][i] + '<br>' +
-                			'50000m^2 : ' + v_jsonData['mm_fifty_thous_p'][i];
-                	} else{
-               			v_buildingDetail[0].innerHTML = 
-       				        '목적: ' + v_jsonData['purpose'][i] + '<br>' +
-       				        '건물이름: ' + v_jsonData['name'][i] + '<br>' +
-       				        '주소: ' + v_jsonData['address'][i] + '<br>' +
-       				        '에너지효율등급: ' + v_jsonData['grade'][i] + '<br>' +
-       				        '1차 에너지 소요량: ' + v_jsonData['1st_energy'][i] + '<br>' +
-       				        '인증일자: ' + v_jsonData['crtif'][i] + '<br>' +
-       				        '그린에너지건축등급: ' + v_jsonData['zeb'][i] + '<br>';
-                	}
-                	
-				    
-				});
-
-                markers.push(marker);
-            }
-
-            // 다음 청크로 이동
-            if(endIndex < v_jsonData['address'].length){
-                requestAnimationFrame(function() {
-                    loadMarkersInChunks(v_jsonData, endIndex);
-                });
-            } else{
-                // 모든 마커가 생성된 후 클러스터링
-                console.log('모든 마커 생성 완료');
-            }
-        }
-		
-        // 검색 기능
-        let v_inputName = document.getElementById('input_name');
-        let v_buildingSelect = document.getElementById('building-select');
-        function searchBuilding(){
-            console.log("검색기능 클릭");
-            v_buildingDetail[0].innerHTML = "";
-
-            let inputValue = v_inputName.value;
-            let selectValue = v_buildingSelect.value;
-
-            let firstMarkers = [];
-            let secMarkers = [];
-
-            if(selectValue == "-1"){
-                alert('정확한 조건을 선택해주세요!');
-                v_inputName.value = "";
-                return;
-            }
-
-            // markers 배열에 저장된 마커들 삭제 
-            for(let i = 0; i < markers.length; i++){
-                markers[i].setMap(null);
-            }
-
-            // input으로 marker들 1차 선별
-            for(let i = 0; i < markers.length; i++){
-                if(markers[i]['address'].includes(inputValue)){
-                    firstMarkers.push(markers[i]);
-                }
-            }
-
-            console.log(firstMarkers);
-
-            console.log(selectValue);
-            // select로 2차 선별
-            if(selectValue == 0){
-                for(let i = 0; i < firstMarkers.length; i++){
-                    secMarkers.push(firstMarkers[i]);
-                }
-            } else{
-                for(let i = 0; i < firstMarkers.length; i++){
-                    if(firstMarkers[i]['grade'] == selectValue){
-                        secMarkers.push(firstMarkers[i]);
+            if (geometry['type'] === 'Polygon') {
+                let coordinates = geometry['coordinates'];
+                let region = feature['property_CTP_KOR_NM'];
+                let position;
+                for(let i = 0; i < regions.length; i++){
+                    if(region == regions[i]['name']){
+                        position = new naver.maps.LatLng(regions[i]['coords'][0], regions[i]['coords'][1]);
+                        break;
                     }
                 }
+
+                // 중심 좌표에 마커 추가
+                let marker = new naver.maps.Marker({
+                    position: position,
+                    map: map,
+                    title: feature.getProperty('CTP_ENG_NM') // GeoJSON 속성에서 이름 가져옴
+                });
+                new_markers.push(marker); // 마커 배열에 저장
+            }
+        });
+
+        // GeoJSON 스타일 설정 (폴리곤 스타일링)
+        map.data.setStyle(function(feature) {
+            return {
+                fillColor: '#FFFFFF',   // 폴리곤 채우기 색상
+                fillOpacity: 0.3,       // 채우기 불투명도
+                strokeColor: '#00FF82', // 경계선 색상
+                strokeWeight: 4,        // 경계선 두께
+                strokeOpacity: 0.7      // 경계선 불투명도
+            };
+        });
+
+     	// 검색 기능
+        let v_inputName = document.getElementById('input_name');
+        let v_buildingSelect = document.getElementById('building-select');
+        let isSearching = false; // true 일 시 검색함수 실행
+        function searchBuilding(){
+        	v_buildingDetail[0].innerHTML = "";
+            isSearching = true;
+            let selectGrade = v_buildingSelect.value; // 선택된 에너지 등급
+            let inputAddress = v_inputName.value.trim(); // 주소값
+
+            // 기존 region_marker_count 와 markers 필터링
+            // (1) markers 필터링
+            let filteredMarkers = markers.filter(marker => {
+                let addressMatches = marker.address.includes(inputAddress);
+                let gradeMatches = marker.grade === selectGrade || selectGrade === "0"; // 0은 전체보기
+                return addressMatches && gradeMatches;
+            });
+        
+            // (2) region_marker_count 필터링
+            let filteredRegionMarkerCount = {};
+            for (let region in region_marker_count) {
+                filteredRegionMarkerCount[region] = region_marker_count[region].filter(marker => {
+                    return filteredMarkers.includes(marker);
+                });
             }
 
-            createCluster(secMarkers);  // 필터링된 마커로 클러스터링
-            map.setZoom(7);
+            // 줌 레벨에 따른 오버레이 및 클러스터 처리
+            let zoomLevel = map.getZoom();
+            if (zoomLevel < 9){
+                clearMarkersAndClusters(); // 기존 마커 제거
+                // 오버레이의 content를 filteredRegionMarkerCount에 맞춰 업데이트
+                overlays.forEach(overlay => {
+                    let regionName = overlay._element.text().split(':')[0]; // 지역 이름 추출
+                    let newCount = filteredRegionMarkerCount[regionName] ? filteredRegionMarkerCount[regionName].length : 0;
 
-            v_inputName.value = "";
+                    // 기존 지역 이름 유지하고 content만 변경
+                    overlay._element.html(regionName + ": " + newCount);
+                    overlay.setMap(map); // 오버레이 다시 표시
+                });
+                new_markers.forEach(marker => marker.setMap(map)); // 모든 마커 다시 표시
+                            
+            } else {
+                // 클러스터링 작업
+                clearMarkersAndClusters() // 기존 마커 제거
+                overlays.forEach(overlay => overlay.setMap(null)); // 커스텀 오버레이 표시
+                new_markers.forEach(marker => marker.setMap(null)); // 모든 마커 제거
+                createCluster(filteredMarkers);
+            }
         }
+        
+        // loadMarkersInChunks() 함수 실행 후 나머지 기능 실행
+        async function mainProgram(){
+        	await loadMarkersInChunks(v_jsonData);
+        	
+        	console.log('데이터 불러오기 완료!');
+        	
+        	// 행정 마커 추가
+			map.data.forEach(function(feature) {
+                let geometry = feature['_raw']['geometry'];
+
+                if (geometry['type'] === 'Polygon') {
+                    let coordinates = geometry['coordinates'];
+                    let region = feature['property_CTP_KOR_NM'];
+                    let count = 0;
+                    let position;
+                    
+                    // 지역명이 같다면 위도, 경도 저장
+                    for(let i = 0; i < regions.length; i++){
+                        if(region == regions[i]['name']){
+                            position = new naver.maps.LatLng(regions[i]['coords'][0], regions[i]['coords'][1]);
+                            break;
+                        }
+                    }
+
+                    // 지역명이 같다면 마커의 개수 저장
+                    for(let key in region_marker_count){
+                        if(region.includes(key)){
+                            count = region_marker_count[key].length;
+                            break;
+                        }
+                    }
+
+                    // 중심 좌표에 마커 추가
+                    let marker = new naver.maps.Marker({
+                        position: position,
+                        map: map,
+                        title: feature.getProperty('CTP_ENG_NM') // GeoJSON 속성에서 이름 가져옴
+                    });
+
+                    // 오버레이 생성
+                    let overlay = new CustomOverlay({
+                        position: position,
+                        map: map,
+                        content: region + ': ' + count,
+                    });
+
+                    overlays.push(overlay);
+                    new_markers.push(marker); // 마커 배열에 저장
+                }
+            });        	
+        	
+        	
+         	// GeoJSON 스타일 설정(폴리곤 스타일링)
+            map.data.setStyle(function(feature) { 
+                return {
+                    fillColor: '#FFFFFF', // 폴리곤 색상 채우기
+                    fillOpacity: 0.3, // 채우기 불투명도
+                    strokeColor: '#00FF82', // 경계선 색상
+                    strokeWeight: 4, // 경계선 두께
+                    strokeOpacity: 0.7 // 경계선 불투명도
+                };
+            });
+
+         	// 줌 레벨에 따른 마커/클러스터링 처리
+            naver.maps.Event.addListener(map, 'zoom_changed', function() {
+                let zoomLevel = map.getZoom();
+
+                if(isSearching){
+                    // 검색 중이면 기존 이벤트 중단 -> searchAllBuilding 호출
+                    searchBuilding();
+                } else{
+                if(zoomLevel < 9){
+                        // 마커와 클러스터링 제거
+                        clearMarkersAndClusters();
+                        
+                        // 줌 레벨이 8 이하일 때 마커 및 GeoJSON 다시 표시
+                        overlays.forEach(overlay => overlay.setMap(map)); // 커스텀 오버레이 표시
+                        new_markers.forEach(marker => marker.setMap(map)); // 모든 마커 다시 표시
+                    }else{
+                        // 줌 레벨이 8을 초과하면 마커 제거 및 GeoJSON 숨기기
+                        overlays.forEach(overlay => overlay.setMap(null)); // 커스텀 오버레이 표시
+                        new_markers.forEach(marker => marker.setMap(null)); // 모든 마커 제거
+                        createCluster(markers);
+                    }
+                }
+                
+            });        	
+        }
+        
 
         
         // Ajax로 데이터 받아오기
@@ -448,7 +574,8 @@
                  
                  console.log(v_jsonData);
                  
-                 loadMarkersInChunks(v_jsonData);
+                 // 마커 로드 후 프로그램 진행
+                 mainProgram();
         	} else{
         		console.error('서버에 데이터를 가져오지 못했습니다.');
         	}
