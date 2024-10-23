@@ -38,5 +38,15 @@
 		  AND mem_id = #{memId}
 		  AND mem_pw = #{memPw}
 	</select>
+	
+	<update id="editMember" parameterType="com.jtgz.jtgzproject.member.dto.MemberDTO">
+		UPDATE members
+		SET
+			mem_pw = #{memPw},
+			mem_name = #{memName},
+			mem_email = #{memEmail}
+		WHERE
+			mem_id = #{memId}
+	</update>
 
 </mapper>

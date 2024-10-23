@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.jtgz.jtgzproject.member.dto.MemberDTO;
 import com.jtgz.jtgzproject.member.service.MemberService;
 
+import oracle.jdbc.proxy.annotation.Post;
+
 @Controller
 public class MemberController {
 	
@@ -78,6 +80,28 @@ public class MemberController {
 	public String logoutDo(HttpSession session) {
 		
 		session.invalidate();
+		return "redirect:/home";
+	}
+	
+	// 회원 수정 페이지로 이동
+	@RequestMapping("/editView")
+	public String editView() {
+		System.out.println("- editView - ");
+		
+		return "member/editView";
+	}
+	
+	// 회원 수정
+	@PostMapping("/editDo")
+	public String editDo(MemberDTO member, HttpSession session) {
+		System.out.println(" - editDo - ");
+		
+		memberService.editMember(member); // 회원 수정
+		
+		// session 최신화
+		MemberDTO login = memberService.loginMember(member);
+		session.setAttribute("login", login);
+		
 		return "redirect:/home";
 	}
 	

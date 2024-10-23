@@ -10,6 +10,12 @@
 -->
 <html>
 <%@ include file="/WEB-INF/inc/head.jsp"%>
+<style>
+	.landing{
+		background-image: url("images/first_screen_image.jpg");
+		background-size: 100%;
+	}
+</style>
 <body class="landing is-preload">
 
 	<!-- Page Wrapper -->
@@ -26,7 +32,11 @@
 					탄소중립 2050을 위한 방법<br /> 함께 알아볼까요?
 				</p>
 				<ul class="actions special">
-					<li><a href="#" class="button primary">로그인하기</a></li>
+					<c:if test="${sessionScope.login == null}" >
+						<li><a href="${pageContext.request.contextPath }/loginView" class="button primary">로그인하기</a></li>
+					</c:if>
+					<c:if test="${sessionScope.login != null}" >
+					</c:if>
 				</ul>
 			</div>
 

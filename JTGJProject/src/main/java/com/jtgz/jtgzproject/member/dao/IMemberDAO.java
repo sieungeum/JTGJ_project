@@ -12,5 +12,8 @@ public interface IMemberDAO {
 	int registMember(MemberDTO member);
 	
 	MemberDTO loginMember(MemberDTO member);
+	
+	// 회원 수정
+	int editMember(MemberDTO member);
 
 }
