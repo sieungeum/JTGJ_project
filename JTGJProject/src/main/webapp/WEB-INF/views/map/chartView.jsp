@@ -116,7 +116,8 @@
 			</tbody>
 		</table>
 		
-		<c:if test='${sessionScope.login.memId == "admin"}'>
+		<c:if test='${sessionScope.login.memAdminYn == "Y" or 
+		sessionScope.login.memAdminYn == "K"}'>
 			<div class="btn">
 				<a href="${pageContext.request.contextPath}/noticeWriteView">공지사항 작성</a>
 			</div>

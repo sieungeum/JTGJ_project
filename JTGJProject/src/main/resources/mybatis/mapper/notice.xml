@@ -12,8 +12,8 @@
 			b.mem_name
 		FROM notice a, members b
 		WHERE 1=1
+			AND (b.mem_admin_yn = 'Y' OR b.mem_admin_yn = 'K')
 			AND a.mem_id = b.mem_id
-			AND b.mem_admin_yn = #{adminYn}
 			AND a.noti_del_yn = 'N'
 		ORDER BY noti_no DESC
 	</select>
