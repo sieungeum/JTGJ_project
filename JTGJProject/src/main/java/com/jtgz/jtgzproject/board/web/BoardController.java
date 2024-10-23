@@ -24,6 +24,7 @@ import com.jtgz.jtgzproject.board.dto.ComDTO;
 import com.jtgz.jtgzproject.board.service.BoardService;
 import com.jtgz.jtgzproject.common.dto.SearchDTO;
 import com.jtgz.jtgzproject.common.util.FileUploadUtil;
+import com.jtgz.jtgzproject.common.vo.PageSearchVO;
 import com.jtgz.jtgzproject.member.dto.MemberDTO;
 import com.jtgz.jtgzproject.notice.dto.NoticeDTO;
 import com.jtgz.jtgzproject.notice.service.NoticeService;
@@ -44,8 +45,13 @@ public class BoardController {
 	NoticeService noticeService;
 	
 	@RequestMapping("/boardView")
-	public String boardView(HttpSession session, Model model, SearchDTO search) {
+	public String boardView(HttpSession session, Model model, PageSearchVO search) {
 
+		// ∆‰¿Ã¬° ∫Œ∫–
+		int totalRowCount = boardService.getBoardCount(search);
+		search.setTotalRowCount(totalRowCount);
+		search.pageSetting();
+		
 		List<BoardDTO> boardList = boardService.getBoardList(search);
 
 		// sjm
@@ -65,6 +71,9 @@ public class BoardController {
 		// sjm
 		
 		model.addAttribute("boardList", boardList);
+		
+		model.addAttribute("pageSearch", search);
+		// LHS
 		
 		return "board/boardView";
 	}
