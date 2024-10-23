@@ -5,21 +5,8 @@
 <!DOCTYPE HTML>
 <html lang="ko">
 <head>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-	crossorigin="anonymous">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-	crossorigin="anonymous"></script>
 
 <%@ include file="/WEB-INF/inc/head.jsp"%>
-
-<script src="https://code.jquery.com/jquery-3.7.1.js"
-	integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-	crossorigin="anonymous"></script>
 
 <style type="text/css">
 	.map-container {
@@ -91,38 +78,9 @@
 	<!-- Page Wrapper -->
 	<div id="page-wrapper">
 
-		<!-- header -->
+		<!-- nav -->
 		<%@ include file="/WEB-INF/inc/nav.jsp"%>
-		<img src="images/저탄고집v6.png" width="200px">
-		<p>건의사항</p>
-		<table id="table">
-			<thead>
-				<tr>
-					<th scope="col">번호</th>
-					<th scope="col">제목</th>
-					<th scope="col">작성자</th>
-					<th scope="col">날짜</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${notice}" var="notice">
-					<tr>
-						<td scope="row">공지</td>
-						<td><a href="${pageContext.request.contextPath}/noticeDetailView?notiNo=${notice.notiNo}">${notice.notiTitle}</a></td>
-						<td>${notice.memName}</td>
-						<td>${notice.notiDate}</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
 		
-		<c:if test='${sessionScope.login.memAdminYn == "Y" or 
-		sessionScope.login.memAdminYn == "K"}'>
-			<div class="btn">
-				<a href="${pageContext.request.contextPath}/noticeWriteView">공지사항 작성</a>
-			</div>
-		</c:if>
-
 		<!-- Banner -->
 		<div class="map-container bg-white mt-5">
 		
@@ -238,7 +196,6 @@
 				f_draw(v_solarDict);
 				
 			}
-			
 			
 		}
 		
