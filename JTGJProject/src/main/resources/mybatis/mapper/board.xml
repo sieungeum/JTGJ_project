@@ -2,28 +2,50 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jtgz.jtgzproject.board.dao.IBoardDAO">
 
+	<sql id="boardSearch">
+		<if test="searchWord != null">
+			<choose>
+				<when test="searchOption == 'title'">AND a.board_title LIKE '%' || #{searchWord} || '%'</when>
+				<when test="searchOption == 'content'">AND a.board_content LIKE '%' || #{searchWord} || '%'</when>
+				<when test="searchOption == 'name'">AND b.mem_name LIKE '%' || #{searchWord} || '%'</when>
+			</choose>
+		</if>
+	</sql>
+
 	<select id="getBoardList" parameterType="com.jtgz.jtgzproject.common.dto.SearchDTO" resultType="com.jtgz.jtgzproject.board.dto.BoardDTO">
+		SELECT * FROM (
+			SELECT 
+				a.*
+				, ROWNUM AS RNUM
+			FROM(
+				SELECT
+				      a.board_no
+				    , a.board_title
+				    , a.board_content
+				    , a.mem_id 
+				    , b.mem_name
+				    , TO_CHAR(a.board_date, 'MM.DD HH24:MI') AS board_date
+				FROM boards a, members b
+				WHERE 1=1
+				  AND a.mem_id = b.mem_id
+				  AND a.board_del_yn = 'N'
+				<include refid="boardSearch"/>
+				ORDER BY board_no DESC
+			) a
+		)
+		WHERE rnum BETWEEN #{firstRow} AND #{lastRow}
+	</select>
+	
+	<!-- 페이지 부분 번호 받기 -->
+	<select id="getBoardCount" resultType="int" parameterType="com.jtgz.jtgzproject.common.vo.PageSearchVO">
 		SELECT
-			  a.board_no
-			, a.board_title
-			, a.mem_id
-			, b.mem_name
-			, a.board_content
-			, TO_CHAR(a.board_date, 'MM.dd hh24:mm') AS board_date
-		FROM
-			  boards a
-			, members b
+			COUNT(*)
+		FROM 
+			boards a, members b
 		WHERE 1=1
 			AND a.mem_id = b.mem_id
 			AND a.board_del_yn = 'N'
-		<if test="searchWord != null">
-			<choose>
-				<when test="searchOption=='title'">AND a.board_title LIKE '%' || #{searchWord} || '%'</when>
-				<when test="searchOption=='content'">AND a.board_content LIKE '%' || #{searchWord} || '%'</when>
-				<when test="searchOption=='name'">AND b.mem_name LIKE '%' || #{searchWord} || '%'</when>
-			</choose>
-		</if>
-		ORDER BY board_no DESC
+		<include refid="boardSearch"/>
 	</select>
 	
 	<insert id="writeBoard" parameterType="com.jtgz.jtgzproject.board.dto.BoardDTO">
