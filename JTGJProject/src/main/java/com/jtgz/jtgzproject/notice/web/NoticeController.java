@@ -31,16 +31,21 @@ public class NoticeController {
 		System.out.println("- noticeTestsView - ");
 		
 		MemberDTO login = (MemberDTO) session.getAttribute("login");
-		
-		// 나중에 merge 하고 바꾸기
-		String admin = "Y";
+	
+		String admin = "";
+		try {
+			admin = login.getMemAdminYn();
+		} catch (Exception e) {
+			// TODO: handle exception
+			admin = "N";
+		}
 		
 		List<NoticeDTO> notice = noticeService.noticeSelect(admin);
 		
 		System.out.println(notice);
 		model.addAttribute("notice", notice);
 		
-		return "map/chartView";
+		return "board/boardView";
 	}
 	
 	@RequestMapping("/noticeDetailView")
@@ -54,7 +59,7 @@ public class NoticeController {
 		
 		System.out.println(notice);
 		
-		return "map/noticeDetailTest";
+		return "board/noticeDetailTest";
 	}
 	
 	@RequestMapping("/noticeWriteView")
@@ -65,7 +70,7 @@ public class NoticeController {
 			return "redirect:/loginView";
 		}
 		
-		return "map/noticeWriteTest";
+		return "board/noticeWrite";
 	}
 	
 	@PostMapping("/noticeWriteDo")
@@ -82,7 +87,7 @@ public class NoticeController {
 		
 		noticeService.writeNotice(notice);
 		
-		return "redirect:/noticeTestsView";
+		return "redirect:/boardView";
 	}
 	
 	@RequestMapping(value="/noticeEditView", method=RequestMethod.POST)
@@ -92,7 +97,7 @@ public class NoticeController {
 		
 		model.addAttribute("notice", notice);
 		
-		return "map/noticeEditView";
+		return "board/noticeEditView";
 	}
 	
 	@PostMapping("/noticeEditDo")
@@ -100,7 +105,7 @@ public class NoticeController {
 		
 		noticeService.editNotice(notice);
 		
-		return "redirect:/noticeTestsView";
+		return "redirect:/boardView";
 	}
 	
 	@PostMapping("/noticeDeleteDo")
@@ -108,7 +113,7 @@ public class NoticeController {
 		
 		noticeService.deleteNotice(notiNo);
 		
-		return "redirect:/noticeTestsView";
+		return "redirect:/boardView";
 	}
 	
 	

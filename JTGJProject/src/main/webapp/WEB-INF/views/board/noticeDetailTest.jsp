@@ -21,62 +21,6 @@
 	integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
 	crossorigin="anonymous"></script>
 
-<style type="text/css">
-.map-container {
-	position: relative;
-	width: 1200px;
-	margin: auto;
-}
-
-p {
-	/* 	    margin: 0 0 2em 0;
-		    margin-top: 0px;
-		    margin-right: 0px;
-		    margin-bottom: 2em;
-		    margin-left: 0px; */
-	margin: 3px 0 10px 8px;
-}
-
-.purpose-text {
-	width: 100%;
-	margin: auto;
-	text-align: center;
-	font-weight: bold;
-	font-size: 30px;
-	color: black;
-}
-
-.w-100 {
-	width: 100%;
-}
-
-.canvas-box {
-	display: flex;
-	justify-content: center;
-	flex-direction: column;
-	width: 1000px;
-	margin: auto;
-}
-
-.canvas-box-circle {
-	display: flex;
-	justify-content: center;
-	width: 100%;
-}
-
-.chart-circle-top {
-	width: calc(100%/ 2);
-	margin: auto;
-	text-align: center;
-	color: black;
-}
-
-.chart-circle-under {
-	width: calc(100%/ 3);
-	text-align: center;
-	color: black;
-}
-</style>
 </head>
 <body class="landing is-preload">
 

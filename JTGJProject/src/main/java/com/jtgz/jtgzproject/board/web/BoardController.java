@@ -44,13 +44,20 @@ public class BoardController {
 	NoticeService noticeService;
 	
 	@RequestMapping("/boardView")
-	public String boardView(Model model, SearchDTO search) {
+	public String boardView(HttpSession session, Model model, SearchDTO search) {
 
 		List<BoardDTO> boardList = boardService.getBoardList(search);
 
 		// sjm
-		// 나중에 merge 하고 바꾸기
-		String admin = "Y";
+		MemberDTO login = (MemberDTO) session.getAttribute("login");
+		
+		String admin = "";
+		try {
+			admin = login.getMemAdminYn();
+		} catch (Exception e) {
+			// TODO: handle exception
+			admin = "N";
+		}
 		
 		List<NoticeDTO> notice = noticeService.noticeSelect(admin);
 		
