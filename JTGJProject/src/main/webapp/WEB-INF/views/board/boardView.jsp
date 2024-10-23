@@ -64,6 +64,57 @@
 						<a href="${pageContext.request.contextPath}/noticeWriteView">공지사항 작성</a>
 					</div>
 				</c:if>
+				
+				<!-- Paging Bar -->
+        		<div class="d-flex justify-content-center">
+						<nav aria-label="Page navigation example">
+						  <ul class="pagination">
+						  
+						  	<!-- 이전 페이지 -->
+						    <li class="page-item ${pageSearch.firstPage == 1 ? 'disabled' : '' }">
+						      <c:if test="${searchWord == null }">
+						      	<a class="page-link" href="${pageContext.request.contextPath }/boardView?pageNo=${pageSearch.firstPage - 1 }&rowSizePerPage=${pageSearch.rowSizePerPage}" aria-label="Previous">
+						      		<span aria-hidden="true">&laquo;</span>
+						      	</a>
+						      </c:if>
+						      <c:if test="${searchWord != null }">
+						      	<a class="page-link" href="${pageContext.request.contextPath }/boardView?pageNo=${pageSearch.firstPage - 1 }&rowSizePerPage=${pageSearch.rowSizePerPage}&searchOption=${pageSearch.searchOption}&searchWord=${pageSearch.searchWord}" aria-label="Previous">
+						      		<span aria-hidden="true">&laquo;</span>
+						      	</a>
+						      </c:if>
+						    </li>
+						    
+						    <!-- 중간 페이지 번호 부분 -->
+						    <!-- model에 keySearch 이름으로 searchVO를 담음 -->
+						    <!-- searchVO 내 pageNo, firstPage, lastPage 채워져있음 -->
+						    <c:forEach begin="${pageSearch.firstPage }" end="${pageSearch.lastPage }" var="num">
+						    	<li class="page-item ${PageSearch.pageNo == num ? 'active' : ''}">
+						    		<c:if test="${pageSearch.searchWord == null }">
+							    		<a class="page-link" href="${pageContext.request.contextPath }/boardView?pageNo=${num }&rowSizePerPage=${pageSearch.rowSizePerPage}">${num }</a>
+						    		</c:if>
+						    		<c:if test="${pageSearch.searchWord != null }">
+							    		<a class="page-link" href="${pageContext.request.contextPath }/boardView?pageNo=${num }&rowSizePerPage=${pageSearch.rowSizePerPage}&searchOption=${pageSearch.searchOption}&searchWord=${pageSearch.searchWord}">${num }</a>
+						    		</c:if>
+						    	</li>
+						    </c:forEach>
+						    
+						    <!-- 다음 페이지 -->
+						    <!-- 마지막 페이지 도달 시 disabled 추가 -->
+						    <li class="page-item ${pageSearch.lastPage == pageSearch.totalPageCount ? 'disabled' : '' }">
+						      <c:if test="${pageSearch.searchWord == null }">
+							      <a class="page-link" href="${pageContext.request.contextPath }/boardView?pageNo=${pageSearch.lastPage + 1 }&rowSizePerPage=${pageSearch.rowSizePerPage}" aria-label="Next">
+							        <span aria-hidden="true">&raquo;</span>
+							      </a>
+						      </c:if>
+						      <c:if test="${pageSearch.searchWord != null }">
+							      <a class="page-link" href="${pageContext.request.contextPath }/boardView?pageNo=${pageSearch.lastPage + 1 }&rowSizePerPage=${pageSearch.rowSizePerPage}&searchOption=${pageSearch.searchOption}&searchWord=${pageSearch.searchWord}" aria-label="Next">
+							        <span aria-hidden="true">&raquo;</span>
+							      </a>
+						      </c:if>
+						    </li>
+						  </ul>
+						</nav>
+				</div>
 
 				<div>
 					<form class="d-flex justify-content-center"

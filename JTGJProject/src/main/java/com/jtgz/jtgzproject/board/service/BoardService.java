@@ -9,6 +9,7 @@ import com.jtgz.jtgzproject.board.dao.IBoardDAO;
 import com.jtgz.jtgzproject.board.dto.BoardDTO;
 import com.jtgz.jtgzproject.board.dto.ComDTO;
 import com.jtgz.jtgzproject.common.dto.SearchDTO;
+import com.jtgz.jtgzproject.common.vo.PageSearchVO;
 
 @Service
 public class BoardService {
@@ -16,7 +17,7 @@ public class BoardService {
 	@Autowired
 	IBoardDAO dao;
 	
-	public List<BoardDTO> getBoardList(SearchDTO search){
+	public List<BoardDTO> getBoardList(PageSearchVO search){
 		List<BoardDTO> result = dao.getBoardList(search);
 		return result;
 	}
@@ -63,6 +64,11 @@ public class BoardService {
 	
 	public int getBoardNo() {
 		int result = dao.getBoardNo();
+		return result;
+	}
+	
+	public int getBoardCount(PageSearchVO search) {
+		int result = dao.getBoardCount(search);
 		return result;
 	}
 	
