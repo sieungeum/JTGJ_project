@@ -1,11 +1,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>-
 
 <!DOCTYPE html>
 <html lang="ko">
-<head>
 <%@ include file="/WEB-INF/inc/head.jsp"%>
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>계산기</title>
@@ -15,22 +15,29 @@ div {
 	padding: 0;
 }
 
-.container{
+.container {
 	background-color: white;
+	border-top: solid 10px #03C75A;
 }
 
-.calculator h2, 
-.calculator p, 
-.calculator label {
-    color: black; /* 글자 색을 검정색으로 설정 */
+.bigBox{
+	margin: auto;
+	width: 90%;
 }
 
-.col{
+.calculator h2, .calculator p, .calculator label {
+	color: black; /* 글자 색을 검정색으로 설정 */
+	margin: 0;
+	padding: 0;
+}
+
+.col {
 	color: black;
 }
 
 
-.title{
+
+.title {
 	font-size: 40px;
 	padding-left: 45%;
 }
@@ -40,11 +47,12 @@ div {
 }
 
 .box {
-	color: write;
+	color: black;
 	width: 250px;
 	height: 15px;
-	background-color: black;
+	background-color: white;
 	border-color: black;
+	border-radius: 25px;
 }
 
 .box2 {
@@ -60,26 +68,33 @@ div {
 }
 
 .coment {
-
-	padding-left: 100px;
+	padding-left: 50%;
 	font-size: 12px;
-	
 }
 
 .coment2 {
 	margin: 0;
 	padding-left: 70%;
 	font-size: 12px;
-	
 }
 
 .main {
 	display: flex; /* 수평으로 배치 */
 	justify-content: center; /* 중앙 정렬 */
-	border: solid 2px green;
+	border: solid 5px #03C75A; border-radius : 30px; margin : auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: auto;
+	border-radius: 30px;
 }
 
 .mini {
+	padding: 50px;
+}
+
+.miniEl {
+	border-right: solid 1px #03C75Aff;
 	padding: 50px;
 }
 
@@ -87,22 +102,30 @@ div {
 	padding: 20px;
 }
 
-.miniBox{
+.miniBox {
 	padding-bottom: 30px;
 }
 
 .total {
+	margin:auto;
 	font-size: 30px;
-	background-color: green;
+	background-color: #03C75A;
+	color:white;
+	
+	justify-content: center; /* 중앙 정렬 */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 30px;
 }
 
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0; /* 기본 여백 제거 */
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button
+	{
+	-webkit-appearance: none;
+	margin: 0; /* 기본 여백 제거 */
 }
 
-.btn{
+.btn {
 	background-color: black;
 }
 
@@ -135,7 +158,7 @@ function showCalculator(calcNumber) {
             const inputValue = parseFloat(document.getElementById('inputValue').value);
             
             const result = inputValue * 0.4781;
-            document.getElementById('result').innerText = '전기 탄소배출량: ' + result.toFixed(2) + " kg/월";
+            document.getElementById('result').innerText = '전기 탄소배출량: ' + result.toFixed(2) + "kg/월";
             calculateTotal();
         }
 
@@ -307,152 +330,163 @@ function showCalculator(calcNumber) {
 	<img src="images/저탄고집v6.png" width="200px">
 	<div class="title">
 		<h2>계산기</h2>
-	</div> 
+	</div>
 </div>
 <body>
 	<div class="container">
-	<h1>계산기 선택</h1>
-	<button class="btn" onclick="showCalculator(1)">탄소배출량 계산기</button>
-	<button class="btn" onclick="showCalculator(2)">건물 에너지 자립률 계산기</button>
-	<button class="btn" onclick="showCalculator(3)">에너지효율등급 계산기</button>
+		<div class="bigBox">
+			<h1>계산기 선택</h1>
+			<button class="btn" onclick="showCalculator(1)">탄소배출량 계산기</button>
+			<button class="btn" onclick="showCalculator(2)">건물 에너지 자립률
+				계산기</button>
+			<button class="btn" onclick="showCalculator(3)">에너지효율등급 계산기</button>
 
-	<!-- 1번 계산기: 탄소배출량 계산기 -->
-	<div id="calculator1" class="calculator">
-		<h3>탄소배출량 계산기</h3>
-		<div class="main">
-			<div class="mini">
-				<h2>
-					<p>전기(kwh/월)</p>
-				</h2>
-				<input class="box" type="number" id="inputValue"
-					placeholder="월간 전기 사용량">
-				<button class="btn" onclick="calculateElectricity()">계산하기</button>
-				<p class="coment">(전기 탄소배출량: 전기사용량 * 0.4781)</p>
-				<h2>
-					<p id="result" class="result"></p>
-				</h2>
+			<!-- 1번 계산기: 탄소배출량 계산기 -->
+			<div id="calculator1" class="calculator">
+				<h3>탄소배출량 계산기</h3>
+				<div class="main">
+					<div class="miniEl">
+						<h2>
+							<p>전기(kwh/월)</p>
+						</h2>
+						<input class="box" type="number" id="inputValue"
+							placeholder="월간 전기 사용량">
+						<button class="btn" onclick="calculateElectricity()">계산하기</button>
+						<div>
+							<h2>
+								<p id="result" class="result" ></p>
+							</h2>
+						</div>
+					</div>
+					<div class="mini">
+						<h2>
+							<p>가스(m³/월)</p>
+						</h2>
+						<input class="box" type="number" id="inputValue2"
+							placeholder="월간 가스 사용량">
+						<button class="btn" onclick="calculateGas()">계산하기</button>
+						<h2>
+							<p id="result2" class="result"></p>
+						</h2>
+					</div>
+				</div>
+				<div class="coment">
+					<p class="coment">(전기 탄소배출량: 전기사용량 * 0.4781, 가스 탄소배출량: 가스사용량 *
+						2.176)</p>
+				</div>
+				<div class="total">
+					<h2>
+						<p id="result3" class="result"></p>
+					</h2>
+				</div>
 			</div>
-			<div class="mini">
-				<h2>
-					<p>가스(m³/월)</p>
-				</h2>
-				<input class="box" type="number" id="inputValue2"
-					placeholder="월간 가스 사용량">
-				<button class="btn" onclick="calculateGas()">계산하기</button>
-				<p class="coment">(가스 탄소배출량: 가스사용량 * 2.176)</p>
-				<h2>
-					<p id="result2" class="result"></p>
-				</h2>
-			</div>
-		</div>
-		<div class="total">
-			<h2>
-				<p id="result3" class="result"></p>
-			</h2>
-		</div>
-	</div>
-
-	<!-- 2번 계산기: 에너지자립률(ZEB) -->
-	<div id="calculator2" class="calculator">
-		<h1>건물 에너지 자립률 계산기</h1>
-		<div>
-			<div>
-				<label for="production">자체 생산 에너지 (kWh/년):</label> <input
-					type="number" id="production" class="box2"
-					placeholder="연간 에너지 생산량 입력">
-			</div>
-
-			<div>
-				<label for="consumption">소비 에너지 (kWh/년):</label> <input
-					type="number" id="consumption" class="box2"
-					placeholder="연간 에너지 소비량 입력">
-			</div>
-		</div>
-
-		<button class="btn" onclick="calculateSelfSufficiency()">계산하기</button>
-		<p class="coment">(해당 계산은 예상 등급이며, 실제 측정 결과와 다를 수 있습니다.)</p>
-		<div class="total">
-			<h2>
-				<p id="result4" class="result4"></p>
-			</h2>
-		</div>
-		<button class="btn" onclick="window.open('https://zeb.energy.or.kr/BC/BC03/BC03_07_001.do');">인증 신청하러 바로가기!</button>
-	</div>
-
-	<div>
-		<div id="calculator3" class="calculator">
-			<h1>에너지효율등급 계산기</h1>
+						
+			<!-- 2번 계산기: 에너지자립률(ZEB) -->
+			<div id="calculator2" class="calculator">
+				<h1>건물 에너지 자립률 계산기</h1>
 				<div>
-					<button class="btn" id="residentialBtn"
-						onclick="selectBuildingType('residential')">주거용 건물</button>
-					<button class="btn" id="commercialBtn"
-						onclick="selectBuildingType('commercial')">주거용 외 건물</button>
-				</div>
-			<div class="main">
-				<div class="mini2">
-					<div class="miniBox">
-						<label for="num1">난방에너지 소요량</label> <input type="number" id="num1"
-							class="box2" placeholder="연간 난방에너지 소요량">
-					</div>
 					<div>
-						<label for="num11">난방에너지가 요구되는 바닥면적</label> <input type="number"
-							id="num11" class="box2" placeholder="난방 바닥면적">
+						<label for="production">자체 생산 에너지 (kWh/년):</label> <input
+							type="number" id="production" class="box2"
+							placeholder="연간 에너지 생산량 입력">
+					</div>
+
+					<div>
+						<label for="consumption">소비 에너지 (kWh/년):</label> <input
+							type="number" id="consumption" class="box2"
+							placeholder="연간 에너지 소비량 입력">
 					</div>
 				</div>
-				<div class="mini2">
-					<div class="miniBox">
-						<label for="num2">냉방에너지 소요량</label> <input type="number" id="num2"
-							class="box2" placeholder="연간 냉방에너지 소요량">
-					</div>
-					<div>
-						<label for="num22">냉방에너지가 요구되는 바닥면적</label> <input type="number"
-							id="num22" class="box2" placeholder="냉방 바닥면적">
-					</div>
+
+				<button class="btn" onclick="calculateSelfSufficiency()">계산하기</button>
+				<p class="coment">(해당 계산은 예상 등급이며, 실제 측정 결과와 다를 수 있습니다.)</p>
+				<div class="total">
+					<h2>
+						<p id="result4" class="result4"></p>
+					</h2>
 				</div>
-				<div class="mini2">
-					<div class="miniBox">
-						<label for="num3">급탕에너지 소요량</label> <input type="number" id="num3"
-							class="box2" placeholder="연간 급탕에너지 소요량">
-					</div>
+				<button class="btn"
+					onclick="window.open('https://zeb.energy.or.kr/BC/BC03/BC03_07_001.do');">인증
+					신청하러 바로가기!</button>
+			</div>
+
+			<div>
+				<div id="calculator3" class="calculator">
+					<h1>에너지효율등급 계산기</h1>
 					<div>
-						<label for="num33">급탕에너지가 요구되는 바닥면적</label> <input type="number"
-							id="num33" class="box2" placeholder="급탕 바닥면적">
+						<button class="btn" id="residentialBtn"
+							onclick="selectBuildingType('residential')">주거용 건물</button>
+						<button class="btn" id="commercialBtn"
+							onclick="selectBuildingType('commercial')">주거용 외 건물</button>
 					</div>
-				</div>
-				<div class="mini2">
-					<div class="miniBox">
-						<label for="num4">조명에너지 소요량</label> <input type="number" id="num4"
-							class="box2" placeholder="연간 조명에너지 소요량">
+					<div class="main">
+						<div class="mini2">
+							<div class="miniBox">
+								<label for="num1">난방에너지 소요량</label> <input type="number"
+									id="num1" class="box2" placeholder="연간 난방에너지 소요량">
+							</div>
+							<div>
+								<label for="num11">난방에너지가 요구되는 바닥면적</label> <input type="number"
+									id="num11" class="box2" placeholder="난방 바닥면적">
+							</div>
+						</div>
+						<div class="mini2">
+							<div class="miniBox">
+								<label for="num2">냉방에너지 소요량</label> <input type="number"
+									id="num2" class="box2" placeholder="연간 냉방에너지 소요량">
+							</div>
+							<div>
+								<label for="num22">냉방에너지가 요구되는 바닥면적</label> <input type="number"
+									id="num22" class="box2" placeholder="냉방 바닥면적">
+							</div>
+						</div>
+						<div class="mini2">
+							<div class="miniBox">
+								<label for="num3">급탕에너지 소요량</label> <input type="number"
+									id="num3" class="box2" placeholder="연간 급탕에너지 소요량">
+							</div>
+							<div>
+								<label for="num33">급탕에너지가 요구되는 바닥면적</label> <input type="number"
+									id="num33" class="box2" placeholder="급탕 바닥면적">
+							</div>
+						</div>
+						<div class="mini2">
+							<div class="miniBox">
+								<label for="num4">조명에너지 소요량</label> <input type="number"
+									id="num4" class="box2" placeholder="연간 조명에너지 소요량">
+							</div>
+							<div>
+								<label for="num44">조명에너지가 요구되는 바닥면적</label> <input type="number"
+									id="num44" class="box2" placeholder="조명 바닥면적">
+							</div>
+						</div>
+						<div class="mini2">
+							<div class="miniBox">
+								<label for="num5">환기에너지 소요량</label> <input type="number"
+									id="num5" class="box2" placeholder="연간 환기에너지 소요량">
+							</div>
+							<div>
+								<label for="num55">환기에너지가 요구되는 바닥면적</label> <input type="number"
+									id="num55" class="box2" placeholder="환기 바닥면적">
+							</div>
+						</div>
 					</div>
-					<div>
-						<label for="num44">조명에너지가 요구되는 바닥면적</label> <input type="number"
-							id="num44" class="box2" placeholder="조명 바닥면적">
+					<p class="coment2">(해당 계산은 예상 등급이며, 실제 측정 결과와 다를 수 있습니다.)</p>
+					<p class="coment2">(해당 계산은 전기에너지를 기준으로 측정하였습니다 .)</p>
+					<button class="btn" onclick="basicCalculator()">계산하기</button>
+					<div class="total">
+						<h2>
+							<p id="result6" class="result5"></p>
+							<p id="result5" class="result5"></p>
+						</h2>
 					</div>
-				</div>
-				<div class="mini2">
-					<div class="miniBox">
-						<label for="num5">환기에너지 소요량</label> <input type="number" id="num5"
-							class="box2" placeholder="연간 환기에너지 소요량">
-					</div>
-					<div>
-						<label for="num55">환기에너지가 요구되는 바닥면적</label> <input type="number"
-							id="num55" class="box2" placeholder="환기 바닥면적">
-					</div>
+					<button class="btn"
+						onclick="window.open('https://beec.energy.or.kr/BC/BC02/BC02_04_002.do');">인증
+						신청하러 바로가기!</button>
 				</div>
 			</div>
-			<p class="coment2">(해당 계산은 예상 등급이며, 실제 측정 결과와 다를 수 있습니다.)</p>
-			<p class="coment2">(해당 계산은 전기에너지를 기준으로 측정하였습니다 .)</p>
-			<button class="btn" onclick="basicCalculator()">계산하기</button>
-			<div class="total">
-				<h2>
-					<p id="result6" class="result5"></p>
-					<p id="result5" class="result5"></p>
-				</h2>
-			</div>
-			<button class="btn" onclick="window.open('https://beec.energy.or.kr/BC/BC02/BC02_04_002.do');">인증 신청하러 바로가기!</button>
 		</div>
 	</div>
-</div>
 
 	<script>
         // 초기화: 첫 번째 계산기를 표시
