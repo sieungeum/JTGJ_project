@@ -9,11 +9,28 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
 <html>
+<!-- 부트스트랩 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <%@ include file="/WEB-INF/inc/head.jsp"%>
 <style>
 	.landing{
 		background-image: url("images/first_screen_image.jpg");
 		background-size: 100%;
+	}
+	
+	.introduce-btn{
+		font-weight: bold;
+		color: black;
+		margin-top: 100px;
+		background-color: rgba(212, 212, 212, 0.5);
+		border-radius: 20px;
+		padding:10px;
+		width: 20%;
+		cursor: pointer;
+	}
+	
+	.introduce-btn:hover{
+		background-color: rgba(190, 190, 190, 0.5);
 	}
 </style>
 <body class="landing is-preload">
@@ -26,11 +43,8 @@
 
 		<!-- Banner -->
 		<section id="banner">
-			<div class="inner">
+			<div class="inner" style="display:flex; flex-direction:column; align-items:center;">
 				<img src="images/저탄고집v6.png" width="300px">
-				<p>
-					탄소중립 2050을 위한 방법<br /> 함께 알아볼까요?
-				</p>
 				<ul class="actions special">
 					<c:if test="${sessionScope.login == null}" >
 						<li><a href="${pageContext.request.contextPath }/loginView" class="button primary">로그인하기</a></li>
@@ -38,125 +52,64 @@
 					<c:if test="${sessionScope.login != null}" >
 					</c:if>
 				</ul>
-			</div>
-
-		</section>
-
-		<!-- One -->
-		<section id="one" class="wrapper style1 special">
-			<div class="inner">
-				<header class="major">
-					<h2>
-						Arcu aliquet vel lobortis ata nisl<br /> eget augue amet aliquet
-						nisl cep donec
-					</h2>
-					<p>
-						Aliquam ut ex ut augue consectetur interdum. Donec amet imperdiet
-						eleifend<br /> fringilla tincidunt. Nullam dui leo Aenean mi
-						ligula, rhoncus ullamcorper.
-					</p>
-				</header>
-				<ul class="icons major">
-					<li><span class="icon fa-gem major style1"><span
-							class="label">Lorem</span></span></li>
-					<li><span class="icon fa-heart major style2"><span
-							class="label">Ipsum</span></span></li>
-					<li><span class="icon solid fa-code major style3"><span
-							class="label">Dolor</span></span></li>
-				</ul>
+				<div class="introduce-btn" id="intBtn">
+					<a href="#one">탄소중립 2050을 위한 방법<br /> 함께 알아볼까요?</a>
+				</div>
+					
 			</div>
 		</section>
 
-		<!-- Two -->
-		<section id="two" class="wrapper alt style2">
-			<section class="spotlight">
+		<!-- 설명 On -->
+		<section class="wrapper alt style2">
+			<!-- 1 -->
+			<section id="one" class="spotlight">
 				<div class="image">
 					<img src="images/pic01.jpg" alt="" />
 				</div>
 				<div class="content">
-					<h2>
-						Magna primis lobortis<br /> sed ullamcorper
-					</h2>
-					<p>Aliquam ut ex ut augue consectetur interdum. Donec hendrerit
-						imperdiet. Mauris eleifend fringilla nullam aenean mi ligula.</p>
+					<a href="#two">건물 정보</a>
 				</div>
 			</section>
-			<section class="spotlight">
+			
+			<!-- 2 -->
+			<section id="two" class="spotlight">
 				<div class="image">
 					<img src="images/pic02.jpg" alt="" />
 				</div>
 				<div class="content">
-					<h2>
-						Tortor dolore feugiat<br /> elementum magna
-					</h2>
-					<p>Aliquam ut ex ut augue consectetur interdum. Donec hendrerit
-						imperdiet. Mauris eleifend fringilla nullam aenean mi ligula.</p>
+					<a href="#three">건물 정보</a>
 				</div>
 			</section>
-			<section class="spotlight">
+			
+			<!-- 3 -->
+			<section id="three" class="spotlight">
 				<div class="image">
 					<img src="images/pic03.jpg" alt="" />
 				</div>
 				<div class="content">
-					<h2>
-						Augue eleifend aliquet<br /> sed condimentum
-					</h2>
-					<p>Aliquam ut ex ut augue consectetur interdum. Donec hendrerit
-						imperdiet. Mauris eleifend fringilla nullam aenean mi ligula.</p>
+					<a href="#fourth">건물 정보</a>
 				</div>
 			</section>
-		</section>
-
-		<!-- Three -->
-		<section id="three" class="wrapper style3 special">
-			<div class="inner">
-				<header class="major">
-					<h2>Accumsan mus tortor nunc aliquet</h2>
-					<p>
-						Aliquam ut ex ut augue consectetur interdum. Donec amet imperdiet
-						eleifend<br /> fringilla tincidunt. Nullam dui leo Aenean mi
-						ligula, rhoncus ullamcorper.
-					</p>
-				</header>
-				<ul class="features">
-					<li class="icon fa-paper-plane">
-						<h3>Arcu accumsan</h3>
-						<p>Augue consectetur sed interdum imperdiet et ipsum. Mauris
-							lorem tincidunt nullam amet leo Aenean ligula consequat
-							consequat.</p>
-					</li>
-					<li class="icon solid fa-laptop">
-						<h3>Ac Augue Eget</h3>
-						<p>Augue consectetur sed interdum imperdiet et ipsum. Mauris
-							lorem tincidunt nullam amet leo Aenean ligula consequat
-							consequat.</p>
-					</li>
-					<li class="icon solid fa-code">
-						<h3>Mus Scelerisque</h3>
-						<p>Augue consectetur sed interdum imperdiet et ipsum. Mauris
-							lorem tincidunt nullam amet leo Aenean ligula consequat
-							consequat.</p>
-					</li>
-					<li class="icon solid fa-headphones-alt">
-						<h3>Mauris Imperdiet</h3>
-						<p>Augue consectetur sed interdum imperdiet et ipsum. Mauris
-							lorem tincidunt nullam amet leo Aenean ligula consequat
-							consequat.</p>
-					</li>
-					<li class="icon fa-heart">
-						<h3>Aenean Primis</h3>
-						<p>Augue consectetur sed interdum imperdiet et ipsum. Mauris
-							lorem tincidunt nullam amet leo Aenean ligula consequat
-							consequat.</p>
-					</li>
-					<li class="icon fa-flag">
-						<h3>Tortor Ut</h3>
-						<p>Augue consectetur sed interdum imperdiet et ipsum. Mauris
-							lorem tincidunt nullam amet leo Aenean ligula consequat
-							consequat.</p>
-					</li>
-				</ul>
-			</div>
+			
+			<!-- 4 -->
+			<section id="fourth" class="spotlight">
+				<div class="image">
+					<img src="images/pic02.jpg" alt="" />
+				</div>
+				<div class="content">
+					<a href="#fifth">건물 정보</a>
+				</div>
+			</section>
+			
+			<!-- 5 -->
+			<section id="fifth" class="spotlight">
+				<div class="image">
+					<img src="images/pic03.jpg" alt="" />
+				</div>
+				<div class="content">
+					
+				</div>
+			</section>
 		</section>
 
 		<!-- CTA -->
