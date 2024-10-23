@@ -26,5 +26,12 @@ public class MemberService {
 		return result;
 	}
 	
+	// 회원 수정
+	public int editMember(MemberDTO member) {
+		int result = dao.editMember(member);
+		
+		return result;
+	}
+	
 	
 }

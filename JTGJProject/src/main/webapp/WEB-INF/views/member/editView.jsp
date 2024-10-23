@@ -25,45 +25,38 @@
 	<!-- nav -->
 	<%@ include file="/WEB-INF/inc/nav.jsp"%>
 
-
-
 	<section>
-		<h4>회원가입</h4>
-		<form action="${pageContext.request.contextPath }/registDo"
+		<h4>회원수정</h4>
+		<form action="${pageContext.request.contextPath }/editDo"
 			method="POST">
 			<div class="row gtr-uniform">
 
 				<div class="col-6 col-12">
-					<input type="text" name="id" id="inputId" value=""
-						placeholder="아이디" />
+					<input type="text" name="memId" id="inputId"
+						value="${sessionScope.login.memId}" readonly />
 				</div>
 				<div class="col-6 col-12">
-					<input type="password" name="password" id="inputpassword" value=""
-						placeholder="비밀번호" />
+					<input type="password" name="memPw" id="inputpassword"
+						value="${sessionScope.login.memPw}" />
 				</div>
 				<div class="col-6 col-12">
-					<input type="text" name="name" id="inputName" value=""
-						placeholder="이름" />
+					<input type="text" name="memName" id="inputName"
+						value="${sessionScope.login.memName}" />
 				</div>
 				<div class="col-6 col-12">
-					<input type="text" name="email" id="inputEmail" value=""
-						placeholder="이메일" />
+					<input type="text" name="memEmail" id="inputEmail"
+						value="${sessionScope.login.memEmail}" />
 				</div>
 				<div class="col-12">
 					<ul class="actions">
-						<li><div class="text-center">
+						<li>
+							<div class="text-center">
 								<button class="btn btn-primary btn-xl text-uppercase"
-									id="submitBtn" type="submit">회원가입 완료</button>
-							</div></li>
-						<li><div>
-								<a href="${pageContext.request.contextPath }/loginView"><button
-										class="btn btn-primary btn-xl text-uppercase">로그인으로
-										돌아가기</button></a>
-							</div></li>
+									id="submitBtn" type="submit">수정</button>
+							</div>
+						</li>
 					</ul>
-
 				</div>
-
 			</div>
 		</form>
 	</section>
