@@ -7,6 +7,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css" />
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/noscript.css" />
     <title>네이버지도 구현</title>
     <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=sj7g9t2k7p&submodules=geocoder"></script>
     <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -71,9 +74,11 @@
         }
     </style>
 </head>
-<body>
+<body class="landing is-preload">
+    <%@ include file="/WEB-INF/inc/nav.jsp"%>
     <div id="map">
     	<!-- 필터 -->
+    	
         <div class="building-filter">
             <div>
                 <!-- onchange="sortingEnergyGrade(this.value)" -->
@@ -100,8 +105,9 @@
         <div class="building-detail">
             <div class="building-more-detail"></div>
         </div>
-    </div>
 
+		<%@ include file="/WEB-INF/inc/footer.jsp"%>
+    </div>
     
     <script>
         // 지도 생성
