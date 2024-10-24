@@ -33,10 +33,10 @@
 	.input-container {
 		padding: 20px;
 		border-radius: 10px;
-		border: 3px solid white;
+		border: 3px solid #ced4da;
 		width: 100%;
-		background-color: #868296;
-		opacity: 0.8;
+		background-color: #f3f1f5;
+		opacity: 0.95;
 	}
 	
 	.title {
@@ -51,7 +51,7 @@
 	
 	.input-box {
 		border-radius: 10px;
-		border: 3px solid white;
+		border: 3px solid #ced4da;
 		display: flex;
 		flex-direction: column;
 	}
@@ -63,7 +63,7 @@
 	}
 	
 	.input-box hr {
-		border: 1px solid white;
+		border: 1px solid #ced4da;
 		margin: 0;
 	}
 	
@@ -81,7 +81,7 @@
 	
 	.btn-ihs {
 		background-color: rgb(3, 199, 90);
-		color: white;
+		color: #212529;
 		font-weight: bold;
 		border-radius: 10px;
 		width: 100%;
@@ -89,7 +89,7 @@
 	
 	.a-box {
 		display: flex;
-		justify-content: flex-end;
+		justify-content: center;
 		align-items: center;
 		margin-top: 20px;
 		margin-bottom: 120px;
@@ -100,49 +100,68 @@
 		color: white;
 		font-weight: 600;
 	}
+	
+	.label-c span {
+		margin-bottom: 8px;
+		margin-top: 8px; 
+		margin-left: 3px; 
+		color: #212529;
+		font-weight: 600;
+	}
+			
+	input::placeholder {
+	 	color: #fff !important;
+	}
+				
+	input::-webkit-input-placeholder{
+	 	color: #fff !important;
+	}
+	
 </style>
 </head>
-<body class="landing is-preload">
-
-	<%@ include file="/WEB-INF/inc/nav.jsp"%>
-	<div id="page-wrapper">
-		<section>
+	<body class="landing is-preload">
 	
-			<div class="container ">
-				<span class="title">로그인</span>
-				<form action="${pageContext.request.contextPath }/loginDo"
-					method="POST">
-					<div class="input-container">
-						<div class="input-box">
-							<div>
-								<input type="text" name="memId" id="inputId" value=""
-									placeholder="아이디" />
+		<%@ include file="/WEB-INF/inc/nav.jsp"%>
+		<div id="page-wrapper">
+			<section>
+		
+				<div class="container ">
+					<span class="title">로그인</span>
+					<form action="${pageContext.request.contextPath }/loginDo"
+						method="POST">
+						<div class="input-container">
+							<div class="input-box">
+								<div class="label-c">
+									<span>아이디</span>
+									<input type="text" name="memId" id="inputId" value=""
+										placeholder="아이디" />
+								</div>
+								<hr>
+								<div class="label-c">
+									<span>비밀번호</span>
+									<input type="password" name="memPw" id="inputpassword" value=""
+										placeholder="비밀번호" />
+								</div>
 							</div>
-							<hr>
-							<div>
-								<input type="password" name="memPw" id="inputpassword" value=""
-									placeholder="비밀번호" />
+		
+							<div class="btn-box">
+								<button class="btn-ihs" id="submitBtn" type="submit">로그인</button>
 							</div>
+				
 						</div>
+						
+						<div class="a-box">
+							<a class=rightS href="${pageContext.request.contextPath }/home">홈으로돌아가기</a> 
+							<a class=rightS href="${pageContext.request.contextPath }/registView"> 회원가입</a>
+						</div>
+						
+					</form>
+					
+					
+				</div>
+			</section>
+			<%@ include file="/WEB-INF/inc/footer.jsp"%>
+		</div>
 	
-						<div class="btn-box">
-							<button class="btn-ihs" id="submitBtn" type="submit">로그인</button>
-						</div>
-			
-					</div>
-					
-					<div class="a-box">
-						<a class=rightS href="${pageContext.request.contextPath }/home">홈으로돌아가기</a> 
-						<a class=rightS href="${pageContext.request.contextPath }/registView"> 회원가입</a>
-					</div>
-					
-				</form>
-				
-				
-			</div>
-		</section>
-		<%@ include file="/WEB-INF/inc/footer.jsp"%>
-	</div>
-
-</body>
+	</body>
 </html>
