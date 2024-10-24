@@ -10,11 +10,9 @@
 
 <style type="text/css">
 	.map-container {
-		position: relative;
+		display: flex;
 		
-		width: 1200px;
-		
-		margin: auto;
+		width: 100%;
 	}
 	
 	p {
@@ -46,7 +44,7 @@
 		justify-content: center;
 		flex-direction: column;
 	
-	    width: 1000px;
+	    width: 100%;
 	    
 	    margin: auto;
 	}
@@ -71,26 +69,41 @@
 		text-align: center;
 		color: black;
 	}
+	
+	
+	.screen-left{
+		width: 60%
+		
+	}
+	
+	.screen-right{
+		width: 40%
+	}
+	
 </style>
 </head>
 <body class="landing is-preload">
 
-	<!-- Page Wrapper -->
-	<div id="page-wrapper">
-
-		<!-- nav -->
-		<%@ include file="/WEB-INF/inc/nav.jsp"%>
+	<!-- nav -->
+	<%@ include file="/WEB-INF/inc/nav.jsp"%>
+	
+	<!-- Banner -->
+	<div class="map-container bg-white mt-5">
+		<div class="screen-left" >
+			<!-- flask로 가져온 인공지능 모델 예측 그래프 -->
+			<div class="canvas-box" >
+				<img src="http://localhost:5000/pltimg" width="100%" >
+			</div>
+		</div>
 		
-		<!-- Banner -->
-		<div class="map-container bg-white mt-5">
-		
+		<div class="screen-right">
 			<div class="canvas-box">
 				<div class="purpose-text mt-4 mb-2" >지역별 태양광 발전량 평균</div>
 				<!-- 그래프(chart)의 크기 조정 -->
 				<!-- canvas에 width, height은 별 의미 없음 -->
 				<canvas id="myChart" ></canvas>
 			</div>
-			
+		
 			<div class="canvas-box-circle" >
 				<!-- 주거용 -->
 				<div class="w-100">
@@ -138,16 +151,11 @@
 					</div>
 				</div>
 			</div>
-			
-			<!-- flask로 가져온 인공지능 모델 예측 그래프 -->
-			<div class="canvas-box" >
-				<img src="http://localhost:5000/pltimg" width="100%" >
-			</div>
 		</div>
-
-		<%@ include file="/WEB-INF/inc/footer.jsp"%>
-
 	</div>
+
+	<%@ include file="/WEB-INF/inc/footer.jsp"%>
+
 
 	<!-- chart.js 불러오기 -->
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

@@ -22,7 +22,6 @@ public class RegionSolarController {
 	@Autowired
 	MapTestService mapTestService;
 
-	
 	// chartView∑Œ ¿Ãµø
 	@RequestMapping("/chartView")
 	public String chartView(Model model) {

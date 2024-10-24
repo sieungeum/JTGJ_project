@@ -5,12 +5,7 @@
 <!DOCTYPE HTML>
 <html lang="ko">
 <head>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
 <%@ include file="/WEB-INF/inc/head.jsp"%>
-
-<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 
 <style type="text/css">
 
@@ -46,53 +41,43 @@
 </style>
 </head>
 <body class="landing is-preload">
-
-	<!-- Page Wrapper -->
-	<div id="page-wrapper">
-
-		<!-- header -->
-		<%@ include file="/WEB-INF/inc/nav.jsp"%>
-		
-		<!-- Banner -->
-		<div class="map-container bg-primary mt-5">
-			<form action="${pageContext.request.contextPath}/mapViewTestDo" method="POST">
-				<div class="btn btn-primary">
-					지도 상세 보기
-					<input class="hidden-v" type="hidden" value=1 >
-				</div>
-				<div class="btn btn-primary">
-					지도 상세 보기2
-					<input class="hidden-v" type="hidden" value=2 >
-				</div>
-				<div class="btn btn-primary">
-					지도 상세 보기3
-					<input class="hidden-v" type="hidden" value=3 >
-				</div>
-				<div class="btn btn-primary">
-					지도 상세 보기4
-					<input class="hidden-v" type="hidden" value=4 >
-				</div>
-				<div class="btn-primary">
-					<a href="${pageContext.request.contextPath}/chartView" >
-						차트보기
-					</a>
-				</div>
-				<div class="btn-primary">
-					<a href="${pageContext.request.contextPath}/noticeTestsView" >
-						공지사항 실험
-					</a>
-				</div>
-				
-				<div class="map-detail bg-success" >
-				</div>
-			</form>
-		</div>
-		
-		
-		
-		<%@ include file="/WEB-INF/inc/footer.jsp"%>
-
+	<!-- header -->
+	<%@ include file="/WEB-INF/inc/nav.jsp"%>
+	
+	<!-- Banner -->
+	<div class="map-container bg-primary mt-5">
+		<form action="${pageContext.request.contextPath}/mapViewTestDo" method="POST">
+			<div class="btn btn-primary">
+				지도 상세 보기
+				<input class="hidden-v" type="hidden" value=1 >
+			</div>
+			<div class="btn btn-primary">
+				지도 상세 보기2
+				<input class="hidden-v" type="hidden" value=2 >
+			</div>
+			<div class="btn btn-primary">
+				지도 상세 보기3
+				<input class="hidden-v" type="hidden" value=3 >
+			</div>
+			<div class="btn btn-primary">
+				지도 상세 보기4
+				<input class="hidden-v" type="hidden" value=4 >
+			</div>
+			<div class="btn-primary">
+				<a href="${pageContext.request.contextPath}/chartView" >
+					차트보기
+				</a>
+			</div>
+			
+			<div class="map-detail bg-success" >
+			</div>
+		</form>
 	</div>
+	
+	
+	
+	<%@ include file="/WEB-INF/inc/footer.jsp"%>
+
 	
 	<script type="text/javascript">
 		let v_btn = document.querySelectorAll(".btn");
@@ -168,10 +153,6 @@
 				v_ajax.send(v_data);
 			});
 		}
-		
-		
-
-	
 	</script>
 </body>
 </html>
