@@ -5,11 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css" />
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/noscript.css" />
+	<%@ include file="/WEB-INF/inc/head.jsp"%>
     <title>네이버지도 구현</title>
     <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=sj7g9t2k7p&submodules=geocoder"></script>
     <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
