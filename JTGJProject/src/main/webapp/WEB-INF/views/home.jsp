@@ -6,27 +6,27 @@
 <html>
 <head>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/home-animation.css" />
-<%@ include file="/WEB-INF/inc/head.jsp"%>
+<%@ include file="/WEB-INF/inc/head.jsp"%><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
 <style>
+
+/* 	// <uniquifier>: Use a unique and descriptive class name
+	// <weight>: Use a value from 100 to 900 */
+	
+	.noto-sans-kr {
+	  font-family: "Noto Sans KR", serif;
+	  font-weight: 500;
+	  font-style: normal;
+	}
+
 	.landing{
-		background-image: url("images/first_screen_image.jpg");
+		background-image: url("images/home_img3.jpg");
 		background-size: 100%;
 	}
 	
-	.introduce-btn{
-		font-weight: bold;
-		color: black;
-		margin-top: 100px;
-		background-color: rgba(212, 212, 212, 0.5);
-		border-radius: 20px;
-		padding:10px;
-		width: 20%;
-		cursor: pointer;
-	}
-	
-	.introduce-btn:hover{
-		background-color: rgba(190, 190, 190, 0.5);
-	}
 	@media screen and (max-width: 1530px) {
 	
 		body{
@@ -34,7 +34,7 @@
 		}
 		
 		.landing{
-			background-image: url("images/first_screen_image.jpg");
+			background-image: url("images/home_img3.jpg");
 			background-size: 1530px;
 		}
 	}
@@ -78,31 +78,22 @@
 	.chart-circle-box{
 	    display: flex;
 	    justify-content: center;
-	    
-	    width: 100%;
-	    height: 50%;
-	}
-	.chart-circle-top{
-	    display: flex;
-	    flex-direction: column;
 	    align-items: center;
 	    
-		width: 70%;
-		
-		margin-left: auto;
-		margin-right: auto;
-		
-		text-align: center;
-		color: black;
+	    width: 100%;
+	    height: 100%;
 	}
 	.chart-circle-under{
 		width: calc(100% / 3);
 		
-		margin-left: auto;
-		margin-right: auto;
-		
 		text-align: center;
+		
 		color: black;
+	}
+	
+	.header-font{
+		font-weight: bolder;
+		font-size: 24px;
 	}
 </style>
 </head>
@@ -118,52 +109,50 @@
 		<section id="banner">
 			<div class="inner" style="display:flex; flex-direction:column; align-items:center;">
 				<img src="images/저탄고집v6.png" width="300px">
-				<ul class="actions special">
+				<div class="mt-5"></div>
+				<div class="mt-5"></div>
+				<div class="mt-5"></div>
+				<ul class="actions special noto-sans-kr">
 					<c:if test="${sessionScope.login == null}" >
-						<li><a href="${pageContext.request.contextPath }/loginView" class="button primary">로그인하기</a></li>
+						<li><a href="${pageContext.request.contextPath }/loginView" class="btn btn-success btn-lg">로그인하기</a></li>
 					</c:if>
 					<c:if test="${sessionScope.login != null}" >
 					</c:if>
 				</ul>
-				<div class="introduce-btn" id="intBtn">
-					<a href="#one">탄소중립 2050을 위한 방법<br /> 함께 알아볼까요?</a>
+				<div class="noto-sans-kr" id="intBtn">
+					<a href="#one" >탄소중립 2050을 위한 방법<br> 함께 알아볼까요?</a>
 				</div>
+				<div class="mt-5"></div>
+				<div class="mt-2"></div>
 					
 			</div>
 		</section>
 		
 		<!-- explain -->
-		<section class="wrapper alt style2 section-box">
+		<section class="wrapper alt style2 section-box" style="background-color: rgb(265, 265, 265);">
 			<section id="one" class="explain-box">
 				<div class="explain-img">
-					<img id="changeImage" src="${pageContext.request.contextPath}/images/pic01.jpg" width="100%">
+					<img id="changeImage" src="${pageContext.request.contextPath}/images/pic01.jpg" width="100%" height="100%" >
 					<div id="chartBox" class="canvas-box-circle" style="display: none;">
-
-						<div class="chart-circle-box">
-							<div class="chart-circle-top">
-								<canvas id="chartTwo"></canvas>
-								<p>에너지 효율 등급 현황</p>
-							</div>
-						</div>
-						
 						<div class="chart-circle-box" >
-							<div class="chart-circle-under">
-								<canvas id="chartOne" ></canvas>
+							<div class="chart-circle-under noto-sans-kr">
+								<canvas id="chartOneElse" ></canvas>
 								<p>현 ZEB 선정 건물 현황</p>
 							</div>
-							<div class="chart-circle-under">
-								<canvas id="chartThree" ></canvas>
-								<p>ZEB 선정 기준 적합 현황</p>
+							<div class="chart-circle-under noto-sans-kr">
+								<canvas id="chartThreeElse" ></canvas>
+								<p>ZEB 선정 가능 건물 현황</p>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="explain-text">
-					&nbsp;"지구가 뜨거워지고 있습니다."
-					<br>
+				<div class="explain-text noto-sans-kr">
+					<p class="header-font">&nbsp;"지구가 뜨거워지고 있습니다."</p>
 					<br>
 					&nbsp;산업화 이전 대비 지구의 평균 온도는 이미 1.1도가 상승했습니다.
-					&nbsp;2010년 ~ 2019년 연평균 CO2 배출량은 약 403억 톤이었으며, 2020년까지 전 지구 표면기온은 1.26도 상승했습니다.
+					2010년 ~ 2019년 연평균 CO2 배출량은 약 403억 톤이었으며, 2020년까지 전 지구 표면기온은 1.26도 상승했습니다.
+					<br>
+					<br>
 					&nbsp;즉, 0.24도 더 상승하면 산업화 이전보다 1.5도 더 뜨거워지고, 이러한 흐름이 지속될 경우 IPCC 제1실무그룹은 2027년에 1.5도를 돌파할 것이라는 비관적인 전망을 하였습니다.
 					<br>
 					<br>
@@ -185,11 +174,12 @@
 					<br>
 					<br>
 					
-					&nbsp;"건물은 에너지 관련 이산화탄소 배출량 전체의 38%를 차지합니다"
-					<br>
+					<p class="header-font">&nbsp;"건물은 에너지 관련 이산화탄소 배출량 전체의 38%를 차지합니다"</p>
 					<br>
 					&nbsp;건설산업에서 발생하는 온실가스는 전 세계 온실가스 배출량의 약 25%에 이르며, 이 중 탄소중립의 핵심 대상인 이산화탄소만 놓고 보아도 약 37%를 차지합니다.
-					건물과 인프라를 구분해 전 생애주기 동안의 온실가스 배출을 비교해 보면, 건물의 온실가스 배출량이 인프라보다 약 9배 더 많습니다. 
+					<br>
+					<br>
+					&nbsp;건물과 인프라를 구분해 전 생애주기 동안의 온실가스 배출을 비교해 보면, 건물의 온실가스 배출량이 인프라보다 약 9배 더 많습니다. 
 					<br>
 					<br>
 					&nbsp;이는 건설산업에서 탄소중립을 달성하는 데 있어 건물 부문이 가장 중요한 이유입니다.
@@ -210,11 +200,12 @@
 					<br>
 					<br>
 					
-					&nbsp;"제로에너지 건축물과 그린 리모델링: 건물 부문 탄소중립의 핵심"
-					<br>
+					<p class="header-font">&nbsp;"제로에너지 건축물과 그린 리모델링: 건물 부문 탄소중립의 핵심"</p>
 					<br>
 					&nbsp;정부의 2050 탄소중립 시나리오에 따르면, 신축 건축물의 제로에너지 건축물 1등급 100% 달성, 그리고 기존 건축물의 그린 리모델링 100% 완수가 필요합니다. 
-					이는 건물의 냉·난방 에너지 손실을 최소화하고, 자체적으로 신재생에너지를 생산해 에너지 효율을 극대화하며, 온실가스 배출을 획기적으로 줄이는 방안입니다.
+					<br>
+					<br>
+					&nbsp;이는 건물의 냉·난방 에너지 손실을 최소화하고, 자체적으로 신재생에너지를 생산해 에너지 효율을 극대화하며, 온실가스 배출을 획기적으로 줄이는 방안입니다.
 					<br>
 					<br>
 					&nbsp;그러나 제로에너지 건축물과 그린 리모델링의 정책적 목표는 아직 충분히 실현되지 못하고 있습니다. 
@@ -236,8 +227,7 @@
 					<br>
 					<br>
 					
-					&nbsp;"저탄고집은 다음의 가치를 제공합니다!"
-					<br>
+					<p class="header-font">&nbsp;"저탄고집은 다음의 가치를 제공합니다!"</p>
 					<br>
 					&nbsp;우리 홈페이지는 이러한 한계점을 보완하기 위해 누구나 쉽게 건물의 에너지 효율 등급과 제로에너지 건축물 여부를 확인할 수 있는 기능을 제공합니다. 
 					이를 통해 정부의 탄소중립 정책 실현 과정을 모니터링하고, 사용자가 자신의 건물 정보를 입력하여 제로에너지 건축물로 전환할 가능성을 직접 계산할 수 있습니다. 
@@ -343,23 +333,23 @@
 		if (window.scrollY < firstChange){
 			v_chartBox.style.display = "none";
 			v_changeImage.style.display = "block";
-			v_changeImage.src = "${pageContext.request.contextPath}/images/pic01.jpg";
+			v_changeImage.src = "${pageContext.request.contextPath}/images/first_img.jpg";
 		}
 		
-		if (window.scrollY > firstChange && window.scrollY < firstChange + 900){
+		if (window.scrollY >= firstChange && window.scrollY < firstChange + 700){
 
 			v_chartBox.style.display = "none";
 			v_changeImage.style.display = "block";
 			
-			v_changeImage.src = "${pageContext.request.contextPath}/images/pic02.jpg";
+			v_changeImage.src = "${pageContext.request.contextPath}/images/second_img.jpg";
 
-		} else if (window.scrollY > firstChange + 900 && window.scrollY < firstChange + 1900){
+		} else if (window.scrollY >= firstChange + 600 && window.scrollY < firstChange + 1400){
 
 			v_chartBox.style.display = "none";
 			v_changeImage.style.display = "block";
 			
-			v_changeImage.src = "${pageContext.request.contextPath}/images/pic03.jpg";
-		} else if (window.scrollY > firstChange + 1900){
+			v_changeImage.src = "${pageContext.request.contextPath}/images/third_img.jpg";
+		} else if (window.scrollY >= firstChange + 1400){
 			v_chartBox.style.display = "block";
 			v_changeImage.style.display = "none";
 		}
@@ -407,9 +397,9 @@
 			}
 
 			// 원그래프 생성
-			for (let i = 0; i < 1; i++){
+			for (let i = 1; i < 2; i++){
 				f_draw_circle(v_solarDict, i); // 현재 zeb 선정 현황
-				f_draw_rank(v_solarDict, i); // 에너지 효율 등급 현황
+				// f_draw_rank(v_solarDict, i); // 에너지 효율 등급 현황
 				f_draw_special_rank(v_solarDict, i); // zeb 가능 건물 현황
 			}
 		}
