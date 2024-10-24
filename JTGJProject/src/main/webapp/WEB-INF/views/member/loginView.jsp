@@ -10,7 +10,7 @@
 -->
 <html>
 <head>
-<title>Elements - Spectral by HTML5 UP</title>
+<title>로그인 페이지</title>
 <%@ include file="/WEB-INF/inc/head.jsp"%>
 
 <style>
@@ -76,6 +76,7 @@
 		justify-content: center;
 		width: 100%;
 		margin-top: 15px;
+		margin-bottom: 10px;
 	}
 	
 	.btn-ihs {
@@ -84,6 +85,14 @@
 		font-weight: bold;
 		border-radius: 10px;
 		width: 100%;
+	}
+	
+	.a-box {
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+		margin-top: 20px;
+		margin-bottom: 120px;
 	}
 	
 	.rightS {
@@ -119,15 +128,17 @@
 						<div class="btn-box">
 							<button class="btn-ihs" id="submitBtn" type="submit">로그인</button>
 						</div>
-	
+			
 					</div>
+					
+					<div class="a-box">
+						<a class=rightS href="${pageContext.request.contextPath }/home">홈으로돌아가기</a> 
+						<a class=rightS href="${pageContext.request.contextPath }/registView"> 회원가입</a>
+					</div>
+					
 				</form>
-				<div>
-				</div>
-				<a class=rightS href="${pageContext.request.contextPath }/home">홈으로
-					돌아가기</a> 
-				<a class=rightS href="${pageContext.request.contextPath }/registView"> 회원가입</a>
-	
+				
+				
 			</div>
 		</section>
 		<%@ include file="/WEB-INF/inc/footer.jsp"%>
