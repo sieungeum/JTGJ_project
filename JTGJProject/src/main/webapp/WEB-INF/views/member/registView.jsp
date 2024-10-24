@@ -10,55 +10,165 @@
 -->
 <html>
 	<head>
-		<title>Elements - Spectral by HTML5 UP</title>
+		<title>회원가입 페이지</title>
 		<%@ include file="/WEB-INF/inc/head.jsp"%>
 
-		<style>
+	<style>
 
-			.left-p {
-				margin-left:650px;
-			}
+		.landing{
+			background-image: url("images/회원가입_페이지.jpg");
+			background-size: 100%;
+		}
+	
+		.left-p {
+			margin-left: 650px;
+		}
+		
+		.container {
+			width: 600px;
+			margin: auto;
+			padding-top: 150px;
+		}
+		
+		.input-container {
+			padding: 20px;
+			border-radius: 10px;
+			border: 3px solid #ced4da;
+			width: 100%;
+			background-color: #f3f1f5;
+			opacity: 0.95;
+		}
+		
+		.title {
+			font-size: 40px;
+			display: flex;
+			justify-content: center;
+			align-content: center;
+			font-weight: 700;
+			color: white;
+			margin-bottom: 30px;
+		}
+		
+		.input-box {
+			border-radius: 10px;
+			border: 3px solid #ced4da;
+			display: flex;
+			flex-direction: column;
+		}
+		
+		.input-box input {
+			border: 0;
+			outline: none;
+			font-size: 16px;
+		}
+		
+		.input-box hr {
+			border: 1px solid #ced4da;
+			margin: 0;
+		}
+		
+		.input-box>div {
+			padding: 10px;
+		}
+		
+		.btn-box {
+			display: flex;
+			justify-content: center;
+			width: 100%;
+			margin-top: 15px;
+			margin-bottom: 10px;
+		}
+		
+		.btn-ihs {
+			background-color: rgb(3, 199, 90);
+			color: #212529;
+			font-weight: bold;
+			border-radius: 10px;
+			width: 100%;
+		}
+		
+		.a-box {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			margin-top: 20px;
+			margin-bottom: 120px;
+		}
+		
+		.rightS {
+			margin-right: 30px;
+			color: white;
+			font-weight: 600;
+		}
+		
+		.label-c span {
+			margin-bottom: 8px;
+			margin-top: 8px; 
+			margin-left: 3px; 
+			color: #212529;
+			font-weight: 600;
+		}
+			
+		input::placeholder {
+		 	color: #fff !important;
+		}
+					
+		input::-webkit-input-placeholder{
+		 	color: #fff !important;
+		}
 
-		</style>
+	</style>
 	</head>
-	<body class="is-preload">
-
-		<!-- Header -->
-		<%@ include file="/WEB-INF/inc/head.jsp" %>				
+	<body class="landing is-preload">
+	
 		<!-- nav -->
-		<%@ include file="/WEB-INF/inc/nav.jsp" %>
-
-				
-
-					<section>
-						<h4>회원가입</h4>
-						<form action="${pageContext.request.contextPath }/registDo" method="POST">
-							<div class="row gtr-uniform">
-
-								<div class="col-6 col-12">
+		<%@ include file="/WEB-INF/inc/nav.jsp"%>
+		<div id="page-wrapper">
+			<section>
+		
+				<div class="container ">
+					<span class="title">회원가입</span>
+					<form action="${pageContext.request.contextPath }/registDo" method="POST">
+						<div class="input-container">
+							<div class="input-box">
+								<div class="label-c">
+									<span >아이디</span>
 									<input type="text" name="id" id="inputId" value="" placeholder="아이디" />
 								</div>
-								<div class="col-6 col-12">
+								<hr>
+								<div class="label-c">
+									<span >비밀번호</span>
 									<input type="password" name="password" id="inputpassword" value="" placeholder="비밀번호" />
 								</div>
-								<div class="col-6 col-12">
+								<hr>
+								<div class="label-c">
+									<span >이름</span>
 									<input type="text" name="name" id="inputName" value="" placeholder="이름" />
 								</div>
-								<div class="col-6 col-12">
+								<hr>
+								<div class="label-c">
+									<span>이메일</span>
 									<input type="text" name="email" id="inputEmail" value="" placeholder="이메일" />
 								</div>
-								<div class="col-12">
-									<ul class="actions">
-										<li><div class="text-center"><button class="btn btn-primary btn-xl text-uppercase" id="submitBtn" type="submit">회원가입 완료</button></div></li>
-										<li><div><a href="${pageContext.request.contextPath }/loginView"><button class="btn btn-primary btn-xl text-uppercase">로그인으로 돌아가기</button></a></div></li>
-									</ul>
-									
-								</div>
-									
 							</div>
-						</form>
-					</section>
-		<%@ include file="/WEB-INF/inc/footer.jsp" %>
-								
+		
+							<div class="btn-box">
+								<button class="btn-ihs" id="submitBtn" type="submit">회원가입</button>
+							</div>
+				
+						</div>
+						
+						<div class="a-box">
+							<a class=rightS href="${pageContext.request.contextPath }/loginView">로그인으로 돌아가기</a> 
+							<a class=rightS href="${pageContext.request.contextPath }/home"> 홈으로 돌아가기</a>
+						</div>
+						
+					</form>
+					
+				</div>
+			</section>
+			<%@ include file="/WEB-INF/inc/footer.jsp"%>
+		</div>
+	
 	</body>
 </html>
