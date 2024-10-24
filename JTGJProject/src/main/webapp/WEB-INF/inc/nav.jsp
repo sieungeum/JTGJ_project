@@ -3,12 +3,15 @@
     pageEncoding="UTF-8"%>
     
 <!-- Header -->
+<!-- 로고 -->
+<a href="${pageContext.request.contextPath }/home"><img src="images/저탄고집v6.png" style=" width: 150px; margin-top: 10px; margin-left: 60px;"></a>
+
 <header id="header" class="alt">
 	<h1><a href="${pageContext.request.contextPath }/home">저탄고집</a></h1>
 	<nav id="nav">
 		<ul>
 			<li class="special">
-				<a href="#menu" class="menuToggle"><span>메뉴</span></a>
+				<a href="#menu" class="menuToggle rounded-pill mt-2 me-2" style="background-color: #21B2A6; "><span>메뉴</span></a>
 				<div id="menu">
 					<ul>
 						<li><a href="${pageContext.request.contextPath }/home">메인화면</a></li>

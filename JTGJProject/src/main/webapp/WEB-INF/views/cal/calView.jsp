@@ -15,16 +15,20 @@ div {
 	padding: 0;
 }
 
-body{
-	background-color: white;
+.landing {
+	background-image: url("images/photovoltaic-2814504_1920.jpg");
+	background-size: 100%;
 }
 
 .container {
 	background-color: white;
 	border-top: solid 10px #03C75A;
+	border-bottom: solid 10px #03C75A;
+	border-radius: 25px;
+	
 }
 
-.bigBox{
+.bigBox {
 	margin: auto;
 	width: 90%;
 }
@@ -35,11 +39,15 @@ body{
 	padding: 0;
 }
 
+.container h2 {
+	color: black; /* 글자 색을 검정색으로 설정 */
+	margin: 0;
+	padding: 0;
+}
+
 .col {
 	color: black;
 }
-
-
 
 .title {
 	color: #78D451;
@@ -48,6 +56,8 @@ body{
 	margin: auto;
 	padding: 50px;
 	padding-left: 70%;
+	text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px
+		1px 0 black;
 }
 
 .calculator {
@@ -63,16 +73,17 @@ body{
 	background-color: white;
 	border-color: black;
 	border-radius: 25px;
+	text-align: center;
 }
 
 .box2 {
 	color: black;
-	width: 250px;
+	width: 300px;
 	background-color: white;
 	border-color: black;
 	border-radius: 25px;
+	text-align: center;
 }
-
 
 .coment {
 	padding-left: 50%;
@@ -96,14 +107,13 @@ body{
 
 .main2 {
 	display: flex;
-    justify-content: center;
-    border: solid 5px #03C75A;
-    align-items: center;
-    margin: auto;
-    border-radius: 30px;
-    flex-direction: column;
+	justify-content: center;
+	border: solid 5px #03C75A;
+	align-items: center;
+	margin: auto;
+	border-radius: 30px;
+	flex-direction: column;
 }
-
 
 .mini {
 	padding: 50px;
@@ -126,11 +136,10 @@ body{
 }
 
 .total {
-	margin:auto;
+	margin: auto;
 	font-size: 30px;
 	background-color: #03C75A;
-	color:white;
-	
+	color: white;
 	justify-content: center; /* 중앙 정렬 */
 	display: flex;
 	justify-content: center;
@@ -150,15 +159,15 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
 }
 
 .urlbtn {
-	margin:20px;
+	margin: 20px;
 	color: white;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
 
-.urlbtn button{
-		background-color: #2E75B6;
+.urlbtn button {
+	background-color: #2E75B6;
 }
 
 .calbtn {
@@ -168,28 +177,26 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
 	height: 60px;
 }
 
-.calfi{
+.calfi {
 	font-size: 30px;
 	font-weight: bold;
 	color: aqua;
 }
 
-.btnbox{
+.btnbox {
 	margin: 10px;
 	padding-right: 70%;
 	padding-bottom: 0;
 	margin-bottom: 0;
 }
 
-.btn:hover{
+.btn:hover {
 	background-color: #BCCF86;
 }
 
-.box::placeholder {
-    color: red; /* 원하는 색상 */
-    opacity: 1; /* 불투명도 */
+input::placeholder{
+	color: grey !important;	
 }
-
 </style>
 
 <script>
@@ -384,27 +391,25 @@ function showCalculator(calcNumber) {
 </head>
 <%@ include file="/WEB-INF/inc/nav.jsp"%>
 <div>
-	<img src="images/저탄고집v6.png" width="200px">
 	<div class="title">계산기</div>
 </div>
-<body>
+<body class="landing">
 	<div class="container">
 		<div class="bigBox">
-			<h1>계산기 선택</h1>
+			<h2 style="margin-top: 30px;">계산기 선택</h2>
 			<button class="btn" onclick="showCalculator(1)">탄소배출량 계산기</button>
 			<button class="btn" onclick="showCalculator(2)">건물 에너지 자립률계산기</button>
 			<button class="btn" onclick="showCalculator(3)">에너지효율등급 계산기</button>
 
 			<!-- 1번 계산기: 탄소배출량 계산기 -->
 			<div id="calculator1" class="calculator">
-				<h3>탄소배출량 계산기</h3>
+				<h2>탄소배출량 계산기</h2>
 				<div class="main">
 					<div class="miniEl">
 						<h2>
 							<p>전기(kwh/월)</p>
 						</h2>
-						<input class="box" type="number" id="inputValue"
-							placeholder="월간 전기 사용량">
+						<input class="box" type="number" id="inputValue" placeholder="월간 전기 사용량">
 						<button class="calbtn" onclick="calculateElectricity()">계산하기</button>
 						<div>
 							<h2>
@@ -437,9 +442,9 @@ function showCalculator(calcNumber) {
 						
 			<!-- 2번 계산기: 에너지자립률(ZEB) -->
 			<div id="calculator2" class="calculator">
-				<h1>건물 에너지 자립률 계산기</h1>
+				<h2>건물 에너지 자립률 계산기</h2>
 				<div class="main">
-					<div class="mini">
+					<div class="mini" style="padding: 0;" >
 						<h2>
 							<p>자체 생산 에너지 (kWh/년)</p>
 						</h2>
@@ -469,7 +474,7 @@ function showCalculator(calcNumber) {
 
 			<div>
 				<div id="calculator3" class="calculator">
-					<h1>에너지효율등급 계산기</h1>
+					<h2>에너지효율등급 계산기</h2>
 					<div class="main2">
 						<div class="btnbox">
 							<button class="btn" id="residentialBtn"
@@ -479,8 +484,8 @@ function showCalculator(calcNumber) {
 						</div>
 						<div class="mini2">
 							<div class="miniBox">
-								<label for="num1">난방에너지 소요량</label> <input type="number"
-									id="num1" class="box2" placeholder="연간 난방에너지 소요량">
+								<label for="num1">난방에너지 소요량</label> 
+								<input type="number" id="num1" class="box2" placeholder="연간 난방에너지 소요량">
 							</div>
 							<div>
 								<label for="num11">난방에너지가 요구되는 바닥면적</label> <input type="number"
