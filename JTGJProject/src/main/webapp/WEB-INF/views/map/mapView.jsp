@@ -16,7 +16,6 @@
    <script src="js//TL_SCCO_CTPRVN.js"></script>
    <script src="js//custom_overlay.js"></script>
 
-    
     <style>
         *{
             margin:0;
@@ -52,7 +51,6 @@
             bottom: 5%;
             left: 20px;
             width: 25%;
-            height: 68%;
             background-color: #EEEEEE;
             z-index: 10; 
             border-radius: 10px;
@@ -72,8 +70,13 @@
             cursor: pointer;
         }
         
-        .custom-overlay{
-        	width:15%;
+        .custom-overlay {
+            position: absolute;
+            background-color: rgb(250, 250, 250, 0.9);
+            padding: 5px;
+            border-radius: 5px;
+            font-size: 10px;
+            font-weight: bolder;
         }
     </style>
 </head>
@@ -122,7 +125,7 @@
         // 마커클러스링을 위해 생성된 마커들을 저장할 배열 markers
         let markers = [];
         let markerClustering;
-        const CHUNK_SIZE = 500;
+        const CHUNK_SIZE = 300;
 
         // 건물의 정보를 넣을 div
         let v_buildingDetail = document.getElementsByClassName('building-more-detail');
@@ -177,6 +180,28 @@
                                  '그린에너지건축등급: ' + v_jsonData['zeb'][i] + '<br>';
                          }
                   });
+                      
+                      /*
+                      <div class="building-detail">
+                              <div class="building-more-detail">
+                                  <div style="font-size:20px;font-weight:bolder;margin-bottom:30px;text-align:center;">건물상세정보</div>
+                                  <div class="info-detail"><div class="title">목적</div> <div class="content">주거용</div></div>
+                                  <div class="info-detail"><div class="title">건물이름</div> <div class="content">재완빌딩</div></div>
+                                  <div class="info-detail"><div class="title">주소</div> <div class="content">월평로13번길 78</div></div>
+                                  <div class="info-detail"><div class="title">에너지효율등급</div> <div class="content">1++등급</div></div>
+                                  <div class="info-detail"><div class="title">1차 에너지 소요량</div> <div class="content">322.6</div></div>
+                                  <div class="info-detail"><div class="title">인증일자</div> <div class="content">2022-03-12</div></div>
+                                  <div class="info-detail"><div class="title">그린에너지건축등급</div> <div class="content">2등급</div></div>
+                                  
+                                  <div style="margin-top:20px;margin-bottom:10px;font-size: 15px;color:green">해당 건물이 자립하기 위해서는...</div>
+                                  <div class="need-energy">
+                                      1000m<sup>2</sup> <p>20.79</p>의 태양광패널이 필요합니다!<br>
+                                      10000m<sup>2</sup>  <p>207.95</p>의 태양광패널이 필요합니다!<br>
+                                      50000m<sup>2</sup>  <p>1039.73</p>의 태양광패널이 필요합니다!
+                                  </div>
+                              </div>
+                          </div>
+                  */
 
                       markers.push(marker);
                       regionSort(marker);
@@ -204,25 +229,25 @@
             '제주특별자치도' : [], '기타' : []
         }         
          
-      // 행정구역별 중심좌표를 배열로 저장
+     	// 행정구역별 중심좌표를 배열로 저장
         const regions = [
-            { name: "서울특별시", coords: [37.5665, 126.9780] },
-            { name: "부산광역시", coords: [35.1796, 129.0756] },
-            { name: "대구광역시", coords: [35.8022, 128.6018] },
-            { name: "인천광역시", coords: [37.4563, 126.7052] },
-            { name: "광주광역시", coords: [35.1595, 126.8526] },
+            { name: "서울특별시", coords: [37.5888, 126.9888] },
+            { name: "부산광역시", coords: [35.2796, 129.0756] },
+            { name: "대구광역시", coords: [35.8888, 128.5955] },
+            { name: "인천광역시", coords: [37.7563, 126.3052] },
+            { name: "광주광역시", coords: [35.2095, 126.9526] },
             { name: "대전광역시", coords: [36.3504, 127.3845] },
-            { name: "울산광역시", coords: [35.5384, 129.3114] },
-            { name: "세종특별자치시", coords: [36.4871, 127.2817] },
-            { name: "경기도", coords: [37.867, 127.190] },
-            { name: "강원도", coords: [37.755, 128.209] },
-            { name: "충청북도", coords: [36.6357, 127.6914] },
-            { name: "충청남도", coords: [36.5184, 126.8009] },
-            { name: "전라북도", coords: [35.6204, 127.1088] },
+            { name: "울산광역시", coords: [35.6384, 129.3114] },
+            { name: "세종특별자치시", coords: [36.5871, 127.2817] },
+            { name: "경기도", coords: [37.367, 127.590] },
+            { name: "강원도", coords: [37.755, 128.509] },
+            { name: "충청북도", coords: [36.9357, 127.7914] },
+            { name: "충청남도", coords: [36.8184, 126.8009] },
+            { name: "전라북도", coords: [35.8204, 127.3088] },
             { name: "전라남도", coords: [34.8160, 126.6630] },
-            { name: "경상북도", coords: [36.5760, 128.7056] },
-            { name: "경상남도", coords: [35.2383, 128.3021] },
-            { name: "제주특별자치도", coords: [33.3996, 126.5312] }
+            { name: "경상북도", coords: [36.5760, 128.8056] },
+            { name: "경상남도", coords: [35.5083, 128.3021] },
+            { name: "제주특별자치도", coords: [33.4384, 126.5381] }
         ];
 
         // 행정구역 분류 함수
@@ -384,7 +409,6 @@
                 // 중심 좌표에 마커 추가
                 let marker = new naver.maps.Marker({
                     position: position,
-                    map: map,
                     title: feature.getProperty('CTP_ENG_NM') // GeoJSON 속성에서 이름 가져옴
                 });
                 new_markers.push(marker); // 마커 배열에 저장
@@ -441,13 +465,11 @@
                     overlay._element.html(regionName + ": " + newCount);
                     overlay.setMap(map); // 오버레이 다시 표시
                 });
-                new_markers.forEach(marker => marker.setMap(map)); // 모든 마커 다시 표시
                             
             } else {
                 // 클러스터링 작업
                 clearMarkersAndClusters() // 기존 마커 제거
                 overlays.forEach(overlay => overlay.setMap(null)); // 커스텀 오버레이 표시
-                new_markers.forEach(marker => marker.setMap(null)); // 모든 마커 제거
                 createCluster(filteredMarkers);
             }
         }
@@ -487,7 +509,6 @@
                     // 중심 좌표에 마커 추가
                     let marker = new naver.maps.Marker({
                         position: position,
-                        map: map,
                         title: feature.getProperty('CTP_ENG_NM') // GeoJSON 속성에서 이름 가져옴
                     });
 
@@ -529,11 +550,9 @@
                         
                         // 줌 레벨이 8 이하일 때 마커 및 GeoJSON 다시 표시
                         overlays.forEach(overlay => overlay.setMap(map)); // 커스텀 오버레이 표시
-                        new_markers.forEach(marker => marker.setMap(map)); // 모든 마커 다시 표시
                     }else{
                         // 줌 레벨이 8을 초과하면 마커 제거 및 GeoJSON 숨기기
                         overlays.forEach(overlay => overlay.setMap(null)); // 커스텀 오버레이 표시
-                        new_markers.forEach(marker => marker.setMap(null)); // 모든 마커 제거
                         createCluster(markers);
                     }
                 }

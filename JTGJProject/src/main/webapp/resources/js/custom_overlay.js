@@ -1,5 +1,5 @@
 var CustomOverlay = function(options) {
-    this._element = $('<div style="position:absolute;width:10%;height:30px;line-height:30px;text-align:center;border-radius:10px;background-color:#FFFFFF;opacity:70%;font-weight:bolder;">' 
+    this._element = $('<div class="custom-overlay">' 
                     + options.content 
                     + '</div>');
     this.setPosition(options.position);
@@ -29,7 +29,7 @@ CustomOverlay.prototype.draw = function() {
 
     var pixelPosition = projection.fromCoordToOffset(position);
 
-    this._element.css('left', pixelPosition.x);
+    this._element.css('left', pixelPosition.x - 50);
     this._element.css('top', pixelPosition.y);
 };
 
