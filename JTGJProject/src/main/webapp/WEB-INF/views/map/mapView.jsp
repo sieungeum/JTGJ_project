@@ -1,20 +1,20 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<%@ include file="/WEB-INF/inc/head.jsp"%>
+   <%@ include file="/WEB-INF/inc/head.jsp"%>
     <title>네이버지도 구현</title>
     <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=sj7g9t2k7p&submodules=geocoder"></script>
     <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-	
-	<script src="js/MarkerClustering.js"></script>
-	<script src="js//TL_SCCO_CTPRVN.js"></script>
-	<script src="js//custom_overlay.js"></script>
+   
+   <script src="js/MarkerClustering.js"></script>
+   <script src="js//TL_SCCO_CTPRVN.js"></script>
+   <script src="js//custom_overlay.js"></script>
 
     
     <style>
@@ -52,7 +52,7 @@
             bottom: 5%;
             left: 20px;
             width: 25%;
-            height: 75%;
+            height: 68%;
             background-color: #EEEEEE;
             z-index: 10; 
             border-radius: 10px;
@@ -71,13 +71,17 @@
             align-items: center;
             cursor: pointer;
         }
+        
+        .custom-overlay{
+        	width:15%;
+        }
     </style>
 </head>
 <body class="landing is-preload">
     <%@ include file="/WEB-INF/inc/nav.jsp"%>
-    <div id="map">
-    	<!-- 필터 -->
-    	
+    <div id="map" style="font-size: 10px;">
+       <!-- 필터 -->
+       
         <div class="building-filter">
             <div>
                 <!-- onchange="sortingEnergyGrade(this.value)" -->
@@ -105,7 +109,7 @@
             <div class="building-more-detail"></div>
         </div>
 
-		<%@ include file="/WEB-INF/inc/footer.jsp"%>
+      <%@ include file="/WEB-INF/inc/footer.jsp"%>
     </div>
     
     <script>
@@ -114,8 +118,8 @@
             center: new naver.maps.LatLng(36.34, 127.77),
             zoom: 7
         }); 
-	
-     	// 마커클러스링을 위해 생성된 마커들을 저장할 배열 markers
+   
+        // 마커클러스링을 위해 생성된 마커들을 저장할 배열 markers
         let markers = [];
         let markerClustering;
         const CHUNK_SIZE = 500;
@@ -127,66 +131,66 @@
         let overlays = [];
         
         // promise 로 먼저 실행
-   		// chunk 이용 -> 각각의 마커 생성시 일일이 map에 적용하지 않음
+         // chunk 이용 -> 각각의 마커 생성시 일일이 map에 적용하지 않음
         function loadMarkersInChunks(v_jsonData, startIndex = 0){
-   			return new Promise((resolve) => {
-   				let endIndex = Math.min(startIndex + CHUNK_SIZE, v_jsonData['address'].length);
+            return new Promise((resolve) => {
+               let endIndex = Math.min(startIndex + CHUNK_SIZE, v_jsonData['address'].length);
 
-   	            for(let i = startIndex; i < endIndex; i++){
-   	                if(!v_jsonData['lat'][i] || !v_jsonData['lng'][i]) continue;
+                  for(let i = startIndex; i < endIndex; i++){
+                      if(!v_jsonData['lat'][i] || !v_jsonData['lng'][i]) continue;
 
-   	                let marker = new naver.maps.Marker({
-   	                    position: new naver.maps.LatLng(v_jsonData['lat'][i], v_jsonData['lng'][i]),
-   	                    title: v_jsonData['name'][i],
-   	                    icon: {
-   	                        content: getMarkerIconByGrade(v_jsonData['grade'][i])
-   	                    },
-   	                    draggable: false,
-   	                    grade: v_jsonData['grade'][i],
-   	                    address: v_jsonData['address'][i],
-   	                    zeb: v_jsonData['zeb'][i]
-   	                });
+                      let marker = new naver.maps.Marker({
+                          position: new naver.maps.LatLng(v_jsonData['lat'][i], v_jsonData['lng'][i]),
+                          title: v_jsonData['name'][i],
+                          icon: {
+                              content: getMarkerIconByGrade(v_jsonData['grade'][i])
+                          },
+                          draggable: false,
+                          grade: v_jsonData['grade'][i],
+                          address: v_jsonData['address'][i],
+                          zeb: v_jsonData['zeb'][i]
+                      });
 
-   	                // 마커 클릭 이벤트 추가
-   	                naver.maps.Event.addListener(marker, "click", function() {
-   	                	// 발전량 추가
-   	                	if(marker['zeb'] == 'N' && marker['grade'].length > 4) {
-   	                		v_buildingDetail[0].innerHTML = 
-   	    				        '목적: ' + v_jsonData['purpose'][i] + '<br>' +
-   	    				        '건물이름: ' + v_jsonData['name'][i] + '<br>' +
-   	    				        '주소: ' + v_jsonData['address'][i] + '<br>' +
-   	    				        '에너지효율등급: ' + v_jsonData['grade'][i] + '<br>' +
-   	    				        '1차 에너지 소요량: ' + v_jsonData['1st_energy'][i] + '<br>' +
-   	    				        '인증일자: ' + v_jsonData['crtif'][i] + '<br>' +
-   	    				        '그린에너지건축등급: ' + v_jsonData['zeb'][i] + '<br>' +
-   	                			'1000m^2 : ' + v_jsonData['mm_thous_p'][i] + '<br>' +
-   	                			'10000m^2 : ' + v_jsonData['mm_ten_thous_p'][i] + '<br>' +
-   	                			'50000m^2 : ' + v_jsonData['mm_fifty_thous_p'][i];
-   	                	} else {
-   	               			v_buildingDetail[0].innerHTML = 
-   	       				        '목적: ' + v_jsonData['purpose'][i] + '<br>' +
-   	       				        '건물이름: ' + v_jsonData['name'][i] + '<br>' +
-   	       				        '주소: ' + v_jsonData['address'][i] + '<br>' +
-   	       				        '에너지효율등급: ' + v_jsonData['grade'][i] + '<br>' +
-   	       				        '1차 에너지 소요량: ' + v_jsonData['1st_energy'][i] + '<br>' +
-   	       				        '인증일자: ' + v_jsonData['crtif'][i] + '<br>' +
-   	       				        '그린에너지건축등급: ' + v_jsonData['zeb'][i] + '<br>';
-   	                	}
-   					});
+                      // 마커 클릭 이벤트 추가
+                      naver.maps.Event.addListener(marker, "click", function() {
+                         // 발전량 추가
+                         if(marker['zeb'] == 'N' && marker['grade'].length > 4) {
+                            v_buildingDetail[0].innerHTML = 
+                              '목적: ' + v_jsonData['purpose'][i] + '<br>' +
+                              '건물이름: ' + v_jsonData['name'][i] + '<br>' +
+                              '주소: ' + v_jsonData['address'][i] + '<br>' +
+                              '에너지효율등급: ' + v_jsonData['grade'][i] + '<br>' +
+                              '1차 에너지 소요량: ' + v_jsonData['1st_energy'][i] + '<br>' +
+                              '인증일자: ' + v_jsonData['crtif'][i] + '<br>' +
+                              '그린에너지건축등급: ' + v_jsonData['zeb'][i] + '<br>' +
+                               '1000m^2 : ' + v_jsonData['mm_thous_p'][i] + '<br>' +
+                               '10000m^2 : ' + v_jsonData['mm_ten_thous_p'][i] + '<br>' +
+                               '50000m^2 : ' + v_jsonData['mm_fifty_thous_p'][i];
+                         } else {
+                              v_buildingDetail[0].innerHTML = 
+                                 '목적: ' + v_jsonData['purpose'][i] + '<br>' +
+                                 '건물이름: ' + v_jsonData['name'][i] + '<br>' +
+                                 '주소: ' + v_jsonData['address'][i] + '<br>' +
+                                 '에너지효율등급: ' + v_jsonData['grade'][i] + '<br>' +
+                                 '1차 에너지 소요량: ' + v_jsonData['1st_energy'][i] + '<br>' +
+                                 '인증일자: ' + v_jsonData['crtif'][i] + '<br>' +
+                                 '그린에너지건축등급: ' + v_jsonData['zeb'][i] + '<br>';
+                         }
+                  });
 
-   	                markers.push(marker);
-   	                regionSort(marker);
-   	            }
+                      markers.push(marker);
+                      regionSort(marker);
+                  }
 
-   	            // 다음 청크로 이동
-   	            if(endIndex < v_jsonData['address'].length){
-   	                requestAnimationFrame(() => loadMarkersInChunks(v_jsonData, endIndex).then(resolve));
-   	            } else{
-   	                // 모든 마커가 생성된 후 클러스터링
-   	                console.log('모든 마커 생성 완료');
-   	                resolve(); // 모든 마커 로드 후 resolve 호출
-   	            }   				
-   			});
+                  // 다음 청크로 이동
+                  if(endIndex < v_jsonData['address'].length){
+                      requestAnimationFrame(() => loadMarkersInChunks(v_jsonData, endIndex).then(resolve));
+                  } else{
+                      // 모든 마커가 생성된 후 클러스터링
+                      console.log('모든 마커 생성 완료');
+                      resolve(); // 모든 마커 로드 후 resolve 호출
+                  }               
+            });
         }
 
         /* 행정구역 작업 */ 
@@ -198,9 +202,9 @@
             '경기도' : [], '강원도' : [], '충청북도' : [], '충청남도' : [],
             '전라북도' : [], '전라남도' : [], '경상북도' : [], '경상남도' : [],
             '제주특별자치도' : [], '기타' : []
-        }   		
-   		
-		// 행정구역별 중심좌표를 배열로 저장
+        }         
+         
+      // 행정구역별 중심좌표를 배열로 저장
         const regions = [
             { name: "서울특별시", coords: [37.5665, 126.9780] },
             { name: "부산광역시", coords: [35.1796, 129.0756] },
@@ -221,7 +225,7 @@
             { name: "제주특별자치도", coords: [33.3996, 126.5312] }
         ];
 
-     	// 행정구역 분류 함수
+        // 행정구역 분류 함수
         // 마커가 인자로 들어감
         function regionSort(address){
             // address undefined 또는 null이 아닌지 확인
@@ -275,7 +279,7 @@
         let new_markers = [];
         
         /* 클러스터링 작업 */
-     	// 마커 클러스터 생성 함수
+        // 마커 클러스터 생성 함수
         function createCluster(applyMarker){
 
             console.log('클러스터링 실행');
@@ -328,7 +332,7 @@
             map.refresh();
         }
         
-     	// 마커와 클러스터링 제거 함수
+        // 마커와 클러스터링 제거 함수
         function clearMarkersAndClusters(hideOnly = false){
             if(markerClustering){
                 markerClustering.map = null;
@@ -336,15 +340,15 @@
             }
 
             markers.forEach(function(marker){
-            	if(hideOnly){
-            		marker.setVisible(false); // 마커 숨기기
-            	} else {
-            		marker.setMap(null); // 마커 제거	
-            	}
+               if(hideOnly){
+                  marker.setVisible(false); // 마커 숨기기
+               } else {
+                  marker.setMap(null); // 마커 제거   
+               }
             });
         }
         
-    	// 에너지 등급에 따른 마커 이미지 html/css 
+       // 에너지 등급에 따른 마커 이미지 html/css 
         function getMarkerIconByGrade(grade) {
             if (grade == '1++++등급' || grade == '1+++등급') {
                 return '<div><img src="./images/emoji-sunglasses.svg" style="background-color:#04B431;border-radius:100%;"></div>';
@@ -360,12 +364,9 @@
                 return '<div><img src="./images/question-diamond.svg" style="background-color:#EEEEEE;border-radius:100%;"></div>';
             }
         }        
-    	
-        
-    	
-    	
-    	
-    	
+       
+       
+       
         map.data.forEach(function(feature) {
             let geometry = feature['_raw']['geometry'];
 
@@ -400,13 +401,12 @@
                 strokeOpacity: 0.7      // 경계선 불투명도
             };
         });
-
-     	// 검색 기능
+        // 검색 기능
         let v_inputName = document.getElementById('input_name');
         let v_buildingSelect = document.getElementById('building-select');
         let isSearching = false; // true 일 시 검색함수 실행
         function searchBuilding(){
-        	v_buildingDetail[0].innerHTML = "";
+           v_buildingDetail[0].innerHTML = "";
             isSearching = true;
             let selectGrade = v_buildingSelect.value; // 선택된 에너지 등급
             let inputAddress = v_inputName.value.trim(); // 주소값
@@ -433,6 +433,7 @@
                 clearMarkersAndClusters(); // 기존 마커 제거
                 // 오버레이의 content를 filteredRegionMarkerCount에 맞춰 업데이트
                 overlays.forEach(overlay => {
+                	console.log(overlay._element.css);
                     let regionName = overlay._element.text().split(':')[0]; // 지역 이름 추출
                     let newCount = filteredRegionMarkerCount[regionName] ? filteredRegionMarkerCount[regionName].length : 0;
 
@@ -453,12 +454,12 @@
         
         // loadMarkersInChunks() 함수 실행 후 나머지 기능 실행
         async function mainProgram(){
-        	await loadMarkersInChunks(v_jsonData);
-        	
-        	console.log('데이터 불러오기 완료!');
-        	
-        	// 행정 마커 추가
-			map.data.forEach(function(feature) {
+           await loadMarkersInChunks(v_jsonData);
+           
+           console.log('데이터 불러오기 완료!');
+           
+           // 행정 마커 추가
+         map.data.forEach(function(feature) {
                 let geometry = feature['_raw']['geometry'];
 
                 if (geometry['type'] === 'Polygon') {
@@ -500,10 +501,10 @@
                     overlays.push(overlay);
                     new_markers.push(marker); // 마커 배열에 저장
                 }
-            });        	
-        	
-        	
-         	// GeoJSON 스타일 설정(폴리곤 스타일링)
+            });           
+           
+           
+            // GeoJSON 스타일 설정(폴리곤 스타일링)
             map.data.setStyle(function(feature) { 
                 return {
                     fillColor: '#FFFFFF', // 폴리곤 색상 채우기
@@ -514,7 +515,7 @@
                 };
             });
 
-         	// 줌 레벨에 따른 마커/클러스터링 처리
+            // 줌 레벨에 따른 마커/클러스터링 처리
             naver.maps.Event.addListener(map, 'zoom_changed', function() {
                 let zoomLevel = map.getZoom();
 
@@ -537,7 +538,7 @@
                     }
                 }
                 
-            });        	
+            });           
         }
         
 
@@ -547,7 +548,7 @@
         xhr.open('GET', '/jtgzproject/getAllInfo', true);
         xhr.setRequestHeader('Content-Type', 'application/json');
         
-	    // 각 컬럼의 값을 담을 객체 v_jsonData 선언
+       // 각 컬럼의 값을 담을 객체 v_jsonData 선언
         let v_jsonData = {
             'purpose': [], 'name': [], 'grade': [],
             '1st_energy': [], 'crtif': [], 'address': [],
@@ -558,37 +559,37 @@
         
         // 요청이 완료되었을 때 실행할 콜백
         xhr.onload = function(){
-        	if(xhr.status >= 200 && xhr.status < 300){
-        		// 서버에서 받은 JSON 데이터를 파싱
-        		let data = JSON.parse(xhr.responseText);
-        		
-        		for(let i = 0; i < data.length; i++){
-        			v_jsonData['purpose'].push(data[i]['purposeKindName']);
-        			v_jsonData['name'].push(data[i]['bldNm']);
-        			v_jsonData['grade'].push(data[i]['grdName']);
-        			v_jsonData['1st_energy'].push(data[i]['wOneEnergyRequire']);
-        			v_jsonData['crtif'].push(data[i]['crtifIsuDd']);
-        			v_jsonData['address'].push(data[i]['locAddr']);
-        			v_jsonData['zeb'].push(data[i]['zeb']);
-        			v_jsonData['mm_thous_p'].push(data[i]['mmThousP']);
-        			v_jsonData['mm_ten_thous_p'].push(data[i]['mmTenThousP']);
-        			v_jsonData['mm_fifty_thous_p'].push(data[i]['mmFiftyThousP']);
-        			v_jsonData['lat'].push(data[i]['lat']);
-        			v_jsonData['lng'].push(data[i]['lng']);
-        		}
+           if(xhr.status >= 200 && xhr.status < 300){
+              // 서버에서 받은 JSON 데이터를 파싱
+              let data = JSON.parse(xhr.responseText);
+              
+              for(let i = 0; i < data.length; i++){
+                 v_jsonData['purpose'].push(data[i]['purposeKindName']);
+                 v_jsonData['name'].push(data[i]['bldNm']);
+                 v_jsonData['grade'].push(data[i]['grdName']);
+                 v_jsonData['1st_energy'].push(data[i]['wOneEnergyRequire']);
+                 v_jsonData['crtif'].push(data[i]['crtifIsuDd']);
+                 v_jsonData['address'].push(data[i]['locAddr']);
+                 v_jsonData['zeb'].push(data[i]['zeb']);
+                 v_jsonData['mm_thous_p'].push(data[i]['mmThousP']);
+                 v_jsonData['mm_ten_thous_p'].push(data[i]['mmTenThousP']);
+                 v_jsonData['mm_fifty_thous_p'].push(data[i]['mmFiftyThousP']);
+                 v_jsonData['lat'].push(data[i]['lat']);
+                 v_jsonData['lng'].push(data[i]['lng']);
+              }
                  
                  console.log(v_jsonData);
                  
                  // 마커 로드 후 프로그램 진행
                  mainProgram();
-        	} else{
-        		console.error('서버에 데이터를 가져오지 못했습니다.');
-        	}
+           } else{
+              console.error('서버에 데이터를 가져오지 못했습니다.');
+           }
         };
         
         // 에러가 발생했을 시..
         xhr.onerror = function(){
-        	console.error('서버 요청 중 에러가 발생했습니다.');
+           console.error('서버 요청 중 에러가 발생했습니다.');
         };
         
         // 요청 전송
