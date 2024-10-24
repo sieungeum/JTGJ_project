@@ -2664,11 +2664,11 @@ input, select, textarea {
 		-moz-align-items: center;
 		-webkit-align-items: center;
 		-ms-align-items: center;
-		align-items: center;
+/* 		align-items: center;
 		display: -moz-flex;
 		display: -webkit-flex;
 		display: -ms-flex;
-		display: flex;
+		display: flex; */
 	}
 
 		.spotlight .image {
@@ -2743,14 +2743,24 @@ input, select, textarea {
 		}
 
 		@media screen and (max-width: 1280px) {
-
-			.spotlight .image {
-				width: 45%;
+			.spotlight {
+				display: block;
 			}
 
-			.spotlight .content {
-				width: 55%;
-			}
+				.spotlight br {
+					display: none;
+				}
+
+				.spotlight .image {
+					width: 100%;
+				}
+
+				.spotlight .content {
+					padding: 4em 3em 2em 3em ;
+					max-width: none;
+					text-align: center;
+					width: 100%;
+				}
 
 		}
 

@@ -401,7 +401,6 @@
                 strokeOpacity: 0.7      // 경계선 불투명도
             };
         });
-
         // 검색 기능
         let v_inputName = document.getElementById('input_name');
         let v_buildingSelect = document.getElementById('building-select');

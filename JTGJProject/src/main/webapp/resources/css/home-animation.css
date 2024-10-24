@@ -1,0 +1,33 @@
+.section-box{
+	height: 3300px;
+}
+
+.explain-box{
+	width: 100%;
+	height: 3100px;
+	
+	display: block;
+}
+
+.explain-img{
+	width: 700px;
+	height: 500px;
+	float: right;
+	
+	position: sticky;
+	top:200px;
+	margin-top: 200px;
+	
+	margin-right: 50px;
+}
+
+.explain-text{
+	color: white;
+	width: 650px;
+	float: left;
+	
+	font-size: 25px;
+	
+	margin-left: 30px;
+	margin-top: 200px;
+}
