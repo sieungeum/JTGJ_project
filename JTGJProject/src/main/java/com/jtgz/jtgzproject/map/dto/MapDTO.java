@@ -1,7 +1,7 @@
-package com.jtgz.jtgzproject.leeMapTest.dto;
+package com.jtgz.jtgzproject.map.dto;
 
-public class LeeMapTestDTO {
-    private String purposeKindName;       	/* 건물 용도(주거용, 주거용 이외) */ 
+public class MapDTO {
+	private String purposeKindName;       	/* 건물 용도(주거용, 주거용 이외) */ 
     private String bldNm;                  	/* 건묾명 */
     private String grdName;                	/* 에너지 효율 등급 */
     private double wOneEnergyRequire;       /* 1차 에너지 소요량 */
@@ -21,10 +21,10 @@ public class LeeMapTestDTO {
     private double lng; // 경도
     
     
-	public LeeMapTestDTO() {
+	public MapDTO() {
 	}
 
-	public LeeMapTestDTO(String purposeKindName, String bldNm, String grdName, double wOneEnergyRequire,
+	public MapDTO(String purposeKindName, String bldNm, String grdName, double wOneEnergyRequire,
 			String crtifIsuDd, String locAddr, String zeb, String delYn, double mmThousP, double mmTenThousP,
 			double mmFiftyThousP, double lat, double lng) {
 		super();
@@ -154,8 +154,4 @@ public class LeeMapTestDTO {
 	public void setLng(double lng) {
 		this.lng = lng;
 	}
-
-	
-
-	
 }
