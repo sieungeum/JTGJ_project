@@ -23,18 +23,24 @@ div {
 	border-top: solid 10px #03C75A;
 	border-bottom: solid 10px #03C75A;
 	border-radius: 25px;
+	margin-top: 200px;
+	margin-bottom: 50px;
 }
 
-.container td, .container p{
+.container td, .container p {
 	color: black;
 }
 
-.notice td{
-	color:red;
+.notice td {
+	color: #3F48CC;
 	font-weight: bold;
 }
 
-.container th{
+.noticegong {
+	border-left: solid 10px #03C75A;
+}
+
+.container th {
 	color: black;
 	font-size: 30px;
 	padding-top: 20px;
@@ -62,14 +68,17 @@ div {
 }
 
 .title {
-	color: #78D451;
 	font-size: 80px;
 	font-weight: bold;
-	margin: auto;
-	margin-bottom: 0;
 	padding-left: 70%;
-	text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px
-		1px 0 black;
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
+.title p {
+	color: #78D451;
+	margin: 0;
+	padding: 0;
 }
 
 .calculator {
@@ -205,6 +214,12 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
 .btn:hover {
 	background-color: #BCCF86;
 }
+
+.createBtn {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
 </style>
 </head>
 <body class="landing is-preload">
@@ -214,10 +229,10 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
 
 		<!-- Header -->
 		<%@ include file="/WEB-INF/inc/nav.jsp"%>
+		<div class="container">
 			<div class="title">
 				<p>건의사항</p>
 			</div>
-		<div class="container">
 			<!-- Banner -->
 			<section>
 				<div class="inner">
@@ -233,7 +248,7 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
 						<tbody>
 							<c:forEach items="${notice}" var="notice">
 								<tr class="notice">
-									<td scope="row">공지</td>
+									<td class="noticegong" scope="row">공지</td>
 									<td><a
 										href="${pageContext.request.contextPath}/noticeDetailView?notiNo=${notice.notiNo}">${notice.notiTitle}</a></td>
 									<td>${notice.memName}</td>
@@ -251,22 +266,21 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
 							</c:forEach>
 						</tbody>
 					</table>
-
-					<div class="col-lg-8 col-xl-7 d-flex justify-content-end">
-						<a href="${pageContext.request.contextPath }/boardWriteView">
-							<button class="btn btn-primary btn-xl">글쓰기</button>
-						</a>
-					</div>
-
-					<c:if
-						test='${sessionScope.login.memAdminYn == "Y" or 
-					sessionScope.login.memAdminYn == "K"}'>
-						<div class="btn">
-							<a href="${pageContext.request.contextPath}/noticeWriteView">공지사항
-								작성</a>
+					<div class="createBtn">
+						<div class="col-lg-8 col-xl-7 d-flex justify-content-end">
+							<a href="${pageContext.request.contextPath }/boardWriteView">
+								<button class="btn btn-primary btn-xl">글쓰기</button>
+							</a>
 						</div>
-					</c:if>
-
+						<c:if
+							test='${sessionScope.login.memAdminYn == "Y" or 
+					sessionScope.login.memAdminYn == "K"}'>
+							<div class="btn">
+								<a href="${pageContext.request.contextPath}/noticeWriteView">공지사항
+									작성</a>
+							</div>
+						</c:if>
+					</div>
 					<!-- Paging Bar -->
 					<div class="d-flex justify-content-center">
 						<nav aria-label="Page navigation example">
@@ -291,16 +305,12 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
 								<!-- 중간 페이지 번호 부분 -->
 								<!-- model에 keySearch 이름으로 searchVO를 담음 -->
 								<!-- searchVO 내 pageNo, firstPage, lastPage 채워져있음 -->
-								<c:forEach begin="${pageSearch.firstPage }"
-									end="${pageSearch.lastPage }" var="num">
-									<li
-										class="page-item ${PageSearch.pageNo == num ? 'active' : ''}">
+								<c:forEach begin="${pageSearch.firstPage }" end="${pageSearch.lastPage }" var="num">
+									<li class="page-item ${PageSearch.pageNo == num ? 'active' : ''}">
 										<c:if test="${pageSearch.searchWord == null }">
-											<a class="page-link"
-												href="${pageContext.request.contextPath }/boardView?pageNo=${num }&rowSizePerPage=${pageSearch.rowSizePerPage}">${num }</a>
+											<a class="page-link" href="${pageContext.request.contextPath }/boardView?pageNo=${num }&rowSizePerPage=${pageSearch.rowSizePerPage}">${num }</a>
 										</c:if> <c:if test="${pageSearch.searchWord != null }">
-											<a class="page-link"
-												href="${pageContext.request.contextPath }/boardView?pageNo=${num }&rowSizePerPage=${pageSearch.rowSizePerPage}&searchOption=${pageSearch.searchOption}&searchWord=${pageSearch.searchWord}">${num }</a>
+											<a class="page-link" href="${pageContext.request.contextPath }/boardView?pageNo=${num }&rowSizePerPage=${pageSearch.rowSizePerPage}&searchOption=${pageSearch.searchOption}&searchWord=${pageSearch.searchWord}">${num }</a>
 										</c:if>
 									</li>
 								</c:forEach>
