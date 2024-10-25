@@ -25,26 +25,27 @@ div {
 	border-radius: 25px;
 	margin-top: 200px;
 	margin-bottom: 50px;
+	width: 75%;
 }
 
-.container td, .container p, .container a{
+.container td, .container p, .container a {
 	color: black;
 }
 
-.container h6{
+.container h6 {
 	color: black;
 }
 
-.container pre{
+.container pre {
 	color: black;
 }
 
-.notice td{
-	color:red;
+.notice td {
+	color: red;
 	font-weight: bold;
 }
 
-.container th{
+.container th {
 	color: black;
 	font-size: 30px;
 	padding-top: 20px;
@@ -52,7 +53,7 @@ div {
 
 .bigBox {
 	margin: auto;
-	width: 90%;
+	width: 80%;
 }
 
 .calculator h2, .calculator p, .calculator label {
@@ -74,12 +75,12 @@ div {
 .title {
 	font-size: 80px;
 	font-weight: bold;
-	padding-left: 70%;
-	margin-top:50px;
-	margin-bottom:50px;
+	padding-left: 65%;
+	margin-top: 50px;
+	margin-bottom: 50px;
 }
 
-.title p{
+.title p {
 	border-bottom: solid 10px #03C75A;
 	color: #78D451;
 	padding: 0;
@@ -212,69 +213,74 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
 
 .btnbox {
 	margin: 10px;
-	padding-right: 70%;
-	padding-bottom: 0;
-	margin-bottom: 0;
 }
 
 .btn:hover {
 	background-color: #BCCF86;
 }
 
-.dtitle h6{
+.dtitle h6 {
 	margin: 0;
 }
-.dtitle{
-	padding-left:20px;
+
+.dtitle {
+	padding-left: 10px;
 	font-size: 70px;
-	border-bottom:solid 3px #03C75A;
-	display: flex; 
-	justify-content: space-between; 
+	display: flex;
+	justify-content: space-between;
 	align-items: center;
 }
 
-.mtitle{
+.mtitle {
+	padding-left: 10px;
+	border-bottom: solid 3px #03C75A;
 	font-size: 20px;
-	display: flex; 
-	justify-content: space-between; 
+	display: flex;
+	justify-content: space-between;
 	align-items: center;
-	width: 40%;
-	padding-top: 50px;
+	padding-top: 10px;
 }
 
-.content{
+.content {
 	margin: 30px;
 }
 
-.file{
+.file {
 	background-color: rgba(3, 199, 90, 0.5);
-	width: 60%;'
+	width: 60%;
+	'
 }
 
-.com input{
+.com input {
 	color: black;
 	border: solid 1px black;
 }
 
-.combox{
-	margin-top: 50px;
+.combox {
+	margin-top: 20px;
 }
 
-.btnbox{
-	display: flex; 
-	justify-content: flex-end; 
+.btnbox {
+	display: flex;
+	justify-content: flex-end;
 	align-items: center;
 }
 
-.writecom{
-	justify-content: center; 
+.writecom {
+}
+
+.com {
+	display: flex; /* Flexbox 활성화 */
 	align-items: center;
 }
 
-input::placeholder{
-	color: grey !important;	
+input::placeholder {
+	color: grey !important;
 }
 
+.jemock label, .jemock input{
+	color:black;'
+}
 </style>
 
 
@@ -290,15 +296,16 @@ input::placeholder{
 			<div class="title">
 				<p>공지사항</p>
 			</div>
+		<div class="bigBox">
 		<section>
 			<div>
 				<div class="dtitle">
 					<h6>${notice.notiTitle}</h6>
+				</div>
 					<div class="mtitle">
 						<h6>${notice.memName}</h6>
 						<h6>${notice.notiDate}</h6>
 					</div>
-				</div>
 
 				<div class="content">
 					<pre>${notice.notiContent}</pre>
@@ -322,6 +329,7 @@ input::placeholder{
 				</div>
 			</c:if>
 		</section>
+		</div>
 	</div>
 
 		<%@ include file="/WEB-INF/inc/footer.jsp"%>

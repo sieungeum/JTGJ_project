@@ -25,7 +25,8 @@ div {
 	border-top: solid 10px #03C75A;
 	border-bottom: solid 10px #03C75A;
 	border-radius: 25px;
-	
+	margin-bottom: 50px;
+	margin-top: 200px;
 }
 
 .bigBox {
@@ -56,8 +57,6 @@ div {
 	margin: auto;
 	padding: 50px;
 	padding-left: 70%;
-	text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px
-		1px 0 black;
 }
 
 .calculator {
@@ -158,6 +157,11 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
 	color: white;
 }
 
+.chobtn {
+	background-color: #00B050;
+	color: white;
+}
+
 .urlbtn {
 	margin: 20px;
 	color: white;
@@ -194,8 +198,8 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
 	background-color: #BCCF86;
 }
 
-input::placeholder{
-	color: grey !important;	
+input::placeholder {
+	color: grey !important;
 }
 </style>
 
@@ -218,30 +222,39 @@ function showCalculator(calcNumber) {
         selectedButton.style.backgroundColor = '#DBF19C'; // 선택된 버튼 강조
         selectedButton.style.transform = 'scale(0.95)'; // 클릭 효과
     }
+
+    // 3번 계산기 선택 시 주거용 버튼 강조
+    if (calcNumber === 3) {
+        selectBuildingType('residential'); // 주거용 버튼 강조
+    }
+    
 }
 
         // 1번 계산기: 탄소배출량 계산기
-        function calculateElectricity() {
-            const inputValue = parseFloat(document.getElementById('inputValue').value);
-            
-            const result = inputValue * 0.4781;
-            document.getElementById('result').innerHTML = '전기 탄소배출량:  <span style="font-size: 50px; color: skyblue;"><br>' + result.toFixed(2) + '</span> kg/월';
-            calculateTotal();
-        }
-
-        function calculateGas() {
-            const inputValue2 = parseFloat(document.getElementById('inputValue2').value);
-            
-            const result2 = inputValue2 * 2.176;
-            document.getElementById('result2').innerHTML = '가스 탄소배출량: <span style="font-size: 50px; color: skyblue;"><br>' + result2.toFixed(2) + "</span>  kg/월";
-            calculateTotal();
-        }
-
-        function calculateTotal() {
-            const total = (parseFloat(document.getElementById('inputValue').value) || 0) * 0.4781 + 
-                          (parseFloat(document.getElementById('inputValue2').value) || 0) * 2.176;
-            document.getElementById('result3').innerHTML = '<span style="color: white; font-size: 40px;">총 탄소배출량: <span style="color: #123FBA; font-size: 60px;">' + total.toFixed(2) + "</span> kg/월</span>";
-        }
+        
+        let electricityResult = 0;
+		let gasResult = 0;
+		
+		function calculateElectricity() {
+		    const inputValue = parseFloat(document.getElementById('inputValue').value);
+		    
+		    electricityResult = (inputValue || 0) * 0.4781;
+		    document.getElementById('result').innerHTML = '전기 탄소배출량: <span style="font-size: 50px; color: skyblue;"><br>' + electricityResult.toFixed(2) + '</span> kg/월';
+		    calculateTotal();
+		}
+		
+		function calculateGas() {
+		    const inputValue2 = parseFloat(document.getElementById('inputValue2').value);
+		    
+		    gasResult = (inputValue2 || 0) * 2.176;
+		    document.getElementById('result2').innerHTML = '가스 탄소배출량: <span style="font-size: 50px; color: skyblue;"><br>' + gasResult.toFixed(2) + "</span> kg/월";
+		    calculateTotal();
+		}
+		
+		function calculateTotal() {
+		    const total = electricityResult + gasResult;
+		    document.getElementById('result3').innerHTML = '<span style="color: white; font-size: 40px;">총 탄소배출량: <span style="color: #123FBA; font-size: 60px;">' + total.toFixed(2) + "</span> kg/월</span>";
+		}
 
         // 2번 계산기: 간단한 계산기
          function calculateSelfSufficiency() {
@@ -277,10 +290,10 @@ function showCalculator(calcNumber) {
             selectedBuildingType = type;
             
             // 버튼 스타일 변경 (선택된 버튼 강조)
-            document.getElementById('residentialBtn').style.backgroundColor = type === 'residential' ? 'lightgray' : '';
-            document.getElementById('commercialBtn').style.backgroundColor = type === 'commercial' ? 'lightgray' : '';
+            document.getElementById('residentialBtn').style.backgroundColor = type === 'residential' ? '#03C75A' : '#B0B0B0'; // 회색
+            document.getElementById('commercialBtn').style.backgroundColor = type === 'commercial' ? '#03C75A' : '#B0B0B0'; // 회색
         }
-        
+
         window.onload = function() {
             selectBuildingType('residential'); // 페이지 로드 시 주거용 버튼 강조
         };
@@ -390,15 +403,16 @@ function showCalculator(calcNumber) {
 
 </head>
 <%@ include file="/WEB-INF/inc/nav.jsp"%>
+<body class="landing">
+	<div class="container">
 <div>
 	<div class="title">계산기</div>
 </div>
-<body class="landing">
-	<div class="container">
 		<div class="bigBox">
 			<h2 style="margin-top: 30px;">계산기 선택</h2>
 			<button class="btn" onclick="showCalculator(1)">탄소배출량 계산기</button>
-			<button class="btn" onclick="showCalculator(2)">건물 에너지 자립률계산기</button>
+			<button class="btn" onclick="showCalculator(2)">건물 에너지
+				자립률계산기</button>
 			<button class="btn" onclick="showCalculator(3)">에너지효율등급 계산기</button>
 
 			<!-- 1번 계산기: 탄소배출량 계산기 -->
@@ -407,19 +421,20 @@ function showCalculator(calcNumber) {
 				<div class="main">
 					<div class="miniEl">
 						<h2>
-							<p>전기(kwh/월)</p>
+							<p style="margin-left: 10px;">전기(kwh/월)</p>
 						</h2>
-						<input class="box" type="number" id="inputValue" placeholder="월간 전기 사용량">
+						<input class="box" type="number" id="inputValue"
+							placeholder="월간 전기 사용량">
 						<button class="calbtn" onclick="calculateElectricity()">계산하기</button>
 						<div>
 							<h2>
-								<p id="result" class="result" ></p>
+								<p id="result" class="result"></p>
 							</h2>
 						</div>
 					</div>
 					<div class="mini">
 						<h2>
-							<p>가스(m³/월)</p>
+							<p style="margin-left: 30px;">가스(m³/월)</p>
 						</h2>
 						<input class="box" type="number" id="inputValue2"
 							placeholder="월간 가스 사용량">
@@ -439,25 +454,28 @@ function showCalculator(calcNumber) {
 					</h2>
 				</div>
 			</div>
-						
+
 			<!-- 2번 계산기: 에너지자립률(ZEB) -->
 			<div id="calculator2" class="calculator">
 				<h2>건물 에너지 자립률 계산기</h2>
 				<div class="main">
-					<div class="mini" style="padding: 0;" >
+					<div class="mini" style="padding: 0;">
 						<h2>
 							<p>자체 생산 에너지 (kWh/년)</p>
 						</h2>
-						<input type="number" id="production" class="box" style="width: 300px; margin: 20px;" placeholder="연간 에너지 생산량 입력">
+						<input type="number" id="production" class="box"
+							style="width: 300px; margin: 20px;" placeholder="연간 에너지 생산량 입력">
 					</div>
 
 					<div class="mini">
 						<h2>
 							<p>소비 에너지 (kWh/년)</p>
 						</h2>
-						<input type="number" id="consumption" class="box" style="width: 300px; margin: 20px;" placeholder="연간 에너지 소비량 입력">
+						<input type="number" id="consumption" class="box"
+							style="width: 300px; margin: 20px;" placeholder="연간 에너지 소비량 입력">
 					</div>
-					<button class="calbtn" style="margin:20px;" onclick="calculateSelfSufficiency()">계산하기</button>
+					<button class="calbtn" style="margin: 20px;"
+						onclick="calculateSelfSufficiency()">계산하기</button>
 				</div>
 				<div class="coment">
 					<p>(해당 계산은 예상 등급이며, 실제 측정 결과와 다를 수 있습니다.)</p>
@@ -468,7 +486,9 @@ function showCalculator(calcNumber) {
 					</h2>
 				</div>
 				<div class="urlbtn">
-					<button onclick="window.open('https://zeb.energy.or.kr/BC/BC03/BC03_07_001.do');">ZEB 인증 신청하러 바로가기!</button>
+					<button
+						onclick="window.open('https://zeb.energy.or.kr/BC/BC03/BC03_07_001.do');">ZEB
+						인증 신청하러 바로가기!</button>
 				</div>
 			</div>
 
@@ -484,8 +504,8 @@ function showCalculator(calcNumber) {
 						</div>
 						<div class="mini2">
 							<div class="miniBox">
-								<label for="num1">난방에너지 소요량</label> 
-								<input type="number" id="num1" class="box2" placeholder="연간 난방에너지 소요량">
+								<label for="num1">난방에너지 소요량</label> <input type="number"
+									id="num1" class="box2" placeholder="연간 난방에너지 소요량">
 							</div>
 							<div>
 								<label for="num11">난방에너지가 요구되는 바닥면적</label> <input type="number"
@@ -544,7 +564,9 @@ function showCalculator(calcNumber) {
 						</h2>
 					</div>
 					<div class="urlbtn">
-						<button class="btn" onclick="window.open('https://beec.energy.or.kr/BC/BC02/BC02_04_002.do');">인증 신청하러 바로가기!</button>
+						<button class="btn"
+							onclick="window.open('https://beec.energy.or.kr/BC/BC02/BC02_04_002.do');">인증
+							신청하러 바로가기!</button>
 					</div>
 				</div>
 			</div>
