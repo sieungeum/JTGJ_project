@@ -9,13 +9,49 @@
 	
 	<style type="text/css">
 		.landing{
-			background-color: white;
+			background-image: url("images/관리자_메인페이지.jpg");
 			background-size: 100%;
 		}
 		
 		.left-p {
 			margin-left: 650px;
 		}
+		
+		.inner {
+			margin-top: 200px;
+			height: 500px;
+		}
+		
+		.inner p {
+			color: rgb(3, 199, 90);
+			font-size: 40px;
+			font-weight: 600;
+			margin-bottom: 150px;
+		}
+		
+		.inner a  {
+			color: black;
+			margin-right: 100px;
+			font-size: 24px;
+		}
+		
+		.inner-f {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		
+		.btn-ihs {
+			background-color: rgb(3, 199, 90);
+			color: #212529;
+			font-weight: bold;
+			border-radius: 10px;
+			width: 15%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		
 	</style>
 	
 </head>
@@ -25,14 +61,14 @@
 	
 		<section>
 			<div class="inner">
-				<img src="images/저탄고집v6.png" width="200px" >
 				<p>관리자 메인 페이지</p>
 						
-				<div>
-					<a href="${pageContext.request.contextPath }/buildingView">건물 상세보기</a>
-					<c:if test="${sessionScope.login.memAdminYn == 'Y'|| sessionScope.login.memAdminYn == 'K'  }">
-						<a href="${pageContext.request.contextPath }/adminMemView">회원관리</a>	
+				<div class="inner-f">
+					<a class="btn-ihs" href="${pageContext.request.contextPath }/buildingView">건물 상세보기</a>
+					<c:if test="${sessionScope.login.memAdminYn == 'Y' }">
+						<a class="btn-ihs" href="${pageContext.request.contextPath }/adminMemView">회원관리</a>	
 					</c:if>
+					<a class="btn-ihs" href="">차트보기</a>
 				</div>
 							
 			</div>

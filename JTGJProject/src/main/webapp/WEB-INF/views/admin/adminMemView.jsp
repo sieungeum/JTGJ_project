@@ -4,7 +4,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Elements - Spectral by HTML5 UP</title>
+<title>회원관리</title>
 <%@ include file="/WEB-INF/inc/head.jsp"%>
 </head>
 	<body class="landing is-preload">
@@ -62,7 +62,12 @@
 														<form action="${pageContext.request.contextPath }/adminMemDo" method="POST">
 															<input type="hidden" name="memId" value="${adminMem.memId}">
 															<input type="hidden" name="memName" value="${adminMem.memName}">
-														    <button class="btn btn-primary btn-xl" type="submit">일반 회원</button>
+														    <c:if test="${sessionScope.login.memAdminYn == 'Y' }">
+														    <button class="btn btn-primary btn-xl" type="submit">일반회원</button>
+															</c:if>
+															<c:if test="${sessionScope.login.memAdminYn == 'K' }">
+															    <button class="btn btn-primary btn-xl" type="submit" disabled="disabled">일반회원</button>
+															</c:if>
 														</form>
 													</c:if>
 												</c:if>
@@ -73,7 +78,7 @@
 														<c:if test="${sessionScope.login.memAdminYn == 'Y' }">
 														    <button class="btn btn-primary btn-xl" type="submit">관리자</button>
 														</c:if>
-															<c:if test="${sessionScope.login.memAdminYn == 'K' }">
+														<c:if test="${sessionScope.login.memAdminYn == 'K' }">
 														    <button class="btn btn-primary btn-xl" type="submit" disabled="disabled">관리자</button>
 														</c:if>
 													</form>

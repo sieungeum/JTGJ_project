@@ -4,7 +4,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Elements - Spectral by HTML5 UP</title>
+<title>건물 추가</title>
 <%@ include file="/WEB-INF/inc/head.jsp"%>
 </head>
 	<body class="landing is-preload">
@@ -36,7 +36,7 @@
 											<td><input class="form-control" id = "inputGrdName" type="text" name="grdName" value=""></td>
 										</tr>
 										<tr>
-											<td scope ="col">1차 에너지 소요량 : 
+											<td scope ="col">1차 에너지 소요량 : </td>
 											<td><input class="form-control" id = "inputWOneEnergyRequire" type="text" name="wOneEnergyRequire" value=""></td>
 										</tr>
 										<tr>
@@ -58,6 +58,7 @@
 									</thead>
 								</table>
 								<button class="btn btn-primary btn-xl" type="submit">추가</button>
+								<a href="${pageContext.request.contextPath }/buildingView">건축물 목록으로 돌아가기</a>
 							</form>
 							
 						</div>

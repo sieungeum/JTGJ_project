@@ -51,7 +51,7 @@
 		
 		.input-box {
 			border-radius: 10px;
-			border: 3px solid #ced4da;
+			
 			display: flex;
 			flex-direction: column;
 		}
@@ -63,7 +63,7 @@
 		}
 		
 		.input-box hr {
-			border: 1px solid #ced4da;
+			
 			margin: 0;
 		}
 		
