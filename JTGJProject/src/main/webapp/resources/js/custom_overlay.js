@@ -1,4 +1,5 @@
 var CustomOverlay = function(options) {
+    this._position = options.position;
     this._element = $('<div class="custom-overlay">' 
                     + options.content 
                     + '</div>');
@@ -13,20 +14,20 @@ CustomOverlay.prototype.constructor = CustomOverlay;
 
 CustomOverlay.prototype.onAdd = function() {
     var overlayLayer = this.getPanes().overlayLayer;
-    
     this._element.appendTo(overlayLayer);
+    
+    // 이벤트가 제거되지 않도록 매번 추가
+    this._element.on('click', () => {
+        moveToCenter(this._position);
+    });
 };
 
 CustomOverlay.prototype.draw = function() {
-    // 지도 객체가 설정되지 않았으면 draw 기능을 하지 않습니다.
     if (!this.getMap()) {
         return;
     }
-
-    // projection 객체를 통해 LatLng 좌표를 화면 좌표로 변경합니다.
     var projection = this.getProjection(),
         position = this.getPosition();
-
     var pixelPosition = projection.fromCoordToOffset(position);
 
     this._element.css('left', pixelPosition.x - 50);
@@ -35,15 +36,17 @@ CustomOverlay.prototype.draw = function() {
 
 CustomOverlay.prototype.onRemove = function() {
     this._element.remove();
-    
-    // 이벤트 핸들러를 설정했다면 정리합니다.
-    this._element.off();
+    // 이벤트를 여기서는 제거하지 않음
 };
 
 CustomOverlay.prototype.setPosition = function(position) {
     this._position = position;
     this.draw();
 };
+
+function moveToCenter(position) {
+    map.morph(position, 10);
+}
 
 CustomOverlay.prototype.getPosition = function() {
     return this._position;

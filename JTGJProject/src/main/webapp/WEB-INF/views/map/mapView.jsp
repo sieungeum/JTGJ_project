@@ -21,6 +21,9 @@
             margin:0;
             padding:0;
         }
+        a{
+        	text-decoration: none;
+        }
 
         html,
         body{
@@ -37,9 +40,9 @@
 
         .building-filter{
             position: absolute;
-            width: 25%;
+            width: 35%;
             height: 10%;
-            top: 20px;
+            top: 20%;
             left: 20px;
             z-index: 10; 
             display: flex;
@@ -48,19 +51,56 @@
 
         .building-detail{
             position: absolute;
-            bottom: 5%;
+            top: 45%;
             left: 20px;
-            width: 25%;
-            background-color: #EEEEEE;
+            width: 35%;
+            height: 50%;
+            background-color: #FFFFFF;
             z-index: 10; 
             border-radius: 10px;
-            padding: 20px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 15px;
             opacity: 80%;
             font-weight: bolder;
+            overflow: auto;
         }
 
         .building-detail div{
             width: 94%;
+        }
+
+        .building-more-detail{
+            display: flex;
+            width:110%;
+            flex-direction: column;
+        }
+
+        .info-detail{
+            display: flex;
+            margin-bottom: 2px;
+            margin-top: 10px;
+        }
+
+        .title{
+            width:40%;
+            font-size:14px;
+            font-weight:bolder;
+        }
+
+        .content{
+            font-size:14px;
+            width: 70%;
+        }
+
+        .need-energy{
+            font-size:12px;
+            
+        }
+
+        .need-energy p {
+            color:red;
+            display:inline;
         }
 
         #search-box{
@@ -159,49 +199,29 @@
                          // 발전량 추가
                          if(marker['zeb'] == 'N' && marker['grade'].length > 4) {
                             v_buildingDetail[0].innerHTML = 
-                              '목적: ' + v_jsonData['purpose'][i] + '<br>' +
-                              '건물이름: ' + v_jsonData['name'][i] + '<br>' +
-                              '주소: ' + v_jsonData['address'][i] + '<br>' +
-                              '에너지효율등급: ' + v_jsonData['grade'][i] + '<br>' +
-                              '1차 에너지 소요량: ' + v_jsonData['1st_energy'][i] + '<br>' +
-                              '인증일자: ' + v_jsonData['crtif'][i] + '<br>' +
-                              '그린에너지건축등급: ' + v_jsonData['zeb'][i] + '<br>' +
-                               '1000m^2 : ' + v_jsonData['mm_thous_p'][i] + '<br>' +
-                               '10000m^2 : ' + v_jsonData['mm_ten_thous_p'][i] + '<br>' +
-                               '50000m^2 : ' + v_jsonData['mm_fifty_thous_p'][i];
+		                        '<div class="info-detail"><div class="title">목적</div> <div class="content">' + v_jsonData['purpose'][i] + '</div></div>' +
+		                        '<div class="info-detail"><div class="title">건물이름</div> <div class="content">' + v_jsonData['name'][i] + '</div></div>' +
+		                        '<div class="info-detail"><div class="title">주소</div> <div class="content">' + v_jsonData['address'][i] + '</div></div>' +
+		                        '<div class="info-detail"><div class="title">에너지효율등급</div> <div class="content">' + v_jsonData['grade'][i] + '</div></div>' +
+		                        '<div class="info-detail"><div class="title">1차 에너지 소요량</div> <div class="content">' + v_jsonData['1st_energy'][i] + '</div></div>' +
+		                        '<div class="info-detail"><div class="title">인증일자</div> <div class="content">' + v_jsonData['crtif'][i] + '</div></div>' +
+		                        '<div class="info-detail"><div class="title">그린에너지건축물</div> <div class="content">' + v_jsonData['zeb'][i] + '</div></div>' +
+		                        '<div style="margin-top:20px;margin-bottom:5px;font-size: 15px;color:green">해당 건물이 자립하기 위해서는...</div>' +
+		                        '<div class="need-energy">' +
+                                '1000m<sup>2</sup> <p>' + v_jsonData['mm_thous_p'][i] + '</p>의 태양광패널이 필요합니다!<br>' +
+                                '10000m<sup>2</sup> <p>' + v_jsonData['mm_ten_thous_p'][i] + '</p>의 태양광패널이 필요합니다!<br>' +
+                                '50000m<sup>2</sup> <p>' + v_jsonData['mm_fifty_thous_p'][i] + '</p>의 태양광패널이 필요합니다!</div>';
                          } else {
                               v_buildingDetail[0].innerHTML = 
-                                 '목적: ' + v_jsonData['purpose'][i] + '<br>' +
-                                 '건물이름: ' + v_jsonData['name'][i] + '<br>' +
-                                 '주소: ' + v_jsonData['address'][i] + '<br>' +
-                                 '에너지효율등급: ' + v_jsonData['grade'][i] + '<br>' +
-                                 '1차 에너지 소요량: ' + v_jsonData['1st_energy'][i] + '<br>' +
-                                 '인증일자: ' + v_jsonData['crtif'][i] + '<br>' +
-                                 '그린에너지건축등급: ' + v_jsonData['zeb'][i] + '<br>';
+	                              '<div class="info-detail"><div class="title">목적</div> <div class="content">' + v_jsonData['purpose'][i] + '</div></div>' +
+	                              '<div class="info-detail"><div class="title">건물이름</div> <div class="content">' + v_jsonData['name'][i] + '</div></div>' +
+	                              '<div class="info-detail"><div class="title">주소</div> <div class="content">' + v_jsonData['address'][i] + '</div></div>' +
+	                              '<div class="info-detail"><div class="title">에너지효율등급</div> <div class="content">' + v_jsonData['grade'][i] + '</div></div>' +
+	                              '<div class="info-detail"><div class="title">1차 에너지 소요량</div> <div class="content">' + v_jsonData['1st_energy'][i] + '</div></div>' +
+	                              '<div class="info-detail"><div class="title">인증일자</div> <div class="content">' + v_jsonData['crtif'][i] + '</div></div>' +
+	                              '<div class="info-detail"><div class="title">그린에너지건축물</div> <div class="content">' + v_jsonData['zeb'][i] + '</div></div>';
                          }
                   });
-                      
-                      /*
-                      <div class="building-detail">
-                              <div class="building-more-detail">
-                                  <div style="font-size:20px;font-weight:bolder;margin-bottom:30px;text-align:center;">건물상세정보</div>
-                                  <div class="info-detail"><div class="title">목적</div> <div class="content">주거용</div></div>
-                                  <div class="info-detail"><div class="title">건물이름</div> <div class="content">재완빌딩</div></div>
-                                  <div class="info-detail"><div class="title">주소</div> <div class="content">월평로13번길 78</div></div>
-                                  <div class="info-detail"><div class="title">에너지효율등급</div> <div class="content">1++등급</div></div>
-                                  <div class="info-detail"><div class="title">1차 에너지 소요량</div> <div class="content">322.6</div></div>
-                                  <div class="info-detail"><div class="title">인증일자</div> <div class="content">2022-03-12</div></div>
-                                  <div class="info-detail"><div class="title">그린에너지건축등급</div> <div class="content">2등급</div></div>
-                                  
-                                  <div style="margin-top:20px;margin-bottom:10px;font-size: 15px;color:green">해당 건물이 자립하기 위해서는...</div>
-                                  <div class="need-energy">
-                                      1000m<sup>2</sup> <p>20.79</p>의 태양광패널이 필요합니다!<br>
-                                      10000m<sup>2</sup>  <p>207.95</p>의 태양광패널이 필요합니다!<br>
-                                      50000m<sup>2</sup>  <p>1039.73</p>의 태양광패널이 필요합니다!
-                                  </div>
-                              </div>
-                          </div>
-                  */
 
                       markers.push(marker);
                       regionSort(marker);
@@ -345,7 +365,7 @@
                 maxZoom: 15,
                 map: map,
                 markers: applyMarker,
-                disableClickZoom: false,
+                disableClickZoom: false, // 클릭 시 확대 기능 비활성화
                 gridSize: 100,
                 icons: [htmlMarker1, htmlMarker2, htmlMarker3, htmlMarker4, htmlMarker5],
                 indexGenerator: [10, 50, 100, 300, 500],

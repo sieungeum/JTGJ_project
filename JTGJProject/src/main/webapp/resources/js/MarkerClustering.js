@@ -539,9 +539,15 @@ Cluster.prototype = {
 	disableClickZoom: function() {
 		if (!this._relation) return;
 
-		naver.maps.Event.removeListener(this._relation);
-		this._relation = null;
-	},
+		// 기존의 확대 기능을 제거하고, 마커 정보를 콘솔에 출력하는 로직을 추가
+        this._relation = naver.maps.Event.addListener(this._clusterMarker, 'click', naver.maps.Util.bind(function() {
+            // 클러스터에 포함된 마커들에 대한 정보를 콘솔에 출력
+            console.log("클러스터에 포함된 마커들:", this.getClusterMember().map(marker => ({
+                title: marker.getTitle(),
+                position: marker.getPosition()
+            })));
+        }, this));
+    },
 
 	/**
 	 * 클러스터 마커가 없으면 클러스터 마커를 생성하고, 클러스터 마커를 갱신합니다.
@@ -549,51 +555,49 @@ Cluster.prototype = {
 	 * - 마커 개수
 	 * - 클러스터 마커 노출 여부
 	 */
-	updateCluster: function() {
-		if (!this._clusterMarker) {
-			var position;
+    updateCluster: function() {
+        if (!this._clusterMarker) {
+            var position;
 
-			if (this._markerClusterer.getAverageCenter()) {
-				position = this._calcAverageCenter(this._clusterMember);
-			} else {
-				position = this._clusterCenter;
-			}
+            if (this._markerClusterer.getAverageCenter()) {
+                position = this._calcAverageCenter(this._clusterMember);
+            } else {
+                position = this._clusterCenter;
+            }
 
-			this._clusterMarker = new naver.maps.Marker({
-				position: position,
-				map: this._markerClusterer.getMap()
-			});
+            this._clusterMarker = new naver.maps.Marker({
+                position: position,
+                map: this._markerClusterer.getMap()
+            });
 
-			if (!this._markerClusterer.getDisableClickZoom()) {
-				this.enableClickZoom();
-			}
-		}
+            // 클러스터 클릭 시 확대하지 않고, 마커 정보를 출력
+            this.disableClickZoom();
+        }
 
-		this.updateIcon();
-		this.updateCount();
-
-		this.checkByZoomAndMinClusterSize();
-	},
+        this.updateIcon();
+        this.updateCount();
+        this.checkByZoomAndMinClusterSize();
+    },
 
 	/**
 	 * 조건에 따라 클러스터 마커를 노출하거나, 노출하지 않습니다.
 	 */
 	checkByZoomAndMinClusterSize: function() {
-		var clusterer = this._markerClusterer,
-			minClusterSize = clusterer.getMinClusterSize(),
-			maxZoom = clusterer.getMaxZoom(),
-			currentZoom = clusterer.getMap().getZoom();
+        var clusterer = this._markerClusterer,
+            minClusterSize = clusterer.getMinClusterSize(),
+            maxZoom = clusterer.getMaxZoom(),
+            currentZoom = clusterer.getMap().getZoom();
 
-		if (this.getCount() < minClusterSize) {
-			this._showMember();
-		} else {
-			this._hideMember();
+        if (this.getCount() < minClusterSize) {
+            this._showMember();
+        } else {
+            this._hideMember();
 
-			if (maxZoom <= currentZoom) {
-				this._showMember();
-			}
-		}
-	},
+            if (maxZoom <= currentZoom) {
+                this._showMember();
+            }
+        }
+    },
 
 	/**
 	 * 클러스터를 구성하는 마커 수를 갱신합니다.
