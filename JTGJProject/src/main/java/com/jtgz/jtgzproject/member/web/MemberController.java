@@ -66,9 +66,14 @@ public class MemberController {
 		
 		System.out.println("id = " + member.getMemId());
 		System.out.println("password = " + member.getMemPw());
+		
 		MemberDTO login = memberService.loginMember(member);
 		
 		System.out.println(login);
+		
+		if(login == null) {
+			return "redirect:/loginView";
+		}
 		
 		session.setAttribute("login", login);
 		

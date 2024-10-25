@@ -7,6 +7,8 @@
 	<title>건물 목록</title>
 	<%@ include file="/WEB-INF/inc/head.jsp"%>
 	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	
 	<style>
 	div {
 		margin: 0;
@@ -14,7 +16,7 @@
 	}
 	
 	.landing {
-		background-image: url("images/photovoltaic-2814504_1920.jpg");
+		background-image: url("images/관리자_건물목록.jpg");
 		background-size: 100%;
 	}
 	
@@ -24,7 +26,6 @@
 		border-bottom: solid 10px #03C75A;
 		border-radius: 25px;
 	}
-	
 	
 	.container td{
 		color: black;
@@ -237,6 +238,11 @@
 		margin-top: 200px;
 	}
 	
+	.width-m{
+		width: 300px;
+	}
+	
+	
 	</style>
 	
 	</head>
@@ -261,16 +267,14 @@
 												<option value="building" selected>건물명</option>
 												<option value="address">주소</option>
 											</select>				
-											<input type="text" class="form-control w-25" name="searchWord" >
-											<button class="btn btn-primary" type="submit">
-												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-													<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-												</svg>
+											<input type="text" class="form-control width-m " name="searchWord" >
+											<button class="btn btn-primary d-flex justify-content-center align-items-center" type="submit">
+												<i class="fa-solid fa-magnifying-glass fa-2xl"></i>
 											</button>
 										</form>
 									</div>
 									
-									<div class="col-lg-8 col-xl-7 d-flex justify-content-end">
+									<div class="d-flex justify-content-end">
 										<a href="${pageContext.request.contextPath }/buildingAddView">
 											<button class="btn btn-primary btn-xl"> 건물 추가 </button>
 										</a>
