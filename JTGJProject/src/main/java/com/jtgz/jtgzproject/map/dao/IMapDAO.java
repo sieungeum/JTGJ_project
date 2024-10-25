@@ -11,4 +11,10 @@ public interface IMapDAO {
 	
 	// ¸ðµç ºôµù Á¤º¸ °¡Á®¿À±â
 	List<MapDTO> allBuildingInfo();
+	
+	// SJM ºôµù ¼ö
+	int countBuilding();
+	
+	// SJM zeb ºôµù ¼ö
+	int countZebBuilding();
 }
