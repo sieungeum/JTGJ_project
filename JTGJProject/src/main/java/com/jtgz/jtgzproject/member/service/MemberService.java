@@ -34,4 +34,10 @@ public class MemberService {
 	}
 	
 	
+	// sjm 회원 수 구하기
+	public int countMemeber() {
+		int result = dao.countMemeber();
+		
+		return result;
+	}
 }

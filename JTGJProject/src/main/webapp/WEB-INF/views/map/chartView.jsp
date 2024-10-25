@@ -9,6 +9,10 @@
 <%@ include file="/WEB-INF/inc/head.jsp"%>
 
 <style type="text/css">
+	.landing{
+		background-color: white;
+	}
+	
 	.map-container {
 		display: flex;
 		
@@ -21,63 +25,86 @@
 		    margin-right: 0px;
 		    margin-bottom: 2em;
 		    margin-left: 0px; */
-		margin: 3px 0 10px 8px;
+		margin: 3px 0 10px 20px;
 	}
 	
-	.purpose-text{
-		width: 100%;
-	
-		margin: auto;
-	
-		text-align: center;
-		font-weight: bold;
-		font-size: 30px;
-		color: black;
-	}
-	
-	.w-100{
-		width: 100%;
-	}
-	
-	.canvas-box {
-		display: flex;
-		justify-content: center;
-		flex-direction: column;
-	
-	    width: 100%;
-	    
-	    margin: auto;
-	}
+	/* 원그래프 */
 	.canvas-box-circle{
-	    display: flex;
-	    justify-content: center;
+		display: flex;
+		flex-direction: column;
 	    
 	    width: 100%;
-	    
 	}
 	.chart-circle-top{
-		width: calc(100% / 2);
+		width: 100%;
 		
-		margin: auto;
-		
-		text-align: center;
 		color: black;
 	}
-	.chart-circle-under{
-		width: calc(100% / 3);
+	
+	
+	/* 선, 막대 그래프 */
+	.canvas-box {
+	    width: 100%;
+	    
+	    padding-top: 15px;
 		
-		text-align: center;
+		border: 1px solid green;
+	}
+	.ai-graph-box{
+	
+	    width: 100%;
+		
+		border: 1px solid green;
+	}
+	
+	/* 숫자 수치 */
+	.cnt-info{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		
+		width: 100%;
+		height: calc(100% / 3);
+	
 		color: black;
+		
+		border: 1px solid green;
+		border-bottom: none;
 	}
 	
 	
 	.screen-left{
-		width: 60%
+		width: 25%;
 		
 	}
 	
 	.screen-right{
-		width: 40%
+		display: flex;
+		flex-direction: column;
+	
+		
+		width: 75%;
+	}
+	
+	.screen-r{
+		display: flex;
+		
+		width: 100%;
+	}
+	
+	.screen-r-left{
+		display: flex;
+		flex-direction: column;
+		
+		width: 35%;
+	}
+	
+	.screen-r-rignt{
+		width: 65%;
+	}
+	
+	.screen-r-bottom{
+		width: 100%;
 	}
 	
 </style>
@@ -86,75 +113,83 @@
 
 	<!-- nav -->
 	<%@ include file="/WEB-INF/inc/nav.jsp"%>
-	
-	<!-- Banner -->
-	<div class="map-container bg-white mt-5">
-		<div class="screen-left" >
-			<!-- flask로 가져온 인공지능 모델 예측 그래프 -->
-			<div class="canvas-box" >
-				<img src="http://localhost:5000/pltimg" width="100%" >
-			</div>
-		</div>
-		
-		<div class="screen-right">
-			<div class="canvas-box">
-				<div class="purpose-text mt-4 mb-2" >지역별 태양광 발전량 평균</div>
-				<!-- 그래프(chart)의 크기 조정 -->
-				<!-- canvas에 width, height은 별 의미 없음 -->
-				<canvas id="myChart" ></canvas>
-			</div>
-		
-			<div class="canvas-box-circle" >
-				<!-- 주거용 -->
-				<div class="w-100">
-					<div class="purpose-text mt-3 mb-2" >주거용</div>
-					
-					<div class="canvas-box-circle">
-						<div class="chart-circle-top">
-							<canvas id="chartTwo" ></canvas>
-							<p>에너지 효율 등급 현황</p>
-						</div>
-					</div>
-					
+	<div id="page-wrapper">
+		<div style="margin-top: 100px;"></div>
+		<section>
+			<div class="map-container">
+				<!-- 오른쪽 원그래프 -->
+				<div class="screen-left" >
 					<div class="canvas-box-circle" >
-						<div class="chart-circle-under">
-							<canvas id="chartOne" ></canvas>
-							<p>현 ZEB 선정 건물 현황</p>
+						<!-- 주거용 -->
+						<div class="">
+							<div class="canvas-box-circle">
+								<div class="chart-circle-top">
+									<canvas id="chartTwoElse" height=300></canvas>
+								</div>
+							</div>
 						</div>
-						<div class="chart-circle-under">
-							<canvas id="chartThree" ></canvas>
-							<p>ZEB 선정 기준 적합 현황</p>
+						
+						<div class="">
+							<div class="canvas-box-circle">
+								<div class="chart-circle-top">
+									<canvas id="chartOneElse" ></canvas>
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>
+				</div><!-- 오른쪽 원그래프 -->
 				
-				<div class="w-100">
-					<!-- 주거용 이외 -->
-					<div class="purpose-text mt-4 mb-2" >주거용 이외</div>
-					
-					<div class="canvas-box-circle">
-						<div class="chart-circle-top">
-							<canvas id="chartTwoElse" ></canvas>
-							<p>에너지 효율 등급 현황</p>
+				
+				<!-- 왼쪽 그래프 -->
+				<div class="screen-right">
+					<div class="screen-r">
+						<div class="screen-r-left">
+							<div class="cnt-info">
+								<p style="font-weight: bolder" >회원 수</p>
+								<hr color="black" width="80%"  size="5px" style="margin: 3px 0 10px 17px;" >
+								<p>${infoCnt[0]} 명</p>
+							</div>
+							<div class="cnt-info">
+								<p style="font-weight: bolder" >전체 건물 수</p>
+								<hr color="black" width="80%"  size="5px" style="margin: 3px 0 10px 17px;" >
+								<p>${infoCnt[1]} 채</p>
+							</div>
+							<div class="cnt-info">
+								<p style="font-weight: bolder" >ZEB 건물 수</p>
+								<hr color="black" width="80%"  size="5px" style="margin: 3px 0 10px 17px;" >
+								<p>${infoCnt[2]} 채</p>
+							</div>
+							
+						</div>
+						<div class="screen-r-right">
+							<!-- flask로 가져온 인공지능 모델 예측 그래프 -->
+							<div class="ai-graph-box" >
+								<img src="http://localhost:5000/pltimg" width="100%" height="100%" >
+							</div>
+						</div>
+						
+					</div>
+					<div class="screen-r-bottom">
+						<div class="canvas-box" >
+							<!-- 그래프(chart)의 크기 조정 -->
+							<!-- canvas에 width, height은 별 의미 없음 -->
+							<canvas id="myChart" width="100%" height="200" ></canvas>
 						</div>
 					</div>
-					
-					<div class="canvas-box-circle" >
-						<div class="chart-circle-under">
-							<canvas id="chartOneElse" ></canvas>
-							<p>현 ZEB 선정 건물 현황</p>
-						</div>
-						<div class="chart-circle-under">
-							<canvas id="chartThreeElse" ></canvas>
-							<p>ZEB 선정 기준 적합 현황</p>
-						</div>
-					</div>
-				</div>
+				</div><!-- 왼쪽 그래프 -->
 			</div>
-		</div>
+		</section>
+
 	</div>
 
-	<%@ include file="/WEB-INF/inc/footer.jsp"%>
+	<!-- Scripts -->
+	<script src="js/jquery.min.js"></script>
+	<script src="js/jquery.scrollex.min.js"></script>
+	<script src="js/jquery.scrolly.min.js"></script>
+	<script src="js/browser.min.js"></script>
+	<script src="js/breakpoints.min.js"></script>
+	<script src="js/util.js"></script>
+	<script src="js/main.js"></script>
 
 
 	<!-- chart.js 불러오기 -->
@@ -243,10 +278,10 @@
 				}
 
 				// 원그래프 생성
-				for (let i = 0; i < 2; i++){
+				for (let i = 1; i < 2; i++){
 					f_draw_circle(v_solarDict, i); // 현재 zeb 선정 현황
 					f_draw_rank(v_solarDict, i); // 에너지 효율 등급 현황
-					f_draw_special_rank(v_solarDict, i); // zeb 가능 건물 현황
+					//f_draw_special_rank(v_solarDict, i); // zeb 가능 건물 현황
 				}
 			}
 		}
@@ -284,12 +319,31 @@
 					datasets: v_datasets
 				},
 				options: {
+			        responsive: true,
+			        maintainAspectRatio: false, // canvas의 aspect ratio 유지 비활성화
 					scales: {
 						y: {
-							beginAtZero: true,
-							min:3
+							beginAtZero: true,                
+							min: 3.0,             // Y축 최소값
+			                max: 4.4,            // Y축 최대값
+			                ticks: {
+			                    stepSize: 0.7     // Y축 눈금 간격
+			                }
 						}
-					}
+					},
+			        plugins: {
+			            title: {
+			                display: true,  // 제목을 표시할지 여부
+			                text: '지역별 태양광 발전량 평균',  // 그래프명
+			                color: 'black',  // 제목 폰트 색상 설정
+			                font: {
+			                    size: 18  // 제목 글꼴 크기
+			                },
+			                padding: {
+			                }
+			            }
+			        }
+					
 				}
 			})
 		}
@@ -329,7 +383,27 @@
 					datasets: [{
 						data: [v_yes, v_no]
 					}]
-				}
+				},
+			    options: {
+			        responsive: true,
+			        maintainAspectRatio: false, // canvas의 aspect ratio 유지 비활성화
+			        plugins: {
+			            title: {
+			                display: true,  // 제목을 표시할지 여부
+			                text: 'ZEB 건물 현황',  // 그래프명
+			                color: 'black',  // 제목 폰트 색상 설정
+			                font: {
+			                    size: 18  // 제목 글꼴 크기
+			                },
+			                padding: {
+			                	top: 20
+			                }
+			            },
+			            legend: {
+			                position: 'right',  // 레이블을 오른쪽으로 옮김
+			            }
+			        }
+			    }
 			});
 		}
 		
@@ -375,7 +449,27 @@
 					datasets: [{
 						data: v_data
 					}]
-				}
+				},
+			    options: {
+			        responsive: true,
+			        maintainAspectRatio: false, // canvas의 aspect ratio 유지 비활성화
+			        plugins: {
+			            title: {
+			                display: true,  // 제목을 표시할지 여부
+			                text: '에너지 효율 등급 현황',  // 그래프명
+			                color: 'black',  // 제목 폰트 색상 설정
+			                font: {
+			                    size: 18  // 제목 글꼴 크기
+			                },
+			                padding: {
+			                	top: 20
+			                }
+			            },
+			            legend: {
+			                position: 'right',  // 레이블을 오른쪽으로 옮김
+			            }
+			        }
+			    }
 			});
 		}
 		
@@ -427,7 +521,14 @@
 					datasets: [{
 						data: v_data
 					}]
-				}
+				},
+			    options: {
+			        plugins: {
+			            legend: {
+			                position: 'right',  // 레이블을 오른쪽으로 옮김
+			            }
+			        }
+			    }
 			});
 		}
 		

@@ -15,5 +15,8 @@ public interface IMemberDAO {
 	
 	// 회원 수정
 	int editMember(MemberDTO member);
+	
+	// sjm 회원 수 구하기
+	int countMemeber();
 
 }

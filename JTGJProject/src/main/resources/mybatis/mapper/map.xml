@@ -21,4 +21,22 @@
 		FROM solar_p_energy_rank
 	</select>
 	
+	<!-- sjm 빌딩 수 가져오기 -->
+	<select id="countBuilding" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			solar_p_energy_rank
+	</select>
+	
+	<!-- sjm ZEB 빌딩 수 가져오기 -->
+	<select id="countZebBuilding" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			solar_p_energy_rank
+		WHERE 1=1
+			AND zeb = 'Y'
+	</select>
+	
 </mapper>

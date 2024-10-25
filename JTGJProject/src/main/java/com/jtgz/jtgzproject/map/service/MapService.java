@@ -18,4 +18,18 @@ public class MapService {
 		List<MapDTO> result = dao.allBuildingInfo();
 		return result;
 	}
+	
+	//sjm 빌딩 수 가져오기
+	public int countBuilding() {
+		int result = dao.countBuilding();
+		
+		return result;
+	}
+	
+	// sjm zeb 빌딩 수 가져오기
+	public int countZebBuilding() {
+		int result = dao.countZebBuilding();
+		
+		return result;
+	}
 }

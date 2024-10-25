@@ -48,5 +48,12 @@
 		WHERE
 			mem_id = #{memId}
 	</update>
+	
+	<!-- sjm 회원 수 구하기 -->
+	<select id="countMemeber" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM members
+	</select>
 
 </mapper>
