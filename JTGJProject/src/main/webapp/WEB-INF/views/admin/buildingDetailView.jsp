@@ -4,7 +4,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Elements - Spectral by HTML5 UP</title>
+<title>건물 상세보기</title>
 <%@ include file="/WEB-INF/inc/head.jsp"%>
 </head>
 	<body class="landing is-preload">
@@ -57,6 +57,7 @@
 							<a href="<c:url value="/buildingEditView?bldNm=${detail.bldNm }&purposeKindName=${detail.purposeKindName }" />">
 								<button class="btn btn-primary btn-xl">수정 하기</button>
 							</a>
+							<a href="${pageContext.request.contextPath }/buildingView">건축물 목록으로 돌아가기</a>
 						</div>
 						
 					</section>

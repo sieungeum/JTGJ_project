@@ -4,7 +4,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Elements - Spectral by HTML5 UP</title>
+<title>건물 수정</title>
 <%@ include file="/WEB-INF/inc/head.jsp"%>
 </head>
 	<body class="landing is-preload">
@@ -19,7 +19,7 @@
 					<section>
 						<div class="inner">
 							<img src="images/저탄고집v6.png" width="200px" >
-							<p>건물 상세 보기</p>
+							<p>건물 수정</p>
 							<form id="contactFrom" action="<c:url value="/buildingEditDo" />" method="POST">
 								<input type="hidden" name="bldNm" value="${edit.bldNm}">
 								<input type="hidden" name="purposeKindName" value="${edit.purposeKindName}">
