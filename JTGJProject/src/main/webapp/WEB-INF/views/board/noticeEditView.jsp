@@ -26,30 +26,35 @@ div {
 	border-radius: 25px;
 	margin-top: 200px;
 	margin-bottom: 50px;
+	width: 75%;
 }
 
-.container td, .container p{
+.container td, .container p, .container a {
 	color: black;
 }
 
-.notice td{
-	color:red;
+.container h6 {
+	color: black;
+}
+
+.container pre {
+	color: black;
+}
+
+.notice td {
+	color: red;
 	font-weight: bold;
 }
 
-.container th{
+.container th {
 	color: black;
 	font-size: 30px;
 	padding-top: 20px;
 }
 
-.jemock label{
-	color: black;
-}
-
 .bigBox {
 	margin: auto;
-	width: 90%;
+	width: 80%;
 }
 
 .calculator h2, .calculator p, .calculator label {
@@ -71,15 +76,17 @@ div {
 .title {
 	font-size: 80px;
 	font-weight: bold;
-	padding-left: 70%;
-	margin-top:50px;
-	margin-bottom:50px;
+	padding-left: 65%;
+	margin-top: 50px;
+	margin-bottom: 50px;
 }
 
-.title p{
+.title p {
+	border-bottom: solid 10px #03C75A;
 	color: #78D451;
-	margin: 0;
 	padding: 0;
+	margin: 0;
+	padding-bottom: 40px
 }
 
 .calculator {
@@ -178,6 +185,7 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
 .btn {
 	background-color: #00B050;
 	color: white;
+	margin-left: 90%;
 }
 
 .urlbtn {
@@ -207,27 +215,75 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
 
 .btnbox {
 	margin: 10px;
-	padding-right: 70%;
-	padding-bottom: 0;
-	margin-bottom: 0;
 }
 
 .btn:hover {
 	background-color: #BCCF86;
 }
 
-input::placeholder{
-	color: grey !important;	
+.dtitle h6 {
+	margin: 0;
+}
+
+.dtitle {
+	padding-left: 20px;
+	font-size: 70px;
+	border-bottom: solid 3px #03C75A;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.mtitle {
+	font-size: 20px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 40%;
+	padding-top: 50px;
+}
+
+.content {
+	margin: 30px;
+}
+
+.file {
+	background-color: rgba(3, 199, 90, 0.5);
+	width: 60%;
+	'
+}
+
+.com input {
+	color: black;
+	border: solid 1px black;
+}
+
+.combox {
+	margin-top: 20px;
+}
+
+.btnbox {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.writecom {
+}
+
+.com {
+	display: flex; /* Flexbox 활성화 */
+	align-items: center;
+}
+
+input::placeholder {
+	color: grey !important;
 }
 
 .jemock label, .jemock input{
-	color: black;
+	color:black;'
 }
-
-.jemock label{
-	color: black;
-}
-
+</style>
 </head>
 <body class="landing is-preload">
 
@@ -241,6 +297,7 @@ input::placeholder{
 				<p>공지사항</p>
 			</div>
 		<!-- Banner -->
+		<div class="bigBox">
 		<section>
 			<div class="row justify-content-center">
 				<form id="contactForm"
@@ -262,6 +319,7 @@ input::placeholder{
 				</form>
 			</div>
 		</section>
+		</div>
 	</div>
 
 

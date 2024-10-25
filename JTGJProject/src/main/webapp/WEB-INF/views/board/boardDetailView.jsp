@@ -28,28 +28,27 @@ div {
 	width: 75%;
 }
 
-.container td, .container p, .container a{
+.container td, .container p, .container a {
 	color: black;
 }
 
-.container h6{
+.container h6 {
 	color: black;
 }
 
-.container pre{
+.container pre {
 	color: black;
 }
 
-.notice td{
-	color:red;
+.notice td {
+	color: red;
 	font-weight: bold;
 }
 
-.container th{
+.container th {
 	color: black;
 	font-size: 30px;
 	padding-top: 20px;
-	
 }
 
 .bigBox {
@@ -77,11 +76,11 @@ div {
 	font-size: 80px;
 	font-weight: bold;
 	padding-left: 65%;
-	margin-top:50px;
-	margin-bottom:50px;
+	margin-top: 50px;
+	margin-bottom: 50px;
 }
 
-.title p{
+.title p {
 	border-bottom: solid 10px #03C75A;
 	color: #78D451;
 	padding: 0;
@@ -214,69 +213,81 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
 
 .btnbox {
 	margin: 10px;
-	padding-right: 70%;
-	padding-bottom: 0;
-	margin-bottom: 0;
 }
 
 .btn:hover {
 	background-color: #BCCF86;
 }
 
-.dtitle h6{
+.dtitle h6 {
 	margin: 0;
 }
-.dtitle{
-	padding-left:20px;
+
+.dtitle {
+	padding-left: 10px;
 	font-size: 70px;
-	border-bottom:solid 3px #03C75A;
-	display: flex; 
-	justify-content: space-between; 
+	display: flex;
+	justify-content: space-between;
 	align-items: center;
 }
 
-.mtitle{
+.mtitle {
+	padding-left: 10px;
+	border-bottom: solid 3px #03C75A;
 	font-size: 20px;
-	display: flex; 
-	justify-content: space-between; 
+	display: flex;
+	justify-content: space-between;
 	align-items: center;
-	width: 40%;
-	padding-top: 50px;
+	padding-top: 10px;
 }
 
-.content{
+.content {
 	margin: 30px;
 }
 
-.file{
+.file {
+	width: 60%;
+}
+.file a{
 	background-color: rgba(3, 199, 90, 0.5);
-	width: 60%;'
+	
 }
 
-.com input{
+.file:hover{
+	color: red;
+	font-weight: bold;
+}
+
+.com input {
+	width:60%;
 	color: black;
 	border: solid 1px black;
+	margin-right: 20px;
 }
 
-.combox{
-	margin-top: 50px;
+.combox {
+	margin-top: 20px;
 }
 
-.btnbox{
-	display: flex; 
-	justify-content: flex-end; 
+.btnbox {
+	display: flex;
+	justify-content: flex-end;
 	align-items: center;
 }
 
-.writecom{
-	justify-content: center; 
+
+.com {
+	display: flex; /* Flexbox 활성화 */
 	align-items: center;
 }
 
-input::placeholder{
-	color: grey !important;	
+input::placeholder {
+	color: grey !important;
 }
 
+.jemock label, .jemock input{
+	color:black;'
+}
 </style>
 </head>
 <body class="landing is-preload">
@@ -294,90 +305,88 @@ input::placeholder{
 			</div>
 			<div class="bigBox">
 				<section>
-				<div class="dtitle">
-					<h6>${board.boardTitle}</h6>
-					<div class="mtitle">
-						<h6>${board.memName}</h6>
-						<h6>${board.boardDate}</h6>
+					<div class="dtitle">
+						<h6>${board.boardTitle}</h6>
 					</div>
-				</div>
-				<div>
-				</div>
-
-
-				<div class="content">
-					<pre>${board.boardContent}</pre>
-				</div>
-			
-
-				<!-- 파일 -->
-				<div class="file mb-3 d-flex" style="margin-top: 100px">
-					<c:forEach items="${attachList }" var="attach">
-						<div>
-							<a
-								href="<c:url value="/filedownload?fileName=${attach.boardFileName }&fileOriName=${attach.boardFileOriginalName}"/>">
-								${attach.boardFileOriginalName } (${attach.boardFileFancySize })
-							</a>
+						<div class="mtitle">
+							<h6>${board.memName}</h6>
+							<h6>${board.boardDate}</h6>
 						</div>
-					</c:forEach>
-				</div>
-				
-				<c:if test="${board.memId == sessionScope.login.memId }">
-				<div>
-					<div class="btnbox">
-						<form action="${pageContext.request.contextPath }/boardEditView"
-							method="POST">
-							<input type="hidden" value="${board.boardNo }" name="boardNo">
-							<button class="btn btn-warning me-2" type="submit">수정</button>
-						</form>
-						<form action="${pageContext.request.contextPath }/boardDeleteDo"
-							method="POST" id="deleteForm">
-							<input type="hidden" value="${board.boardNo }" name="boardNo">
-							<button class="btn btn-danger me-2" type="button" id="deleteBtn">삭제</button>
-						</form>
+
+
+					<div class="content">
+						<pre>${board.boardContent}</pre>
 					</div>
-				</div>
-			</c:if>
-				
-			<!-- 댓글 목록 -->
-			<div class="combox">
-				<span style="color: black;">댓글</span>
-				<div style="border-top: solid 3px #03C75A;">
-					<table>
-						<tbody id="comBody">
-							<c:forEach items="${comList }" var="com">
-								<tr id="${com.comNo }">
-									<td>${com.comContent }</td>
-									<td>${com.memName }</td>
-									<td>${com.comDate }</td>
-									<c:if test="${com.memId == sessionScope.login.memId}">
-										<td><a onclick="f_del(this)">X</a></td>
-									</c:if>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
-				</div>
-				<!-- 댓글 작성 영역 -->
-				<div>
-					<div class="writecom">
-						<form id="comForm"
-							action="${pageContext.request.contextPath }/writeComDo"
-							method="POST">
-							<div class="com">
-								<input type="text" id="comInput" name="comContent" placeholder="댓글 작성"> <input
-									type="hidden" name="memId" value="${sessionScope.login.memId }">
-								<input type="hidden" name="boardNo" value="${board.boardNo }">
+
+
+					<!-- 파일 -->
+					<div class="file mb-3 d-flex" style="margin-top: 100px">
+						<c:forEach items="${attachList }" var="attach">
+							<div style="color: black;">첨부파일:
+								<a
+									href="<c:url value="/filedownload?fileName=${attach.boardFileName }&fileOriName=${attach.boardFileOriginalName}"/>">
+									 ${attach.boardFileOriginalName } (${attach.boardFileFancySize })
+								</a>
 							</div>
-							<div>
-								<button class="btn btn-warning me-2" type="button" id="comBtn">등록</button>
-							</div>
-						</form>
+						</c:forEach>
 					</div>
-				</div>
+
+					<c:if test="${board.memId == sessionScope.login.memId }">
+						<div>
+							<div class="btnbox">
+								<form action="${pageContext.request.contextPath }/boardEditView"
+									method="POST">
+									<input type="hidden" value="${board.boardNo }" name="boardNo">
+									<button class="btn btn-warning me-2" type="submit">수정</button>
+								</form>
+								<form action="${pageContext.request.contextPath }/boardDeleteDo"
+									method="POST" id="deleteForm">
+									<input type="hidden" value="${board.boardNo }" name="boardNo">
+									<button class="btn btn-danger me-2" type="button"
+										id="deleteBtn">삭제</button>
+								</form>
+							</div>
+						</div>
+					</c:if>
+
+					<!-- 댓글 목록 -->
+					<div class="combox">
+						<span style="color: black;">댓글</span>
+						<div style="border-top: solid 3px #03C75A;">
+							<table>
+								<tbody id="comBody">
+									<c:forEach items="${comList }" var="com">
+										<tr id="${com.comNo }">
+											<td>${com.comContent }</td>
+											<td>${com.memName }</td>
+											<td>${com.comDate }</td>
+											<c:if test="${com.memId == sessionScope.login.memId}">
+												<td><a onclick="f_del(this)">X</a></td>
+											</c:if>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</div>
+						<!-- 댓글 작성 영역 -->
+						<div>
+							<div class="writecom">
+								<form id="comForm"
+									action="${pageContext.request.contextPath }/writeComDo"
+									method="POST">
+									<div class="com">
+										<input type="text" id="comInput" name="comContent"
+											placeholder="댓글 작성"> <input type="hidden"
+											name="memId" value="${sessionScope.login.memId }"> <input
+											type="hidden" name="boardNo" value="${board.boardNo }">
+										<button class="btn btn-warning me-2" type="button" id="comBtn">등록</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</section>
 			</div>
-		</section>
-		</div>
 		</div>
 
 		<%@ include file="/WEB-INF/inc/footer.jsp"%>

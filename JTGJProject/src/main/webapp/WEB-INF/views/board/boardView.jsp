@@ -14,7 +14,7 @@ div {
 }
 
 .landing {
-	background-image: url("images/photovoltaic-2814504_1920.jpg");
+	background-image: url("images/cloudy-4374619_1280.jpg");
 	background-size: 100%;
 }
 
@@ -305,7 +305,8 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
 								<!-- 중간 페이지 번호 부분 -->
 								<!-- model에 keySearch 이름으로 searchVO를 담음 -->
 								<!-- searchVO 내 pageNo, firstPage, lastPage 채워져있음 -->
-								<c:forEach begin="${pageSearch.firstPage }" end="${pageSearch.lastPage }" var="num">
+								<c:forEach begin="${pageSearch.firstPage }"
+									end="${pageSearch.lastPage }" var="num">
 									<li class="page-item ${PageSearch.pageNo == num ? 'active' : ''}">
 										<c:if test="${pageSearch.searchWord == null }">
 											<a class="page-link" href="${pageContext.request.contextPath }/boardView?pageNo=${num }&rowSizePerPage=${pageSearch.rowSizePerPage}">${num }</a>
