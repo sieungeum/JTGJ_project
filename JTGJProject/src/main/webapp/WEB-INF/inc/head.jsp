@@ -21,3 +21,10 @@
 	
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/noscript.css" />
+
+<!-- sjm -->
+<style>
+	a{
+		border-bottom: none;
+	}
+</style>
