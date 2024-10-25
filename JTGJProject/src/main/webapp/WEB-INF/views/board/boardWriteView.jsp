@@ -24,6 +24,8 @@ div {
 	border-top: solid 10px #03C75A;
 	border-bottom: solid 10px #03C75A;
 	border-radius: 25px;
+	margin-top: 200px;
+	margin-bottom: 50px;
 }
 
 .container td, .container p{
@@ -39,6 +41,10 @@ div {
 	color: black;
 	font-size: 30px;
 	padding-top: 20px;
+}
+
+.jemock label{
+	color: black;
 }
 
 .bigBox {
@@ -63,14 +69,17 @@ div {
 }
 
 .title {
-	color: #78D451;
 	font-size: 80px;
 	font-weight: bold;
-	margin: auto;
-	margin-bottom: 0;
 	padding-left: 70%;
-	text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px
-		1px 0 black;
+	margin-top:50px;
+	margin-bottom:50px;
+}
+
+.title p{
+	color: #78D451;
+	margin: 0;
+	padding: 0;
 }
 
 .calculator {
@@ -215,15 +224,17 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
 
 		<!-- Header -->
 		<%@ include file="/WEB-INF/inc/nav.jsp"%>
-
+		<div class="container">
 		<!-- Banner -->
-		<section>
+			<section>
 			<div class="row justify-content-center">
-				<p>건의사항</p>
+				<div class="title">
+					<p>건의사항</p>
+				</div>
 				<form id="contactForm"
 					action="${pageContext.request.contextPath }/boardWriteDo"
 					method="POST" enctype="multipart/form-data">
-					<div class="mb-3">
+					<div class="jemock mb-3">
 						<label for="inputTitle">제목</label> <input class="form-control"
 							id="inputTitle" type="text" name="boardTitle" />
 					</div>
@@ -239,6 +250,7 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
 					<button class="btn btn-primary btn-xl" id="submitButton"
 						type="submit">등록</button>
 				</form>
+			</div>
 			</div>
 		</section>
 

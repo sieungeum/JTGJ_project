@@ -23,9 +23,12 @@ div {
 	border-top: solid 10px #03C75A;
 	border-bottom: solid 10px #03C75A;
 	border-radius: 25px;
+	margin-top: 200px;
+	margin-bottom: 50px;
+	width: 75%;
 }
 
-.container td, .container p{
+.container td, .container p, .container a{
 	color: black;
 }
 
@@ -46,11 +49,12 @@ div {
 	color: black;
 	font-size: 30px;
 	padding-top: 20px;
+	
 }
 
 .bigBox {
 	margin: auto;
-	width: 90%;
+	width: 80%;
 }
 
 .calculator h2, .calculator p, .calculator label {
@@ -70,14 +74,19 @@ div {
 }
 
 .title {
-	color: #78D451;
 	font-size: 80px;
 	font-weight: bold;
-	margin: auto;
-	margin-bottom: 50px;
-	padding-left: 70%;
-	text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px
-		1px 0 black;
+	padding-left: 65%;
+	margin-top:50px;
+	margin-bottom:50px;
+}
+
+.title p{
+	border-bottom: solid 10px #03C75A;
+	color: #78D451;
+	padding: 0;
+	margin: 0;
+	padding-bottom: 40px
 }
 
 .calculator {
@@ -213,6 +222,61 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
 .btn:hover {
 	background-color: #BCCF86;
 }
+
+.dtitle h6{
+	margin: 0;
+}
+.dtitle{
+	padding-left:20px;
+	font-size: 70px;
+	border-bottom:solid 3px #03C75A;
+	display: flex; 
+	justify-content: space-between; 
+	align-items: center;
+}
+
+.mtitle{
+	font-size: 20px;
+	display: flex; 
+	justify-content: space-between; 
+	align-items: center;
+	width: 40%;
+	padding-top: 50px;
+}
+
+.content{
+	margin: 30px;
+}
+
+.file{
+	background-color: rgba(3, 199, 90, 0.5);
+	width: 60%;'
+}
+
+.com input{
+	color: black;
+	border: solid 1px black;
+}
+
+.combox{
+	margin-top: 50px;
+}
+
+.btnbox{
+	display: flex; 
+	justify-content: flex-end; 
+	align-items: center;
+}
+
+.writecom{
+	justify-content: center; 
+	align-items: center;
+}
+
+input::placeholder{
+	color: grey !important;	
+}
+
 </style>
 </head>
 <body class="landing is-preload">
@@ -224,20 +288,30 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
 		<%@ include file="/WEB-INF/inc/nav.jsp"%>
 
 		<!-- 메인 -->
-			
-				<p class="title">건의사항</p>
 		<div class="container">
+			<div class="title">
+				<p>건의사항</p>
+			</div>
+			<div class="bigBox">
 				<section>
-				<div class="mb-3">
+				<div class="dtitle">
 					<h6>${board.boardTitle}</h6>
+					<div class="mtitle">
+						<h6>${board.memName}</h6>
+						<h6>${board.boardDate}</h6>
+					</div>
 				</div>
 				<div>
-					<h6>${board.memName}</h6>
-					<h6>${board.boardDate}</h6>
 				</div>
 
+
+				<div class="content">
+					<pre>${board.boardContent}</pre>
+				</div>
+			
+
 				<!-- 파일 -->
-				<div class="mb-3 d-flex" style="margin-top: 100px">
+				<div class="file mb-3 d-flex" style="margin-top: 100px">
 					<c:forEach items="${attachList }" var="attach">
 						<div>
 							<a
@@ -247,13 +321,10 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
 						</div>
 					</c:forEach>
 				</div>
-
-				<div class="mb-3">
-					<pre>${board.boardContent}</pre>
-				</div>
-			<c:if test="${board.memId == sessionScope.login.memId }">
+				
+				<c:if test="${board.memId == sessionScope.login.memId }">
 				<div>
-					<div>
+					<div class="btnbox">
 						<form action="${pageContext.request.contextPath }/boardEditView"
 							method="POST">
 							<input type="hidden" value="${board.boardNo }" name="boardNo">
@@ -267,10 +338,11 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
 					</div>
 				</div>
 			</c:if>
-
+				
 			<!-- 댓글 목록 -->
-			<div>
-				<div>
+			<div class="combox">
+				<span style="color: black;">댓글</span>
+				<div style="border-top: solid 3px #03C75A;">
 					<table>
 						<tbody id="comBody">
 							<c:forEach items="${comList }" var="com">
@@ -288,12 +360,12 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
 				</div>
 				<!-- 댓글 작성 영역 -->
 				<div>
-					<div>
+					<div class="writecom">
 						<form id="comForm"
 							action="${pageContext.request.contextPath }/writeComDo"
 							method="POST">
-							<div>
-								<input type="text" id="comInput" name="comContent"> <input
+							<div class="com">
+								<input type="text" id="comInput" name="comContent" placeholder="댓글 작성"> <input
 									type="hidden" name="memId" value="${sessionScope.login.memId }">
 								<input type="hidden" name="boardNo" value="${board.boardNo }">
 							</div>
@@ -305,6 +377,7 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
 				</div>
 			</div>
 		</section>
+		</div>
 		</div>
 
 		<%@ include file="/WEB-INF/inc/footer.jsp"%>

@@ -24,6 +24,8 @@ div {
 	border-top: solid 10px #03C75A;
 	border-bottom: solid 10px #03C75A;
 	border-radius: 25px;
+	margin-top: 200px;
+	margin-bottom: 50px;
 }
 
 .container td, .container p{
@@ -63,14 +65,17 @@ div {
 }
 
 .title {
-	color: #78D451;
 	font-size: 80px;
 	font-weight: bold;
-	margin: auto;
-	margin-bottom: 0;
 	padding-left: 70%;
-	text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px
-		1px 0 black;
+	margin-top:50px;
+	margin-bottom:50px;
+}
+
+.title p{
+	color: #78D451;
+	margin: 0;
+	padding: 0;
 }
 
 .calculator {
@@ -206,6 +211,10 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
 .btn:hover {
 	background-color: #BCCF86;
 }
+
+.jemock label, .jemock input{
+	color: black;
+}
 </style>
 </head>
 <body class="landing is-preload">
@@ -215,17 +224,19 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
 
 		<!-- Header -->
 		<%@ include file="/WEB-INF/inc/nav.jsp"%>
-
+			<div class="container">
+			<div class="title">
+				<p>건의사항</p>
+			</div>
 		<!-- Banner -->
 		<section>
 			<div class="row justify-content-center">
-				<p>건의사항</p>
 				<form id="contactForm"
 					action="${pageContext.request.contextPath }/boardEditDo"
 					method="POST">
 					<input type="hidden" name="boardNo" value="${board.boardNo }">
 
-					<div class="mb-3">
+					<div class="jemock mb-3">
 						<label for="inputTitle">제목</label> <input class="form-control"
 							id="inputTitle" type="text" name="boardTitle"
 							value="${board.boardTitle }" />
@@ -238,6 +249,7 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
 						type="submit">등록</button>
 				</form>
 			</div>
+		</div>
 		</section>
 
 		<%@ include file="/WEB-INF/inc/footer.jsp"%>
