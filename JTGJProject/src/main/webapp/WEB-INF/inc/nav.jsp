@@ -4,14 +4,26 @@
     
 <!-- Header -->
 <!-- 로고 -->
-<a href="${pageContext.request.contextPath }/home"><img src="images/저탄고집v6.png" style=" width: 150px; margin-top: 10px; margin-left: 60px;"></a>
+<style>
+	.nav-logo{
+		position: absoulte;
+		
+	}
+	
+	.nav-logo-pst{
+		position: relative;
+	}
+</style>
 
-<header id="header" class="alt">
+<header id="header" class="alt nav-logo-pst">
+	<a class="nav-logo" href="${pageContext.request.contextPath }/home">
+		<img class="mt-3 ms-1" src="images/저탄고집v6.png" style="width: 170px; height: 100px;">
+	</a>
 	<h1><a href="${pageContext.request.contextPath }/home">저탄고집</a></h1>
 	<nav id="nav">
 		<ul>
 			<li class="special">
-				<a href="#menu" class="menuToggle rounded-pill mt-2 me-2" style="background-color: #21B2A6; "><span>메뉴</span></a>
+				<a href="#menu" class="menuToggle rounded-pill mt-2 me-2" style="background-color: #00B050; "><span>메뉴</span></a>
 				<div id="menu">
 					<ul>
 						<li><a href="${pageContext.request.contextPath }/home">메인화면</a></li>

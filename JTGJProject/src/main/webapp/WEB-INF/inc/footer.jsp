@@ -3,7 +3,7 @@
     pageEncoding="UTF-8"%>
     
 <!-- Footer -->
-<footer id="footer">
+<footer id="footer" style="background-color:#333;">
 	<ul class="icons">
 		<li><a href="#" class="icon brands fa-twitter"><span
 				class="label">Twitter</span></a></li>
