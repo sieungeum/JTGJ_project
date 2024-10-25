@@ -7,8 +7,16 @@
 <head>
 
 <%@ include file="/WEB-INF/inc/head.jsp"%>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
 
 <style type="text/css">
+	* {
+	  font-family: "Noto Sans KR", serif !important;
+	  font-weight: 600 !important;
+	  font-style: normal !important;
+	}
 	.landing{
 		background-color: white;
 	}
@@ -26,6 +34,42 @@
 		    margin-bottom: 2em;
 		    margin-left: 0px; */
 		margin: 3px 0 10px 20px;
+	}
+	
+	.detail-btn{
+		padding-top: 2px;
+		padding-bottom: 2px;
+		padding-left: 4px;
+		padding-right: 4px;
+	
+		background-color: rgba(0, 255, 0, 0.7);
+		
+		border: 1px solid rgba(0, 255, 0, 0.7);
+		border-radius: 7px;
+		
+		color: white;
+	}
+	
+	.detail-btn:hover{
+		background-color: white;
+		
+		border-radius: 7px;
+		
+		color: rgba(0, 255, 0, 0.7);
+		
+		transition-duration: 0.5s;
+	}
+	
+	.dashboard-style{
+		text-align: center;
+		
+		padding-top: 6px;
+		padding-bottom: 6px;
+		
+		background-color: #07C85E;
+		opacity : 0.7;
+		color: green;
+		font-size: 25px;
 	}
 	
 	/* 원그래프 */
@@ -74,7 +118,12 @@
 	
 	
 	.screen-left{
+		display: flex;
+		align-items: center;
+	
 		width: 25%;
+		
+		background-color: #07C85E;
 		
 	}
 	
@@ -114,8 +163,10 @@
 	<!-- nav -->
 	<%@ include file="/WEB-INF/inc/nav.jsp"%>
 	<div id="page-wrapper">
-		<div style="margin-top: 100px;"></div>
+		<div style="margin-top: 150px;"></div>
 		<section>
+			<div class="mt-3"> </div>
+			<div class="dashboard-style noto-sans-kr" >DASH BOARD</div>
 			<div class="map-container">
 				<!-- 오른쪽 원그래프 -->
 				<div class="screen-left" >
@@ -124,7 +175,7 @@
 						<div class="">
 							<div class="canvas-box-circle">
 								<div class="chart-circle-top">
-									<canvas id="chartTwoElse" height=300></canvas>
+									<canvas id="chartTwo" height="300"></canvas>
 								</div>
 							</div>
 						</div>
@@ -132,7 +183,7 @@
 						<div class="">
 							<div class="canvas-box-circle">
 								<div class="chart-circle-top">
-									<canvas id="chartOneElse" ></canvas>
+									<canvas id="chartOne" height="300"></canvas>
 								</div>
 							</div>
 						</div>
@@ -145,12 +196,15 @@
 					<div class="screen-r">
 						<div class="screen-r-left">
 							<div class="cnt-info">
-								<p style="font-weight: bolder" >회원 수</p>
+								<p style="font-weight: bolder" >회원 수 <a href="${pageContext.request.contextPath}/adminMemView" 
+								class="detail-btn">detail</a></p>
+								
 								<hr color="black" width="80%"  size="5px" style="margin: 3px 0 10px 17px;" >
 								<p>${infoCnt[0]} 명</p>
 							</div>
 							<div class="cnt-info">
-								<p style="font-weight: bolder" >전체 건물 수</p>
+								<p style="font-weight: bolder" >전체 건물 수 <a href="${pageContext.request.contextPath}/buildingView" 
+								class="detail-btn">detail</a></p>
 								<hr color="black" width="80%"  size="5px" style="margin: 3px 0 10px 17px;" >
 								<p>${infoCnt[1]} 채</p>
 							</div>
@@ -278,11 +332,9 @@
 				}
 
 				// 원그래프 생성
-				for (let i = 1; i < 2; i++){
-					f_draw_circle(v_solarDict, i); // 현재 zeb 선정 현황
-					f_draw_rank(v_solarDict, i); // 에너지 효율 등급 현황
-					//f_draw_special_rank(v_solarDict, i); // zeb 가능 건물 현황
-				}
+				f_draw_circle(v_solarDict); // 현재 zeb 선정 현황
+				f_draw_rank(v_solarDict); // 에너지 효율 등급 현황
+				//f_draw_special_rank(v_solarDict, i); // zeb 가능 건물 현황
 			}
 		}
 		
@@ -311,6 +363,13 @@
 				
 				v_datasets.push(v_temp);
 			}
+			
+			// 단색 연두색을 모든 데이터셋에 적용
+			v_datasets.forEach(dataset => {
+			    dataset.backgroundColor = 'rgba(0, 255, 0, 0.2)';  // 연두색
+			    dataset.borderColor = 'rgba(0, 200, 0, 1)';         // 외곽선 색상
+			    dataset.borderWidth = 1;                            // 외곽선 두께
+			});
 			
 			new Chart(ctx, {
 				type: 'bar',
@@ -352,12 +411,8 @@
 		function f_draw_circle(v_solarDict, purp) {
 			let v_id = "chartOne";
 			let v_purpose = "주거용";
+			let v_purposeElse = "주거용 이외";
 			
-			// 건물 용도가 주거용 이외 일 경우
-			if (purp == 1){
-				v_id += "Else";
-				v_purpose += " 이외";
-			}
 			let ctx = document.getElementById(v_id);
 			
 			// datasets에 들어갈 배열을 완성시켜서 넣기
@@ -366,8 +421,7 @@
 			let v_yes = 0;
 			let v_no = 0;
 			for (let i = 0; i < v_solarDict['zeb'].length; i++){
-				if (v_solarDict['purposeKindName'][i] == v_purpose){
-					console.log(v_solarDict['purposeKindName'][i]);
+				if (v_solarDict['purposeKindName'][i] == v_purpose || v_solarDict['purposeKindName'][i] == v_purposeElse){
 					if (v_solarDict['zeb'][i] == "Y"){
 						v_yes++;
 					} else if(v_solarDict['zeb'][i] == "N") {
@@ -396,7 +450,8 @@
 			                    size: 18  // 제목 글꼴 크기
 			                },
 			                padding: {
-			                	top: 20
+			                	top: 30,
+			                    bottom: 20 // 제목과 그래프 사이의 간격 설정
 			                }
 			            },
 			            legend: {
@@ -408,15 +463,11 @@
 		}
 		
 		// 모든 에너지 효율 등급 갯수
-		function f_draw_rank(v_solarDict, purp) {
+		function f_draw_rank(v_solarDict) {
 			let v_id = "chartTwo";
 			let v_purpose = "주거용";
+			let v_purposeElse = "주거용 이외";
 			
-			// 건물 용도가 주거용 이외 일 경우
-			if (purp == 1){
-				v_id += "Else";
-				v_purpose += " 이외";
-			}
 			let ctx = document.getElementById(v_id);
 			
 			// datasets에 들어갈 배열을 완성시켜서 넣기
@@ -425,7 +476,7 @@
 			// 등급 당 건물 갯수 구하기
 			let v_rankCnt = {};
 			for (let i = 0; i < v_solarDict['grdName'].length; i++){
-				if (v_solarDict["purposeKindName"][i] == v_purpose){
+				if (v_solarDict["purposeKindName"][i] == v_purpose || v_solarDict["purposeKindName"][i] == v_purposeElse){
 					if (v_rankCnt[v_solarDict['grdName'][i]] != null){
 						v_rankCnt[v_solarDict['grdName'][i]]++;
 					} else {
@@ -462,7 +513,8 @@
 			                    size: 18  // 제목 글꼴 크기
 			                },
 			                padding: {
-			                	top: 20
+			                	top: 30,
+			                    bottom: 20 // 제목과 그래프 사이의 간격 설정
 			                }
 			            },
 			            legend: {
