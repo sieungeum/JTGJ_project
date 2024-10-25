@@ -365,16 +365,40 @@
                 maxZoom: 15,
                 map: map,
                 markers: applyMarker,
-                disableClickZoom: false, // 클릭 시 확대 기능 비활성화
+
                 gridSize: 100,
                 icons: [htmlMarker1, htmlMarker2, htmlMarker3, htmlMarker4, htmlMarker5],
                 indexGenerator: [10, 50, 100, 300, 500],
                 averageCenter: true,
                 stylingFunction: function(clusterMarker, count) {
                     $(clusterMarker.getElement()).find('div:first-child').text(count);
+                    
+                    // 클러스터 마커 클릭 이벤트 추가
+                    naver.maps.Event.addListener(clusterMarker, 'click', function() {
+                        // `markerClustering._clusters` 배열에서 클릭된 클러스터 객체 찾기
+                        const cluster = markerClustering._clusters.find(c => c._clusterMarker === clusterMarker);
+
+                        if (cluster) {
+                            const clusterMembers = cluster.getClusterMember();
+                        
+                            v_buildingDetail[0].innerHTML = '';
+							for(let i = 0; i < clusterMembers.length; i++){
+								let address = clusterMembers[i]['address'];
+								let name = clusterMembers[i]['title'];
+								
+								let content = '<div style="font-size:13px; margin-bottom:8px; cursor:pointer;" onclick="moveToMarker()">' + (i + 1) + '. ' + address + '</div>';
+								v_buildingDetail[0].innerHTML += content;
+							}
+                        }
+                    });
                 }
             });
+            
             map.refresh();
+        }
+        
+        function moveToMarker(marker){
+        	console.log(marker);
         }
         
         // 마커와 클러스터링 제거 함수
@@ -498,7 +522,7 @@
         async function mainProgram(){
            await loadMarkersInChunks(v_jsonData);
            
-           console.log('데이터 불러오기 완료!');
+           console.log('데이터 불러오기 완료!');      
            
            // 행정 마커 추가
          map.data.forEach(function(feature) {
@@ -573,11 +597,12 @@
                     }else{
                         // 줌 레벨이 8을 초과하면 마커 제거 및 GeoJSON 숨기기
                         overlays.forEach(overlay => overlay.setMap(null)); // 커스텀 오버레이 표시
-                        createCluster(markers);
+                        createCluster(markers);                     
                     }
                 }
                 
-            });           
+            });        
+            
         }
         
 
