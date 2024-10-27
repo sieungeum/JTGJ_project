@@ -158,14 +158,13 @@
 	
 </style>
 </head>
-<body class="landing is-preload">
+<body class="landing is-preload" style="min-width: 1300px;">
 
 	<!-- nav -->
 	<%@ include file="/WEB-INF/inc/nav.jsp"%>
 	<div id="page-wrapper">
-		<div style="margin-top: 150px;"></div>
+		<div style="margin-top: 100px;"></div>
 		<section>
-			<div class="mt-3"> </div>
 			<div class="dashboard-style noto-sans-kr" >DASH BOARD</div>
 			<div class="map-container">
 				<!-- 오른쪽 원그래프 -->
