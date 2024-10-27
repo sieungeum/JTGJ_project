@@ -55,7 +55,7 @@ public class RegionSolarController {
 		
 		model.addAttribute("infoCnt" , infoCnt);
 		
-		return "map/chartView";
+		return "admin/chartView";
 	}
 	
 	// chart에 쓰일 데이터 가져오기

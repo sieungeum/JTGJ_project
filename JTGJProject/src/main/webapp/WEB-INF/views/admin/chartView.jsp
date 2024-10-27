@@ -66,7 +66,7 @@
 		padding-top: 6px;
 		padding-bottom: 6px;
 		
-		background-color: #07C85E;
+		background-color: yellowgreen;
 		opacity : 0.7;
 		color: green;
 		font-size: 25px;
@@ -123,7 +123,7 @@
 	
 		width: 25%;
 		
-		background-color: #07C85E;
+		background-color: yellowgreen;
 		
 	}
 	

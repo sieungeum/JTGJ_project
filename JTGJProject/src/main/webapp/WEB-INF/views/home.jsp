@@ -13,8 +13,8 @@
 
 <style>
 
-/* 	// <uniquifier>: Use a unique and descriptive class name
-	// <weight>: Use a value from 100 to 900 */
+	/* 	<uniquifier>: Use a unique and descriptive class name
+	<weight>: Use a value from 100 to 900 */
 	
 	.noto-sans-kr {
 	  font-family: "Noto Sans KR", serif;
@@ -103,44 +103,14 @@
 	<div id="page-wrapper">
 
 		<!-- header -->
-		<header id="header" class="alt">
-			<h1><a href="${pageContext.request.contextPath }/home">저탄고집</a></h1>
-			<nav id="nav">
-				<ul>
-					<li class="special">
-						<a href="#menu" class="menuToggle" ><span>메뉴</span></a>
-						<div id="menu">
-							<ul>
-								<li><a href="${pageContext.request.contextPath }/home">메인화면</a></li>
-								<!-- map view 명 나중에 바꿀 예정 -->
-								<li><a href="${pageContext.request.contextPath }/mapView">지도확인</a></li>
-								<li><a href="${pageContext.request.contextPath }/calView">계산하기</a></li>
-								<li><a href="${pageContext.request.contextPath }/boardView">건의사항</a></li>
-								<c:if test="${sessionScope.login == null }">
-									<li><a href="${pageContext.request.contextPath }/loginView">로그인/회원가입</a></li>
-								</c:if>
-								<c:if test="${sessionScope.login != null }">
-								
-									<li><a href="${pageContext.request.contextPath }/logoutDo">로그아웃</a></li>
-									<li><a href="${pageContext.request.contextPath }/editView">${sessionScope.login.memName} 님</a></li>
-								</c:if>
-								<c:if test="${sessionScope.login.memAdminYn == 'Y' || sessionScope.login.memAdminYn == 'K' }">
-									<li><a href="${pageContext.request.contextPath }/adminMainView">관리자 페이지</a></li>
-								</c:if>
-							</ul>
-						</div>
-					</li>
-				</ul>
-			</nav>
-		</header>
+		<%@ include file="/WEB-INF/inc/nav.jsp"%>
 
 		<!-- Banner -->
 		<section id="banner">
 			<div class="inner" style="display:flex; flex-direction:column; align-items:center;">
 				<img src="images/저탄고집v6.png" width="300px">
-				<div class="mt-5"></div>
-				<div class="mt-5"></div>
-				<div class="mt-5"></div>
+					<div class="mt-5"></div>
+					<div class="mt-5"></div>
 				<ul class="actions special noto-sans-kr">
 					<c:if test="${sessionScope.login == null}" >
 						<li><a href="${pageContext.request.contextPath }/loginView" class="btn btn-success btn-lg">로그인하기</a></li>
@@ -170,7 +140,7 @@
 							</div>
 							<div class="chart-circle-under noto-sans-kr">
 								<canvas id="chartThreeElse" ></canvas>
-								<p>ZEB 선정 가능 건물 현황</p>
+								<p>ZEB 적합 건물 현황</p>
 							</div>
 						</div>
 					</div>
@@ -273,70 +243,16 @@
 			</section>
 		</section>
 
-<!-- 		설명 On
-		<section class="wrapper alt style2">
-			1
-			<section id="one" class="spotlight">
-				<div class="image">
-					<img src="images/pic01.jpg" alt="" />
-				</div>
-				<div class="content">
-					<a href="#two">건물 정보</a>
-				</div>
-			</section>
-			
-			2
-			<section id="two" class="spotlight">
-				<div class="image">
-					<img src="images/pic02.jpg" alt="" />
-				</div>
-				<div class="content">
-					<a href="#three">건물 정보</a>
-				</div>
-			</section>
-			
-			3
-			<section id="three" class="spotlight">
-				<div class="image">
-					<img src="images/pic03.jpg" alt="" />
-				</div>
-				<div class="content">
-					<a href="#fourth">건물 정보</a>
-				</div>
-			</section>
-			
-			4
-			<section id="fourth" class="spotlight">
-				<div class="image">
-					<img src="images/pic02.jpg" alt="" />
-				</div>
-				<div class="content">
-					<a href="#fifth">건물 정보</a>
-				</div>
-			</section>
-			
-			5
-			<section id="fifth" class="spotlight">
-				<div class="image">
-					<img src="images/pic03.jpg" alt="" />
-				</div>
-				<div class="content">
-					
-				</div>
-			</section>
-		</section> -->
-
 		<!-- CTA -->
-		<section id="cta" class="wrapper style4">
-			<div class="inner">
+		<section id="cta" class="wrapper style4" style="background-color: yellowgreen">
+			<div class="inner noto-sans-kr">
 				<header>
-					<h2>Arcue ut vel commodo</h2>
-					<p>Aliquam ut ex ut augue consectetur interdum endrerit
-						imperdiet amet eleifend fringilla.</p>
+					<h2>탄소중립 여러분의 도움이 필요합니다.</h2>
+					<p>ZEB 건물, 신청하러 가볼까요?</p>
 				</header>
 				<ul class="actions stacked">
-					<li><a href="#" class="button fit primary">Activate</a></li>
-					<li><a href="#" class="button fit">Learn More</a></li>
+					<li><a href="https://beec.energy.or.kr/BC/BC02/BC02_04_002.do" class="button fit primary">인증 사이트 바로가기</a></li>
+					<li><a href="#" class="button fit">맨 위로</a></li>
 				</ul>
 			</div>
 		</section>

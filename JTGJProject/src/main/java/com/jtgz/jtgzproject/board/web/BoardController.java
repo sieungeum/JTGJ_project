@@ -72,6 +72,7 @@ public class BoardController {
 		
 		model.addAttribute("boardList", boardList);
 		
+		System.out.println(search);
 		model.addAttribute("pageSearch", search);
 		// LHS
 		
