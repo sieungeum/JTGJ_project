@@ -8,6 +8,9 @@
 <title>건의사항</title>
 <%@ include file="/WEB-INF/inc/head.jsp"%>
 <style>
+.btn{
+	border: #00B050 solid 1px;
+}
 div {
 	margin: 0;
 	padding: 0;
@@ -268,9 +271,11 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
 					</table>
 					<div class="createBtn">
 						<div class="col-lg-8 col-xl-7 d-flex justify-content-end">
-							<a href="${pageContext.request.contextPath }/boardWriteView">
-								<button class="btn btn-primary btn-xl">글쓰기</button>
-							</a>
+							<div class="btn me-2">
+								<a href="${pageContext.request.contextPath }/boardWriteView">
+									글쓰기
+								</a>
+							</div>
 						</div>
 						<c:if
 							test='${sessionScope.login.memAdminYn == "Y" or 

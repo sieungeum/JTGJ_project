@@ -10,6 +10,10 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	
 	<style>
+	.btn{
+		border: #00B050 solid 1px;
+	}
+	
 	div {
 		margin: 0;
 		padding: 0;
@@ -268,7 +272,7 @@
 												<option value="address">주소</option>
 											</select>				
 											<input type="text" class="form-control width-m " name="searchWord" >
-											<button class="btn btn-primary d-flex justify-content-center align-items-center" type="submit">
+											<button class="btn btn-primary d-flex justify-content-center align-items-center" type="submit" style="height:44px;">
 												<i class="fa-solid fa-magnifying-glass fa-2xl"></i>
 											</button>
 										</form>
@@ -283,29 +287,37 @@
 										</a>
 									</div>
 									
-									<table id="table">
+									<table id="table">    
+										<colgroup>
+									        <col style="width: 100px;">
+									        <col style="width: 300px;">
+									        <col style="width: 100px;">
+									        <col style="width: 150px;">
+									        <col style="width: 300px;">
+									        <col style="width: 130px;">
+									    </colgroup>
 										<thead>
 											<tr class="th-size">
-												<th scope ="col">용도</th>
-												<th scope ="col">건물명</th>
-												<th scope ="col">에너지효율등급</th>
-												<th scope ="col">발급일</th>
-												<th scope ="col">주소</th>
-												<th scope ="col">ZEB 유무</th>
-												<th scope ="col">1차 에너지 소요량</th>
+												<th scope ="col" style="text-align: center;">용도</th>
+												<th scope ="col" style="text-align: center;">건물명</th>
+												<th scope ="col" style="text-align: center;">등급</th>
+												<th scope ="col" style="text-align: center;">발급일</th>
+												<th scope ="col" style="text-align: center;">주소</th>
+												<th scope ="col" style="text-align: center;">ZEB 유무</th>
+												<!-- <th scope ="col">1차 에너지 소요량</th> -->
 											</tr>
 										</thead>
 										<tbody>
 											
 											<c:forEach items="${AdminList }" var = "admin">
 												<tr class="td-size">
-													<td scope = "row">${admin.purposeKindName }</td>
-													<td>${admin.bldNm }</td>
-													<td>${admin.grdName }  </td>
-													<td>${admin.crtifIsuDd }</td>
-													<td>${admin.locAddr }</td>
-													<td>${admin.zeb } </td>
-													<td>${admin.wOneEnergyRequire }</td>
+													<td scope = "row" style="text-align: center;">${admin.purposeKindName }</td>
+													<td style="text-align: center;">${admin.bldNm }</td>
+													<td style="text-align: center;">${admin.grdName }  </td>
+													<td style="text-align: center;">${admin.crtifIsuDd }</td>
+													<td style="text-align: center;">${admin.locAddr }</td>
+													<td style="text-align: center;">${admin.zeb } </td>
+													<%-- <td>${admin.wOneEnergyRequire }</td> --%>
 													<td>
 														<a href="<c:url value="/buildingDetailView?bldNm=${admin.bldNm }&purposeKindName=${admin.purposeKindName }" />">
 															<button class="btn btn-primary btn-xl">상세 보기</button>

@@ -10,6 +10,9 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	
 	<style>
+	.btn{
+		border: #00B050 solid 1px;
+	}
 	div {
 		margin: 0;
 		padding: 0;
@@ -263,7 +266,7 @@
 								<option value="email">이메일</option>
 							</select>				
 							<input type="text" class="form-control w-150" name="searchWord" >
-							<button class="btn btn-primary"  type="submit">
+							<button class="btn btn-primary d-flex justify-content-center align-items-center"  type="submit" style="height:44px;">
 								<i class="fa-solid fa-magnifying-glass fa-2xl" ></i>
 							</button>
 						</form>
@@ -277,25 +280,25 @@
 					
 					<table id="table">
 						<thead>
-							<tr>
-								<th scope ="col">아이디</th>
-								<th scope ="col">이름</th>
-								<th scope ="col">이메일</th>
-								<th scope ="col">가입일</th>
-								<th scope ="col">탈퇴 여부</th>
-								<th scope ="col">관리자 권한</th>
+							<tr class="th-size">
+								<th scope ="col" style="text-align: center;">아이디</th>
+								<th scope ="col" style="text-align: center;">이름</th>
+								<th scope ="col" style="text-align: center;">이메일</th>
+								<th scope ="col" style="text-align: center;">가입일</th>
+								<th scope ="col" style="text-align: center;">탈퇴 여부</th>
+								<th scope ="col" style="text-align: center;">관리자 권한</th>
 							</tr>
 						</thead>
 						<tbody>
 							
 							<c:forEach items="${AdminMemList }" var = "adminMem">
 								<tr>
-									<td scope = "row">${adminMem.memId }</td>
-									<td>${adminMem.memName }</td>
-									<td>${adminMem.memEmail }  </td>
-									<td>${adminMem.memDate }</td>
-									<td>${adminMem.memCerYn }</td>
-									<td>
+									<td scope = "row" style="text-align: center;">${adminMem.memId }</td>
+									<td style="text-align: center;">${adminMem.memName }</td>
+									<td style="text-align: center;">${adminMem.memEmail }  </td>
+									<td style="text-align: center;">${adminMem.memDate }</td>
+									<td style="text-align: center;">${adminMem.memCerYn }</td>
+									<td style="text-align: center;">
 										<c:if test="${adminMem.memAdminYn == 'N'}">
 											<c:if test="${sessionScope.login.memAdminYn == 'Y' || sessionScope.login.memAdminYn == 'K' }">
 												<form action="${pageContext.request.contextPath }/adminMemDo" method="POST" id="checkFormB">

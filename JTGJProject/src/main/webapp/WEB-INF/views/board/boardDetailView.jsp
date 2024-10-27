@@ -8,6 +8,9 @@
 <title>글상세보기</title>
 <%@ include file="/WEB-INF/inc/head.jsp"%>
 <style>
+.btn{
+	border: #00B050 solid 1px;
+}
 div {
 	margin: 0;
 	padding: 0;
