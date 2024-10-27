@@ -24,7 +24,7 @@ public class AdminController {
 	
 	@RequestMapping("/adminMainView")
 	public String adminMainView(){
-		return "admin/adminMainView";
+		return "redirect:/chartView";
 	}
 	
 	@RequestMapping("/buildingView")

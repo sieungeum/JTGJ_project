@@ -307,7 +307,7 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
 								<!-- searchVO 내 pageNo, firstPage, lastPage 채워져있음 -->
 								<c:forEach begin="${pageSearch.firstPage }"
 									end="${pageSearch.lastPage }" var="num">
-									<li class="page-item ${PageSearch.pageNo == num ? 'active' : ''}">
+									<li class="page-item ${pageSearch.pageNo == num ? 'active' : ''}">
 										<c:if test="${pageSearch.searchWord == null }">
 											<a class="page-link" href="${pageContext.request.contextPath }/boardView?pageNo=${num }&rowSizePerPage=${pageSearch.rowSizePerPage}">${num }</a>
 										</c:if> <c:if test="${pageSearch.searchWord != null }">
