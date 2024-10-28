@@ -484,7 +484,8 @@
 				}
 			}
 			
-			let v_label = Object.keys(v_rankCnt);
+			// let v_label = Object.keys(v_rankCnt);
+			let v_label = ["1+++등급", "1++등급", "1+등급", "1등급", "2등급", "3등급", "4등급", "5등급"];
 			
 			let v_data = [];
 			for (d of v_label){
