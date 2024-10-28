@@ -8,9 +8,10 @@
 <title>글상세보기</title>
 <%@ include file="/WEB-INF/inc/head.jsp"%>
 <style>
-.btn{
+.btn {
 	border: #00B050 solid 1px;
 }
+
 div {
 	margin: 0;
 	padding: 0;
@@ -251,18 +252,18 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
 .file {
 	width: 60%;
 }
-.file a{
+
+.file a {
 	background-color: rgba(3, 199, 90, 0.5);
-	
 }
 
-.file:hover{
+.file:hover {
 	color: red;
 	font-weight: bold;
 }
 
 .com input {
-	width:60%;
+	width: 60%;
 	color: black;
 	border: solid 1px black;
 	margin-right: 20px;
@@ -278,7 +279,6 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
 	align-items: center;
 }
 
-
 .com {
 	display: flex; /* Flexbox 활성화 */
 	align-items: center;
@@ -288,8 +288,9 @@ input::placeholder {
 	color: grey !important;
 }
 
-.jemock label, .jemock input{
-	color:black;'
+.jemock label, .jemock input {
+	color: black;
+	'
 }
 </style>
 </head>
@@ -311,10 +312,10 @@ input::placeholder {
 					<div class="dtitle">
 						<h6>${board.boardTitle}</h6>
 					</div>
-						<div class="mtitle">
-							<h6>${board.memName}</h6>
-							<h6>${board.boardDate}</h6>
-						</div>
+					<div class="mtitle">
+						<h6>${board.memName}</h6>
+						<h6>${board.boardDate}</h6>
+					</div>
 
 
 					<div class="content">
@@ -325,10 +326,10 @@ input::placeholder {
 					<!-- 파일 -->
 					<div class="file mb-3 d-flex" style="margin-top: 100px">
 						<c:forEach items="${attachList }" var="attach">
-							<div style="color: black;">첨부파일:
-								<a
+							<div style="color: black;">
+								첨부파일: <a
 									href="<c:url value="/filedownload?fileName=${attach.boardFileName }&fileOriName=${attach.boardFileOriginalName}"/>">
-									 ${attach.boardFileOriginalName } (${attach.boardFileFancySize })
+									${attach.boardFileOriginalName } (${attach.boardFileFancySize })
 								</a>
 							</div>
 						</c:forEach>
@@ -372,44 +373,54 @@ input::placeholder {
 							</table>
 						</div>
 						<!-- 댓글 작성 영역 -->
-						<div>
-							<div class="writecom">
-								<form id="comForm"
-									action="${pageContext.request.contextPath }/writeComDo"
-									method="POST">
-									<div class="com">
-										<input type="text" id="comInput" name="comContent"
-											placeholder="댓글 작성"> <input type="hidden"
-											name="memId" value="${sessionScope.login.memId }"> <input
-											type="hidden" name="boardNo" value="${board.boardNo }">
-										<button class="btn btn-warning me-2" type="button" id="comBtn">등록</button>
-									</div>
-								</form>
+						<c:if
+							test='${sessionScope.login.memAdminYn == "Y" or 
+					sessionScope.login.memAdminYn == "K"}'>
+							<div>
+								<div class="writecom">
+									<form id="comForm"
+										action="${pageContext.request.contextPath }/writeComDo"
+										method="POST">
+										<div class="com">
+											<input type="text" id="comInput" name="comContent"
+												placeholder="댓글 작성"> <input type="hidden"
+												name="memId" value="${sessionScope.login.memId }"> <input
+												type="hidden" name="boardNo" value="${board.boardNo }">
+											<button class="btn btn-warning me-2" type="button"
+												id="comBtn">등록</button>
+										</div>
+
+									</form>
+								</div>
 							</div>
-						</div>
+						</c:if>
 					</div>
 				</section>
 			</div>
 		</div>
 
 		<%@ include file="/WEB-INF/inc/footer.jsp"%>
-		<script type="text/javascript">
+	<script type="text/javascript">
 		const v_btn = document.getElementById("deleteBtn");
 		const v_form = document.getElementById("deleteForm");
 		
-		v_btn.addEventListener("click", ()=>{
-			if(confirm('정말로 삭제하시겠습니까?')){
-				v_form.submit();
-			}
-		});
+		if (v_btn != null){
+			v_btn.addEventListener("click", ()=>{
+				if(confirm('정말로 삭제하시겠습니까?')){
+					v_form.submit();
+				}
+			});
+		}
 		
 		const v_comBtn = document.getElementById("comBtn")
 		const v_comForm = document.getElementById("comForm")
 		
+		console.log("ㅎㅇ");
 		v_comBtn.addEventListener("click", ()=>{
 			let v_comForm = $('#comForm');
 			let v_url = v_comForm.attr('action');
 			let v_formData = v_comForm.serialize();
+			console.log(v_formData);
 			
 			$.ajax({
 				type: 'POST',

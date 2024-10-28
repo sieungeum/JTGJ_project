@@ -169,6 +169,7 @@ public class BoardController {
 	@ResponseBody
 	@PostMapping("/writeComDo")
 	public ComDTO writeComDo(ComDTO com) {
+		System.out.println(" - writeComDo - ");
 		System.out.println(com);
 		
 		Date date = new Date();
