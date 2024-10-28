@@ -217,7 +217,7 @@
 						<div class="screen-r-right">
 							<!-- flask로 가져온 인공지능 모델 예측 그래프 -->
 							<div class="ai-graph-box" >
-								<img src="http://192.168.0.13:5000/pltimg" width="100%" height="100%" >
+								<img src="http://localhost:5000/pltimg" width="100%" height="100%" >
 							</div>
 						</div>
 						
