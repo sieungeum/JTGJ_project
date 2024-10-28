@@ -37,6 +37,26 @@
             position: relative;
             z-index: 0;
         }
+        
+        .icon-info{
+            position: absolute;
+            left: 21%;
+            top: 15px;
+            width: 15%;
+            height: 15%;
+            z-index: 10;
+            background-color: rgb(255, 255, 255, 0.8);
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .icon-info-detail{
+            display: flex;
+            align-items: center;
+            height: calc(100% / 5);
+            font-weight: bolder;
+            font-size: 10px;
+        }
 
         .building-filter{
             position: absolute;
@@ -118,17 +138,36 @@
             font-size: 10px;
             font-weight: bolder;
         }
+        
+        .building-list{
+            font-size:13px; 
+            margin-bottom:8px; 
+            cursor:pointer;
+            border-radius:10px;
+            background-color:#EEEEEE;
+        }
+
+        .building-list:hover{
+            color: greenyellow;
+        }
     </style>
 </head>
 <body class="landing is-preload">
     <%@ include file="/WEB-INF/inc/nav.jsp"%>
     <div id="map" style="font-size: 10px;">
-       <!-- 필터 -->
-       
+    	 <div class="icon-info">
+            <div class="icon-info-detail"><img style="background-color:#04B431;border-radius:100%;" src="./images/emoji-sunglasses.svg">&nbsp;1++++ / 1+++ 등급</div>
+            <div class="icon-info-detail"><img style="background-color:#64FE2E;border-radius:100%;" src="./images/emoji-heart-eyes.svg">&nbsp;1++ / 1+ 등급</div>
+            <div class="icon-info-detail"><img style="background-color:#F4FA58;border-radius:100%;" src="./images/emoji-smile.svg">&nbsp;1 / 2 등급</div>
+            <div class="icon-info-detail"><img style="background-color:#FF8000;border-radius:100%;" src="./images/emoji-neutral.svg">&nbsp;3 / 4 등급</div>
+            <div class="icon-info-detail"><img style="background-color:#FF0000;border-radius:100%;" src="./images/emoji-frown.svg">&nbsp;5 / 6 등급</div>
+        </div>
+    
+        <!-- 필터 -->
         <div class="building-filter">
-            <div>
+            <div class="d-flex">
                 <!-- onchange="sortingEnergyGrade(this.value)" -->
-                <select class="form-select mb-2" id="building-select">
+                <select class="form-select mb-2 me-1" style="width:70%;" id="building-select">
                     <option selected value="-1">Open this select menu</option>
                     <option value="0">전체보기</option>
                     <option value="1++++등급">1++++등급</option>
@@ -142,6 +181,8 @@
                     <option value="5등급">5등급</option>
                     <option value="6등급">6등급</option>
                 </select>
+                
+                 <div class="btn btn-warning mb-2" style="width:30%;" onclick="f_reduction()">지도축소</div>
             </div>
             <div class="mb-2"><input type="text" class="form-control me-2" placeholder="주소를 입력해주세요!" id="input_name"></div>
             <div class="btn btn-primary mb-2" onclick="searchBuilding()">조회하기</div>
@@ -164,6 +205,8 @@
    
         // 마커클러스링을 위해 생성된 마커들을 저장할 배열 markers
         let markers = [];
+        let infoWindows = [];
+        let activeInfoWindow = null;
         let markerClustering;
         const CHUNK_SIZE = 300;
 
@@ -194,6 +237,20 @@
                           zeb: v_jsonData['zeb'][i]
                       });
 
+                      // 인포윈도우 추가
+                      var contentString = [
+                          '<div class="infoWindow-box" style="padding:5px;">',
+                          '   <div style="text-align:center;"><h4>' + v_jsonData['name'][i] +'</h4></div>',
+                          '   <div style="text-align:center;font-size:15px;"><p>' + v_jsonData['address'][i] + '</p></div>',
+                          '</div>'
+                      ].join('');                      
+
+                      infoWindow = new naver.maps.InfoWindow({
+                          content: contentString
+                      });
+
+                      infoWindows.push(infoWindow);
+                      
                       // 마커 클릭 이벤트 추가
                       naver.maps.Event.addListener(marker, "click", function() {
                          // 발전량 추가
@@ -221,7 +278,7 @@
 	                              '<div class="info-detail"><div class="title">인증일자</div> <div class="content">' + v_jsonData['crtif'][i] + '</div></div>' +
 	                              '<div class="info-detail"><div class="title">그린에너지건축물</div> <div class="content">' + v_jsonData['zeb'][i] + '</div></div>';
                          }
-                  });
+                	  });
 
                       markers.push(marker);
                       regionSort(marker);
@@ -365,7 +422,6 @@
                 maxZoom: 15,
                 map: map,
                 markers: applyMarker,
-
                 gridSize: 100,
                 icons: [htmlMarker1, htmlMarker2, htmlMarker3, htmlMarker4, htmlMarker5],
                 indexGenerator: [10, 50, 100, 300, 500],
@@ -382,13 +438,15 @@
                             const clusterMembers = cluster.getClusterMember();
                         
                             v_buildingDetail[0].innerHTML = '';
-							for(let i = 0; i < clusterMembers.length; i++){
-								let address = clusterMembers[i]['address'];
-								let name = clusterMembers[i]['title'];
-								
-								let content = '<div style="font-size:13px; margin-bottom:8px; cursor:pointer;" onclick="moveToMarker()">' + (i + 1) + '. ' + address + '</div>';
-								v_buildingDetail[0].innerHTML += content;
-							}
+                            for(let i = 0; i < clusterMembers.length; i++){
+                                let lng = clusterMembers[i]['position']['x'];
+                                let lat = clusterMembers[i]['position']['y'];
+                                let address = clusterMembers[i]['address'];
+                                let name = clusterMembers[i]['title'];
+
+                                let content = '<div class="building-list" onclick="moveToMarker(' + lat + ', ' + lng + ', \'' + name + '\', \'' + address + '\')">' + (i + 1) + '. ' + address + '</div>';
+                                v_buildingDetail[0].innerHTML += content;
+                            }
                         }
                     });
                 }
@@ -397,8 +455,20 @@
             map.refresh();
         }
         
-        function moveToMarker(marker){
-        	console.log(marker);
+        // 클러스터 항목 클릭시 해당 마커로 이동
+        function moveToMarker(lat, lng, name, address){
+            let target = new naver.maps.LatLngBounds(
+                new naver.maps.LatLng(lat, lng)
+            );
+
+            map.panToBounds(target);
+        }
+
+        // 지도 축소 버튼
+        function f_reduction(){
+            map.setZoom(7);
+            v_buildingDetail[0].innerHTML = '';
+            activeInfoWindow.close();
         }
         
         // 마커와 클러스터링 제거 함수
@@ -434,8 +504,7 @@
             }
         }        
        
-       
-       
+        // 커스텀 오버레이 
         map.data.forEach(function(feature) {
             let geometry = feature['_raw']['geometry'];
 
@@ -469,6 +538,7 @@
                 strokeOpacity: 0.7      // 경계선 불투명도
             };
         });
+        
         // 검색 기능
         let v_inputName = document.getElementById('input_name');
         let v_buildingSelect = document.getElementById('building-select');
@@ -525,7 +595,7 @@
            console.log('데이터 불러오기 완료!');      
            
            // 행정 마커 추가
-         map.data.forEach(function(feature) {
+           map.data.forEach(function(feature) {
                 let geometry = feature['_raw']['geometry'];
 
                 if (geometry['type'] === 'Polygon') {
@@ -603,6 +673,21 @@
                 
             });        
             
+            // 인포윈도우
+            for(let i = 0; i < markers.length; i++){
+                let infoWindow = infoWindows[i];
+                let marker = markers[i];
+
+                naver.maps.Event.addListener(marker, 'click', function(){
+                    if(infoWindow.getMap()){
+                        infoWindow.close();
+                        activeInfoWindow = null;
+                    } else{
+                        infoWindow.open(map, marker);
+                        activeInfoWindow = infoWindow;
+                    }
+                });
+            }
         }
         
 
