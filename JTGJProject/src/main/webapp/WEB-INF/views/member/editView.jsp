@@ -123,7 +123,7 @@
 		
 				<div class="container ">
 					<span class="title">회원수정</span>
-					<form action="$${pageContext.request.contextPath }/editDo" method="POST">
+					<form action="${pageContext.request.contextPath }/editDo" method="POST">
 						<div class="input-container">
 							<div class="input-box">
 								<div class="label-c">
