@@ -151,7 +151,7 @@
 						</div>
 						
 						<div class="a-box">
-							<a class=rightS href="${pageContext.request.contextPath }/home">홈으로돌아가기</a> 
+							<a class=rightS href="${pageContext.request.contextPath }/">홈으로돌아가기</a> 
 							<a class=rightS href="${pageContext.request.contextPath }/registView"> 회원가입</a>
 						</div>
 						
