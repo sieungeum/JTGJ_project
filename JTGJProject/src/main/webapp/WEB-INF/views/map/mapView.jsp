@@ -40,8 +40,8 @@
         
         .icon-info{
             position: absolute;
-            left: 21%;
-            top: 15px;
+            right: 1%;
+            top: 10%;
             width: 15%;
             height: 15%;
             z-index: 10;
@@ -62,8 +62,8 @@
             position: absolute;
             width: 35%;
             height: 10%;
-            top: 20%;
-            left: 20px;
+            top: 12%;
+            left: 1%;
             z-index: 10; 
             display: flex;
             flex-direction: column;
@@ -71,8 +71,8 @@
 
         .building-detail{
             position: absolute;
-            top: 45%;
-            left: 20px;
+            top: 37%;
+            left: 1%;
             width: 35%;
             height: 50%;
             background-color: #FFFFFF;
