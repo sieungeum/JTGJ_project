@@ -28,14 +28,14 @@
 <%-- 	<a class="nav-logo" href="${pageContext.request.contextPath }/home">
 		<img class="mt-3 ms-1" src="images/저탄고집v6.png" style="width: 170px; height: 100px;">
 	</a> --%>
-	<h2><a href="${pageContext.request.contextPath }/home">저탄고집</a></h2>
+	<h2><a href="${pageContext.request.contextPath }/">저탄고집</a></h2>
 	<nav id="nav">
 		<ul>
 			<li class="special">
 				<a href="#menu" class="menuToggle""><span>메뉴</span></a>
 				<div id="menu">
 					<ul>
-						<li><a href="${pageContext.request.contextPath }/home">메인화면</a></li>
+						<li><a href="${pageContext.request.contextPath }/">메인화면</a></li>
 						<!-- map view 명 나중에 바꿀 예정 -->
 						<li><a href="${pageContext.request.contextPath }/mapView">지도확인</a></li>
 						<li><a href="${pageContext.request.contextPath }/calView">계산하기</a></li>

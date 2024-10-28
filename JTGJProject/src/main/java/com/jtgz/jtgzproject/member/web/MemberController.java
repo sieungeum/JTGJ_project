@@ -77,7 +77,7 @@ public class MemberController {
 		
 		session.setAttribute("login", login);
 		
-		return "redirect:/home";
+		return "redirect:/";
 		
 	}
 	
@@ -85,7 +85,7 @@ public class MemberController {
 	public String logoutDo(HttpSession session) {
 		
 		session.invalidate();
-		return "redirect:/home";
+		return "redirect:/";
 	}
 	
 	// 회원 수정 페이지로 이동
@@ -107,7 +107,7 @@ public class MemberController {
 		MemberDTO login = memberService.loginMember(member);
 		session.setAttribute("login", login);
 		
-		return "redirect:/home";
+		return "redirect:/";
 	}
 	
 }
