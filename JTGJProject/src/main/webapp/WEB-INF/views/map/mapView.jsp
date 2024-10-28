@@ -694,7 +694,7 @@
         
         // Ajax로 데이터 받아오기
         let xhr = new XMLHttpRequest();
-        xhr.open('GET', '/jtgzproject/getAllInfo', true);
+        xhr.open('GET', '/getAllInfo', true);
         xhr.setRequestHeader('Content-Type', 'application/json');
         
        // 각 컬럼의 값을 담을 객체 v_jsonData 선언
